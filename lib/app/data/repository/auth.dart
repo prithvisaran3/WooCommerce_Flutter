@@ -16,4 +16,11 @@ class AuthRepository {
     var res = CustomerRes.fromMap(jsonDecode(response));
     return res;
   }
+
+  Future<dynamic> login({required body}) async {
+    var response = await helper.post(
+        url: AppConfig.tokenUrl, body: body, contentHeader: true);
+    var res = jsonDecode(response);
+    return res;
+  }
 }

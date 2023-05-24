@@ -196,11 +196,14 @@ class HttpHelper {
         'Access-Control-Allow-Headers': '*',
         'Access-Control-Allow-Origin': '*',
       };
+    } else if (contentHeader == true) {
+      headers = {
+        HttpHeaders.contentTypeHeader: "application/x-www-form-urlencoded"
+      };
     } else {
       headers = {HttpHeaders.acceptHeader: "application/json"};
     }
 
-    var contentHeaders = {HttpHeaders.contentTypeHeader: "application/json"};
     var corsHeader = {HttpHeaders.accessControlAllowOriginHeader: "*"};
     var corsHeaderTwo = {
       HttpHeaders.accessControlAllowMethodsHeader:
@@ -213,10 +216,6 @@ class HttpHelper {
       HttpHeaders.accessControlAllowHeadersHeader:
           "Origin, Content-Type, Accept"
     };
-
-    if (contentHeader == true) {
-      headers.addAll(contentHeaders);
-    }
     if (cors == true) {
       headers.addAll(corsHeader);
       headers.addAll(corsHeaderTwo);

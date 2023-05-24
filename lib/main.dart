@@ -108,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          AuthController.to.register();
+          AuthController.to.login();
         },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
