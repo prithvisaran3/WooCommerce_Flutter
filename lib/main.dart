@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:template/app/controller/auth.dart';
+import 'package:template/app/controller/cart.dart';
+import 'package:template/app/controller/home.dart';
+import 'package:template/app/data/repository/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -108,6 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
+          // CartController.to.getCart();
           AuthController.to.login();
         },
         tooltip: 'Increment',

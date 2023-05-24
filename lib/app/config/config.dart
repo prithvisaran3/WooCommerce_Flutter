@@ -4,4 +4,9 @@ class AppConfig {
   static const baseUrl = "https://chandransteelsonline.com/wp-json/wc/v3/";
   static const tokenUrl =
       "https://chandransteelsonline.com/wp-json/jwt-auth/v1/token";
+  static const paramKey = "?consumer_key=$key&consumer_secret=$secret";
+  static const paramKey2 = "consumer_key=$key&consumer_secret=$secret";
+
+  static const todayOffersProductTagId = "24";
+  static const topSellingProductTagId = "25";
 }
