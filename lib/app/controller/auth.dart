@@ -11,6 +11,27 @@ class AuthController extends GetxController {
 
   dynamic loginDetails;
 
+
+  final TextEditingController lEmail=TextEditingController();
+  final TextEditingController lPassword=TextEditingController();
+
+
+  var _loginLoading = false.obs;
+
+  get loginLoading => _loginLoading.value;
+
+  set loginLoading(value) {
+    _loginLoading.value = value;
+  }
+
+  final _logoutLoading = false.obs;
+
+  get logoutLoading => _logoutLoading.value;
+
+  set logoutLoading(value) {
+    _logoutLoading.value = value;
+  }
+
   register() async {
     var body = {
       "email": "test@gmail.com",
