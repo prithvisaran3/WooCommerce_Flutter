@@ -16,6 +16,8 @@ class HomeController extends GetxController {
 
   set selectedIndex(value) {
     _selectedIndex.value = value;
+  }
+
   final repository = HomeRepository();
 
   getCategories() async {
