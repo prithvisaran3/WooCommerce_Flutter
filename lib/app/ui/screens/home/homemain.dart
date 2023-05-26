@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:template/app/ui/screens/home/dashboard.dart';
 import '../../../controller/auth.dart';
-import '../../../controller/home.dart';
+import '../../../controller/dashboard.dart';
 import '../../themes/colors.dart';
 
 class HomeMain extends StatelessWidget {
@@ -87,36 +87,36 @@ class HomeMain extends StatelessWidget {
                       index: 0,
                       icon: Icons.home_outlined,
                       onTap: () {
-                        HomeController.to.selectedIndex = 0;
+                        DashboardController.to.selectedIndex = 0;
                       }),
                   buildIcon(
                       index: 1,
                       icon: Icons.local_fire_department_outlined,
                       onTap: () {
-                        HomeController.to.selectedIndex = 1;
+                        DashboardController.to.selectedIndex = 1;
                       }),
                   buildIcon(
                       index: 2,
                       icon: Icons.shopping_cart_outlined,
                       onTap: () {
-                        HomeController.to.selectedIndex = 2;
+                        DashboardController.to.selectedIndex = 2;
                       }),
                   buildIcon(
                       index: 3,
                       icon: Icons.heart_broken,
                       onTap: () {
-                        HomeController.to.selectedIndex = 3;
+                        DashboardController.to.selectedIndex = 3;
                       }),
                   buildIcon(
                       index: 4,
                       icon: Icons.person_outline,
                       onTap: () {
-                        HomeController.to.selectedIndex = 4;
+                        DashboardController.to.selectedIndex = 4;
                       }),
                 ],
               ),
             ),
-            body: Obx(() => pages[HomeController.to.selectedIndex]),
+            body: Obx(() => pages[DashboardController.to.selectedIndex]),
           ),
         ),
       ),
@@ -131,12 +131,12 @@ class HomeMain extends StatelessWidget {
               padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: HomeController.to.selectedIndex == index
+                  color: DashboardController.to.selectedIndex == index
                       ? AppColors.white
                       : Colors.transparent),
               child: Icon(
                 icon,
-                color: HomeController.to.selectedIndex == index
+                color: DashboardController.to.selectedIndex == index
                     ? AppColors.primary
                     : AppColors.white,
               )),

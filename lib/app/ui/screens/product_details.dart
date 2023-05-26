@@ -19,7 +19,7 @@ class ProductDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.grey,
         extendBodyBehindAppBar: true,
         appBar: AppBar(
           // toolbarHeight: 55,

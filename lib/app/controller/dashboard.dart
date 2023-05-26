@@ -7,8 +7,8 @@ import 'package:template/app/controller/main.dart';
 
 import '../data/repository/home.dart';
 
-class HomeController extends GetxController {
-  static HomeController get to => Get.put(HomeController());
+class DashboardController extends GetxController {
+  static DashboardController get to => Get.put(DashboardController());
 
   final _selectedIndex = 0.obs;
 
@@ -17,8 +17,11 @@ class HomeController extends GetxController {
   set selectedIndex(value) {
     _selectedIndex.value = value;
   }
+  static List<String> slideImagesURL=[
 
-  final repository = HomeRepository();
+  ];
+
+  final repository = DashboardRepository();
 
   getCategories() async {
     try {

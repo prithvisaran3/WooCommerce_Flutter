@@ -2,7 +2,7 @@ import 'dart:convert';
 import '../../services/api_service.dart';
 import '../../services/http.dart';
 
-class HomeRepository {
+class DashboardRepository {
   final HttpHelper helper = HttpHelper();
 
   Future<dynamic> getCategories() async {

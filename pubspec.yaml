@@ -38,8 +38,8 @@ dependencies:
   get: ^4.6.5
   fluttertoast: ^8.2.1
   dependencies:
-  flutter_image_slideshow: ^0.1.5
-  readmore: ^2.1.0
+  ionicons: ^0.2.2
+  fan_carousel_image_slider: ^0.1.2
 
 
 
