@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:template/app/controller/auth.dart';
+import 'package:template/app/ui/screens/auth/signup_screen.dart';
 import 'package:template/app/ui/screens/home/homemain.dart';
 import 'package:template/app/ui/themes/colors.dart';
 import 'package:template/app/ui/themes/font_size.dart';
@@ -23,8 +24,7 @@ class LoginScreen extends StatelessWidget {
               height: Get.height,
               width: Get.width,
               decoration: BoxDecoration(
-                gradient:
-                LinearGradient(
+                gradient: LinearGradient(
                   begin: Alignment.bottomLeft,
                   end: Alignment.topRight,
                   colors: [
@@ -67,12 +67,42 @@ class LoginScreen extends StatelessWidget {
                       hintText: "Enter your password ",
                       controller: AuthController.to.lPassword,
                     ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 10.0),
+                          child: CommonText(
+                            text: "Forgot password?",
+                            style: regularText(color: Colors.black),
+                          ),
+                        ),
+                      ],
+                    ),
                     SizedBox(height: 20),
                     AuthButton(
                       text: "Sign In",
                       onTap: () {
-                        Get.to(()=>HomeMain());
+                        Get.to(() => HomeMain());
                       },
+                    ),
+                    SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        CommonText(
+                          text: "Don't have an account?",
+                          style: regularText(),
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Get.to(() =>SignupScreen());
+                          },
+                          child: CommonText(
+                              text: " Sign up",
+                              style: regularText(color: AppColors.primary)),
+                        )
+                      ],
                     ),
                   ],
                 ),

@@ -8,7 +8,9 @@ import '../../themes/font_size.dart';
 import '../common/text.dart';
 
 class CategoryTile extends StatelessWidget {
-  const CategoryTile({Key? key, required this.categoryName, required this.categoryIcon}) : super(key: key);
+  const CategoryTile(
+      {Key? key, required this.categoryName, required this.categoryIcon})
+      : super(key: key);
   final String categoryName;
   final IconData categoryIcon;
 
@@ -19,12 +21,20 @@ class CategoryTile extends StatelessWidget {
       child: Column(
         children: [
           Container(
-            margin: EdgeInsets.symmetric(horizontal:9,vertical: 5),
+            margin: EdgeInsets.symmetric(horizontal: 9, vertical: 5),
             height: 70,
             width: 70,
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: Colors.white,
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  AppColors.primary.withOpacity(0.9),
+                  AppColors.secondary.withOpacity(0.8),
+                ],
+              ),
               boxShadow: [
                 BoxShadow(
                     color: Colors.grey.shade300,
@@ -34,7 +44,7 @@ class CategoryTile extends StatelessWidget {
             ),
             child: Icon(
               categoryIcon,
-              color: AppColors.primary,
+              color: AppColors.white,
               size: 30,
             ),
           ),

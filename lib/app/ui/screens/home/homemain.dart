@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:template/app/ui/screens/cart/cart_screen.dart';
 import 'package:template/app/ui/screens/home/dashboard.dart';
 import '../../../controller/auth.dart';
 import '../../../controller/dashboard.dart';
 import '../../themes/colors.dart';
+import '../product_details.dart';
 
 class HomeMain extends StatelessWidget {
   HomeMain({Key? key}) : super(key: key);
   final List<Widget> pages = [
     Dashboard(),
     Dashboard(),
-    Dashboard(),
-    Dashboard(),
+    CartScreen(),
+    ProductDetails(),
     Dashboard(),
   ];
 

@@ -23,7 +23,7 @@ class RupeeText extends StatelessWidget {
     return Row(
       children: [
         Text(
-          type == 'bold' ? "\u20B9 " : "\₹",
+          "\u20B9",
           style: TextStyle(
               decoration: textDecoration,
               color: color,
