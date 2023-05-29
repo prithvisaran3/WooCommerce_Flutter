@@ -17,7 +17,7 @@ class CartController extends GetxController {
   getCart() async {
     var body = {};
     try {
-      var res = await repository.getCart(userId: 26);
+      var res = await repository.getCart(userId: "26");
     } catch (e) {}
   }
 

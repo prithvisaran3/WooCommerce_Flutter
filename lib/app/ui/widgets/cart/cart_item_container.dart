@@ -5,14 +5,25 @@ import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 
+import '../cart_add_remove.dart';
+
 class CartItemContainer extends StatelessWidget {
-  const CartItemContainer({Key? key}) : super(key: key);
+  const CartItemContainer(
+      {Key? key,
+      required this.image,
+      required this.name,
+      required this.amount})
+      : super(key: key);
+  final String image;
+  final String name;
+  final String amount;
+
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
-      padding: EdgeInsets.all(10),
+      margin: const EdgeInsets.only(right: 10, left: 10, top: 10, bottom: 5),
+      padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
         boxShadow: [
@@ -22,8 +33,8 @@ class CartItemContainer extends StatelessWidget {
             blurRadius: 1,
           ),
         ],
-        color: Colors.white,
-        gradient: LinearGradient(
+        color: AppColors.white,
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
@@ -34,14 +45,11 @@ class CartItemContainer extends StatelessWidget {
         ),
       ),
       child: Row(
-        // crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+            padding: const EdgeInsets.all(5),
+            margin: const EdgeInsets.all(5.0),
             height: 80,
-            // width: 100,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(8),
               color: Colors.white,
@@ -54,54 +62,39 @@ class CartItemContainer extends StatelessWidget {
               ],
             ),
             child: Image.network(
-                'https://rukminim1.flixcart.com/image/416/416/l4hcx3k0/plate-tray-dish/r/n/0/designer-heavy-gauge-4-dinner-plate-leroyal-original-imagfdqzptbz2zch.jpeg?q=70'),
+              image,
+              fit: BoxFit.cover,
+            ),
+          ),
+          SizedBox(
+            width: 15.0,
           ),
           Column(
-            // mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonText(
-                text: "Steel Plate",
-                style: boldText(fontSize: 18),
+                text: name,
+                style: mediumText(fontSize: 18),
               ),
               RupeeText(
-                  amount: "1400",
-                  color: Colors.black,
-                  fontSize: 18,
-                  type: 'medium')
+                  amount: amount,
+                  color: AppColors.white,
+                  fontSize: 16,
+                  type: 'bold')
             ],
           ),
+          Spacer(),
           Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                margin: EdgeInsets.symmetric(horizontal: 5),
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(10),
-                  boxShadow: [
-                    BoxShadow(
-                      color: AppColors.grey,
-                      spreadRadius: 1,
-                    ),
-                  ],
-                ),
-                child: Row(
-                  children: [
-                    Icon(Ionicons.remove, size: 20),
-                    SizedBox(width: 20),
-                    CommonText(
-                      text: "1",
-                      style: regularText(fontSize: 15),
-                    ),
-                    SizedBox(width: 15),
-                    Icon(
-                      Ionicons.add,
-                      size: 20,
-                    )
-                  ],
-                ),
+              CartAddRemove(
+                lowerLimit: 0,
+                upperLimit: 1000,
+                stepValue: 1,
+                iconSize: 22,
+                value: 0,
+                onChanged: (value) {},
               ),
               SizedBox(height: 15),
               Row(
