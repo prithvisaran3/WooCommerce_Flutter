@@ -30,4 +30,11 @@ class HomeRepository {
     var res = jsonDecode(response);
     return res;
   }
+
+  Future<dynamic> getDashboard() async {
+    var response =
+        await helper.get(url: ApiService.getDashboard, isLoginToken: true);
+    var res = jsonDecode(response);
+    return res;
+  }
 }

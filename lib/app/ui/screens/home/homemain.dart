@@ -4,12 +4,13 @@ import 'package:template/app/ui/screens/home/dashboard.dart';
 import '../../../controller/auth.dart';
 import '../../../controller/home.dart';
 import '../../themes/colors.dart';
+import 'main.dart';
 
 class HomeMain extends StatelessWidget {
   HomeMain({Key? key}) : super(key: key);
   final List<Widget> pages = [
     Dashboard(),
-    Dashboard(),
+    Home(),
     Dashboard(),
     Dashboard(),
     Dashboard(),
