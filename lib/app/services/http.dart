@@ -12,10 +12,14 @@ class HttpHelper {
       {required url,
       bool auth = false,
       bool contentHeader = false,
+      bool isLoginToken = false,
       bool cors = false}) async {
     try {
-      Map<String, String> hd =
-          await headers(auth: auth, contentHeader: contentHeader, cors: cors);
+      Map<String, String> hd = await headers(
+          auth: auth,
+          contentHeader: contentHeader,
+          cors: cors,
+          isLoginToken: isLoginToken);
       if (kDebugMode) {
         print("Passing Url: $url, Passing Headers $hd");
       }
@@ -186,7 +190,7 @@ class HttpHelper {
     }
   }
 
-  headers({auth, contentHeader, cors, isMultipart}) async {
+  headers({auth, contentHeader, cors, isMultipart, isLoginToken}) async {
     Map<String, String> headers;
     if (isMultipart == true) {
       headers = {
@@ -227,6 +231,12 @@ class HttpHelper {
       var token =
           base64.encode(utf8.encode("${AppConfig.key}:${AppConfig.secret}"));
       headers.addAll({HttpHeaders.authorizationHeader: "Basic $token"});
+    }
+    if (isLoginToken == true) {
+      headers.addAll({
+        HttpHeaders.authorizationHeader:
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NoYW5kcmFuc3RlZWxzb25saW5lLmNvbSIsImlhdCI6MTY4NTExMDI5NywibmJmIjoxNjg1MTEwMjk3LCJleHAiOjE2ODU3MTUwOTcsImRhdGEiOnsidXNlciI6eyJpZCI6IjI2In19fQ.E0fonEwKRr9PiBftBifM4r8G9mXuBxXCFFVBmB3P0IA"
+      });
     }
     return headers;
   }

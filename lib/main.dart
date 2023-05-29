@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import 'app/ui/screens/home/homemain.dart';
 import 'app/ui/screens/onboarding_screen.dart';
 
 class MyHttpOverrides extends HttpOverrides {
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
       },
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: OnBoarding(),
+        home: HomeMain()
       ),
     );
   }

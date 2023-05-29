@@ -6,15 +6,17 @@ import '../../../controller/auth.dart';
 import '../../../controller/dashboard.dart';
 import '../../themes/colors.dart';
 import '../product_details.dart';
+import 'main.dart';
 
 class HomeMain extends StatelessWidget {
   HomeMain({Key? key}) : super(key: key);
   final List<Widget> pages = [
     Dashboard(),
-    Dashboard(),
+    Home(),
     CartScreen(),
     ProductDetails(),
     Dashboard(),
+
   ];
 
   @override

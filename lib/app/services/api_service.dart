@@ -16,4 +16,10 @@ class ApiService {
   //cart
   static const addCart = "${AppConfig.baseUrl}addtocart";
   static const getCart = "${AppConfig.baseUrl}cart";
+
+  //dashboard
+  static const getDashboard = "${AppConfig.storeUrl}woocommerce/get-dashboard";
+
+  //wishList
+  static const getWishList = "${AppConfig.storeUrl}wishlist/get-wishlist";
 }

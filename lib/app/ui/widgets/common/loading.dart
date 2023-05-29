@@ -6,13 +6,14 @@ class SimpleLoading extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var media = MediaQuery.of(context).size;
-    return SizedBox(
-      height: media.width * 0.07,
-      width: media.width * 0.07,
-      child: const Center(
-        child: CircularProgressIndicator(color: AppColors.secondary),
+    return const Center(
+        child: SizedBox(
+      height: 30,
+      width: 30,
+      child: CircularProgressIndicator(
+        color: AppColors.primary,
+        strokeWidth: 2,
       ),
-    );
+    ));
   }
 }

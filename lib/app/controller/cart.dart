@@ -20,4 +20,6 @@ class CartController extends GetxController {
       var res = await repository.getCart(userId: 26);
     } catch (e) {}
   }
+
+
 }
