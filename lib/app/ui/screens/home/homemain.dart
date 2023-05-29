@@ -91,36 +91,36 @@ class HomeMain extends StatelessWidget {
                       index: 0,
                       icon: Icons.home_outlined,
                       onTap: () {
-                        DashboardController.to.selectedIndex = 0;
+                        HomeController.to.selectedIndex = 0;
                       }),
                   buildIcon(
                       index: 1,
                       icon: Icons.local_fire_department_outlined,
                       onTap: () {
-                        DashboardController.to.selectedIndex = 1;
+                        HomeController.to.selectedIndex = 1;
                       }),
                   buildIcon(
                       index: 2,
                       icon: Icons.shopping_cart_outlined,
                       onTap: () {
-                        DashboardController.to.selectedIndex = 2;
+                        HomeController.to.selectedIndex = 2;
                       }),
                   buildIcon(
                       index: 3,
                       icon: Icons.heart_broken,
                       onTap: () {
-                        DashboardController.to.selectedIndex = 3;
+                        HomeController.to.selectedIndex = 3;
                       }),
                   buildIcon(
                       index: 4,
                       icon: Icons.person_outline,
                       onTap: () {
-                        DashboardController.to.selectedIndex = 4;
+                        HomeController.to.selectedIndex = 4;
                       }),
                 ],
               ),
             ),
-            body: Obx(() => pages[DashboardController.to.selectedIndex]),
+            body: Obx(() => pages[HomeController.to.selectedIndex]),
           ),
         ),
       ),
@@ -135,12 +135,12 @@ class HomeMain extends StatelessWidget {
               padding: const EdgeInsets.all(7),
               decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  color: DashboardController.to.selectedIndex == index
+                  color: HomeController.to.selectedIndex == index
                       ? AppColors.white
                       : Colors.transparent),
               child: Icon(
                 icon,
-                color: DashboardController.to.selectedIndex == index
+                color: HomeController.to.selectedIndex == index
                     ? AppColors.primary
                     : AppColors.white,
               )),

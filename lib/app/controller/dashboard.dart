@@ -10,7 +10,7 @@ import '../data/repository/home.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.put(HomeController());
-  final repository = HomeRepository();
+  final repository = DashboardRepository();
   final ScrollController scrollController = ScrollController();
 
   final _selectedIndex = 0.obs;

@@ -121,6 +121,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.3.1"
+  fan_carousel_image_slider:
+    dependency: "direct main"
+    description:
+      name: fan_carousel_image_slider
+      sha256: "157e5311d9d2e051bfa12afea22e350901d5eaa49c84b2cf735923cb602ddcbc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.1.2"
   ffi:
     dependency: transitive
     description:
@@ -216,6 +224,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.0.2"
+  ionicons:
+    dependency: "direct main"
+    description:
+      name: ionicons
+      sha256: "5496bc65a16115ecf05b15b78f494ee4a8869504357668f0a11d689e970523cf"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.2"
   js:
     dependency: transitive
     description:

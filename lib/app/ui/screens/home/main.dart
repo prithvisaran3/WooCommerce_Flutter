@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:template/app/config/config.dart';
 import 'package:template/app/ui/screens/all_categories.dart';
-import '../../../controller/home.dart';
+import '../../../controller/dashboard.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../../widgets/common/button.dart';

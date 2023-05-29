@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
-import 'package:template/app/controller/home.dart';
+
+import 'dashboard.dart';
+
 
 class SliderController extends GetxController {
   static SliderController get to => Get.put(SliderController());

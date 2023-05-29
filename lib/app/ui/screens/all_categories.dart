@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:template/app/ui/widgets/common/loading.dart';
 
-import '../../controller/home.dart';
+import '../../controller/dashboard.dart';
 import '../themes/colors.dart';
 import '../themes/font_size.dart';
 import '../widgets/common/text.dart';
