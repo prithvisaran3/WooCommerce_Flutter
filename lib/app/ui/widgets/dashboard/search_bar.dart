@@ -9,17 +9,16 @@ class SearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(8),
-      height: 40,
-      // width: Get.width * 0.9,
+      height: 50,
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
+        color: AppColors.white,
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.shade200,
-            spreadRadius: 2,
-          ),
+              color: AppColors.grey.withOpacity(.2),
+              spreadRadius: 2,
+              blurRadius: 1),
         ],
       ),
       child: Row(
