@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:template/app/ui/themes/colors.dart';
 import 'package:template/app/ui/themes/font_size.dart';
-import 'package:template/app/ui/widgets/cart/cart_item_container.dart';
+import 'package:template/app/ui/widgets/cart/cart_item_tile.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 
 class CartScreen extends StatelessWidget {
@@ -29,7 +29,7 @@ class CartScreen extends StatelessWidget {
                     itemCount: 4,
                     shrinkWrap: true,
                     itemBuilder: (context, int index) {
-                      return CartItemContainer();
+                      return CartItemTile();
                     },
                   ),
                 ],
@@ -44,7 +44,11 @@ class CartScreen extends StatelessWidget {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(30),
               gradient: const LinearGradient(
-                  colors: [AppColors.primary, AppColors.secondary]),
+                colors: [
+                  AppColors.primary,
+                  AppColors.secondary,
+                ],
+              ),
             ),
           ),
         ],

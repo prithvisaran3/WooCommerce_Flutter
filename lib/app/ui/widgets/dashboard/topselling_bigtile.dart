@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
 
+import '../../themes/colors.dart';
 import '../common/text.dart';
 
 class TopSellingBigTile extends StatelessWidget {
@@ -26,6 +27,14 @@ class TopSellingBigTile extends StatelessWidget {
               spreadRadius: 1,
             ),
           ],
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.primary.withOpacity(0.5),
+              AppColors.secondary.withOpacity(0.5),
+            ],
+          ),
         ),
         child: Column(
           children: [

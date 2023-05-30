@@ -45,6 +45,8 @@ dependencies:
   cached_network_image: ^3.2.3
   ionicons: ^0.2.2
   fan_carousel_image_slider: ^0.1.2
+  shimmer: ^3.0.0
+  rive: ^0.11.1
 
 
 

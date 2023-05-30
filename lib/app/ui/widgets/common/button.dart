@@ -19,17 +19,21 @@ class CommonButton extends StatelessWidget {
         width: media.width / 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: AppColors.white,
+          color: AppColors.black,
           gradient: const LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              tileMode: TileMode.mirror,
-              colors: [AppColors.primary, AppColors.secondary]),
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            tileMode: TileMode.mirror,
+            colors: [AppColors.primary, AppColors.secondary],
+          ),
         ),
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: boldText(fontSize:16,color: AppColors.black),
+          style: boldText(
+            fontSize: 16,
+            color: AppColors.white,
+          ),
         ),
       ),
     );

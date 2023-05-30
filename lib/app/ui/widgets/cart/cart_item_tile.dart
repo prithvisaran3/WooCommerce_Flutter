@@ -5,13 +5,13 @@ import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 
-class CartItemContainer extends StatelessWidget {
-  const CartItemContainer({Key? key}) : super(key: key);
+class CartItemTile extends StatelessWidget {
+  const CartItemTile({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(vertical: 8),
+      margin: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
       padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -28,8 +28,8 @@ class CartItemContainer extends StatelessWidget {
           end: Alignment.bottomRight,
           colors: [
             // AppColors.primary,
+            AppColors.primary,
             AppColors.secondary,
-            AppColors.white,
           ],
         ),
       ),
@@ -61,11 +61,14 @@ class CartItemContainer extends StatelessWidget {
             children: [
               CommonText(
                 text: "Steel Plate",
-                style: boldText(fontSize: 18),
+                style: boldText(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
               ),
               RupeeText(
                   amount: "1400",
-                  color: Colors.black,
+                  color: Colors.white,
                   fontSize: 18,
                   type: 'medium')
             ],

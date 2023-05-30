@@ -1,22 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:ionicons/ionicons.dart';
 import 'package:template/app/ui/screens/cart/cart_screen.dart';
 import 'package:template/app/ui/screens/home/dashboard.dart';
+import 'package:template/app/ui/screens/profile/profile_screen.dart';
 import '../../../controller/auth.dart';
 import '../../../controller/dashboard.dart';
 import '../../themes/colors.dart';
+import '../myorders/myorders_screen.dart';
 import '../product_details.dart';
+import '../wishlist/wishlist_screen.dart';
 import 'main.dart';
 
 class HomeMain extends StatelessWidget {
   HomeMain({Key? key}) : super(key: key);
   final List<Widget> pages = [
     Dashboard(),
-    Home(),
+    WishlistScreen(),
     CartScreen(),
-    ProductDetails(),
-    Dashboard(),
-
+    MyOrdersScreen(),
+    ProfileScreen(),
   ];
 
   @override
@@ -95,7 +98,7 @@ class HomeMain extends StatelessWidget {
                       }),
                   buildIcon(
                       index: 1,
-                      icon: Icons.local_fire_department_outlined,
+                      icon: Ionicons.heart_outline,
                       onTap: () {
                         HomeController.to.selectedIndex = 1;
                       }),
@@ -107,7 +110,7 @@ class HomeMain extends StatelessWidget {
                       }),
                   buildIcon(
                       index: 3,
-                      icon: Icons.heart_broken,
+                      icon: Ionicons.briefcase_outline,
                       onTap: () {
                         HomeController.to.selectedIndex = 3;
                       }),
