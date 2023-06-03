@@ -26,6 +26,14 @@ class TopSaversBigTile extends StatelessWidget {
               spreadRadius: 1,
             ),
           ],
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: [
+              AppColors.primary.withOpacity(0.5),
+              AppColors.secondary.withOpacity(0.5),
+            ],
+          ),
         ),
         child: Column(
           children: [

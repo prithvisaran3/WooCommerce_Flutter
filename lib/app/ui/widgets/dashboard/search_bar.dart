@@ -29,13 +29,8 @@ class SearchBar extends StatelessWidget {
           ),
           Spacer(),
           Icon(
-            Ionicons.heart_outline,
-            color: AppColors.secondary,
-          ),
-          SizedBox(width: 10),
-          Icon(
             Ionicons.notifications_outline,
-            color: AppColors.secondary,
+            color: AppColors.primary,
           ),
           SizedBox(width: 5),
         ],

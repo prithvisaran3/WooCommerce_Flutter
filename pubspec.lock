@@ -81,14 +81,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.3"
-  csslib:
-    dependency: transitive
-    description:
-      name: csslib
-      sha256: "831883fb353c8bdc1d71979e5b342c7d88acfbc643113c14ae51e2442ea0f20f"
-      url: "https://pub.dev"
-    source: hosted
-    version: "0.17.3"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -174,14 +166,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.3.0"
-  flutter_html_v3:
-    dependency: "direct main"
-    description:
-      name: flutter_html_v3
-      sha256: "3aee120645d45b06a15f4e06fe8cf076079db502fa561e530f11890d3bb1dbe2"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.0.6"
   flutter_image_slideshow:
     dependency: "direct main"
     description:
@@ -224,14 +208,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.6.5"
-  html:
+  graphs:
     dependency: transitive
     description:
-      name: html
-      sha256: "58e3491f7bf0b6a4ea5110c0c688877460d1a6366731155c4a4580e7ded773e8"
+      name: graphs
+      sha256: aedc5a15e78fc65a6e23bcd927f24c64dd995062bcd1ca6eda65a3cff92a4d19
       url: "https://pub.dev"
     source: hosted
-    version: "0.15.3"
+    version: "2.3.1"
   http:
     dependency: "direct main"
     description:
@@ -272,14 +256,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.1"
-  list_counter:
-    dependency: transitive
-    description:
-      name: list_counter
-      sha256: c447ae3dfcd1c55f0152867090e67e219d42fe6d4f2807db4bbe8b8d69912237
-      url: "https://pub.dev"
-    source: hosted
-    version: "1.0.2"
   matcher:
     dependency: transitive
     description:
@@ -416,6 +392,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  rive:
+    dependency: "direct main"
+    description:
+      name: rive
+      sha256: "8bf4cd46f625a6b9816210145ba1201a23cf95ba1ae53dad3aa3e0ad193e6b4a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.11.1"
+  rive_common:
+    dependency: transitive
+    description:
+      name: rive_common
+      sha256: "7153f296a9d58d1b02aaffaad938f65a92d820f8420c6c69134ecb2ed710f638"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.7"
   rxdart:
     dependency: transitive
     description:
@@ -480,6 +472,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.2.0"
+  shimmer:
+    dependency: "direct main"
+    description:
+      name: shimmer
+      sha256: "5f88c883a22e9f9f299e5ba0e4f7e6054857224976a5d9f839d4ebdc94a14ac9"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   sky_engine:
     dependency: transitive
     description: flutter

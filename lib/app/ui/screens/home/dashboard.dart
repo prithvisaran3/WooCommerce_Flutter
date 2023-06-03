@@ -255,7 +255,9 @@ class Dashboard extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, int index) {
               return TopSaversTile(
-                onTap: () {},
+                onTap: () {
+                  Get.to(() => ProductDetails());
+                },
               );
             },
           ),

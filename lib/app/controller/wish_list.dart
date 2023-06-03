@@ -6,6 +6,14 @@ class WishListController extends GetxController {
 
   final repository = WishListRepository();
 
+  var _isWishlistItem=false.obs;
+
+  get isWishlistItem => _isWishlistItem.value;
+
+  set isWishlistItem(value) {
+    _isWishlistItem.value = value;
+  }
+
   getWishList() async {
     try {
       var res = await repository.getWishList();
