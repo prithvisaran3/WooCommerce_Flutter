@@ -3,6 +3,7 @@ import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
+import '../cart_add_remove.dart';
 import '../common/text.dart';
 
 class BottomPriceBar extends StatelessWidget {
@@ -32,6 +33,14 @@ class BottomPriceBar extends StatelessWidget {
                 type: 'bold',
               ),
             ],
+          ),
+          CartAddRemove(
+            lowerLimit: 0,
+            upperLimit: 1000,
+            stepValue: 1,
+            iconSize: 22,
+            value: 1,
+            onChanged: (data){},
           ),
           GestureDetector(
             onTap: () {},

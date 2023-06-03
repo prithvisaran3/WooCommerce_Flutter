@@ -11,8 +11,12 @@ class DashboardRepository {
     return res;
   }
 
-  Future<dynamic> getProducts() async {
-    var response = await helper.get(url: ApiService.getProducts);
+  Future<dynamic> getProducts({params}) async {
+    var slug = "";
+    if (params != null) {
+      slug = params;
+    }
+    var response = await helper.get(url: "${ApiService.getProducts}$slug");
     var res = jsonDecode(response);
     return res;
   }

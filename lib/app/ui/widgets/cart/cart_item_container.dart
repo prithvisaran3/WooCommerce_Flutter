@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:template/app/controller/cart.dart';
 import 'package:template/app/ui/themes/colors.dart';
 import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
@@ -12,12 +14,19 @@ class CartItemContainer extends StatelessWidget {
       {Key? key,
       required this.image,
       required this.name,
-      required this.amount})
+      required this.salePrice,
+      required this.regularPrice,
+      required this.count,
+      required this.onChanged,
+      required this.deletePressed})
       : super(key: key);
   final String image;
   final String name;
-  final String amount;
-
+  final String salePrice;
+  final String regularPrice;
+  final int count;
+  final Function(dynamic) onChanged;
+  final Function() deletePressed;
 
   @override
   Widget build(BuildContext context) {
@@ -73,14 +82,28 @@ class CartItemContainer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CommonText(
-                text: name,
-                style: mediumText(fontSize: 18),
+                textAlign: TextAlign.start,
+                text: name.length > 15
+                    ? "${name.substring(0, 15)}\n${name.substring(15)}"
+                    : name,
+                style: mediumText(fontSize: 16),
               ),
-              RupeeText(
-                  amount: amount,
-                  color: AppColors.white,
-                  fontSize: 16,
-                  type: 'bold')
+              Row(
+                children: [
+                  RupeeText(
+                      amount: regularPrice,
+                      color: AppColors.red,
+                      fontSize: 12,
+                      textDecoration: TextDecoration.lineThrough,
+                      type: 'medium'),
+                  SizedBox(width: 5),
+                  RupeeText(
+                      amount: salePrice,
+                      color: AppColors.white,
+                      fontSize: 16,
+                      type: 'bold'),
+                ],
+              )
             ],
           ),
           Spacer(),
@@ -93,8 +116,8 @@ class CartItemContainer extends StatelessWidget {
                 upperLimit: 1000,
                 stepValue: 1,
                 iconSize: 22,
-                value: 0,
-                onChanged: (value) {},
+                value: count,
+                onChanged: onChanged,
               ),
               SizedBox(height: 15),
               Row(
@@ -113,16 +136,19 @@ class CartItemContainer extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 5),
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.red,
-                    ),
-                    child: Icon(
-                      Ionicons.trash_bin_outline,
-                      color: Colors.white,
-                      size: 20,
+                  GestureDetector(
+                    onTap: deletePressed,
+                    child: Container(
+                      padding: EdgeInsets.all(5),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(10),
+                        color: AppColors.red,
+                      ),
+                      child: Icon(
+                        Ionicons.trash_bin_outline,
+                        color: Colors.white,
+                        size: 20,
+                      ),
                     ),
                   ),
                 ],
