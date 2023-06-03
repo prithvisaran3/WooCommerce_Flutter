@@ -8,7 +8,7 @@ import 'package:template/app/ui/widgets/common/button.dart';
 import 'package:template/app/ui/widgets/common/loading.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
-import '../../widgets/cart/cart_item_container.dart';
+import '../../widgets/cart/cart_item_tile.dart';
 import '../../widgets/common/common_rupee_text.dart';
 import '../../widgets/common/text.dart';
 
