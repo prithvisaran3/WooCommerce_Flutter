@@ -4,14 +4,19 @@ import 'package:get/get.dart';
 import 'package:get/get.dart';
 import 'package:template/app/config/config.dart';
 import 'package:template/app/controller/main.dart';
+import 'package:template/app/controller/product.dart';
 import 'package:template/app/data/model/slider.dart';
 
+import '../data/model/order_by.dart';
 import '../data/repository/home.dart';
+import '../ui/screens/all_categories.dart';
 
 class HomeController extends GetxController {
   static HomeController get to => Get.put(HomeController());
   final repository = DashboardRepository();
+
   final ScrollController scrollController = ScrollController();
+  final ScrollController allProductscrollController = ScrollController();
 
   final _selectedIndex = 0.obs;
 
@@ -109,6 +114,11 @@ class HomeController extends GetxController {
     _topSellingDetails.value = value;
   }
 
+  order(SortBy sort) {
+    orderBy = sort;
+    update();
+  }
+
   getCategories({perPage}) async {
     categoryLoading = true;
     var params = "&page=2&per_page=$pageSize";
@@ -141,33 +151,93 @@ class HomeController extends GetxController {
     _pageSize.value = value;
   }
 
+  final _pageNumber = 1.obs;
+
+  get pageNumber => _pageNumber.value;
+
+  set pageNumber(value) {
+    _pageNumber.value = value;
+  }
+
+  final _orderBy = "".obs;
+
+  get orderBy => _orderBy.value;
+
+  set orderBy(value) {
+    _orderBy.value = value;
+  }
+
+  final _params = "".obs;
+
+  get params => _params.value;
+
+  set params(value) {
+    _params.value = value;
+  }
+
+  final _sort = "asc".obs;
+
+  get sort => _sort.value;
+
+  set sort(value) {
+    _sort.value = value;
+  }
+
   getProducts({categoryId}) async {
     var search = "";
-    var pageNumber = "";
     var tag = "";
-    var orderBy = "";
-    var sort = "";
-    var params =
-        "&search=$search&per_page=$pageSize&page=$pageNumber&tag=$tag&category=$categoryId&orderby=$orderBy&order=$sort";
+    // var productId = "&include=${productId.join(",").toString()}";
+    if (search.isNotEmpty) {
+      params = "&search=$search";
+    }
+    if (tag.isNotEmpty) {
+      params = "&tag=$tag";
+    }
+    if (categoryId != null) {
+      params = "&category=$categoryId";
+    }
+    if (orderBy != "") {
+      if (ProductController.to.productSearch.text != "") {
+        params =
+            "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy&search=${ProductController.to.productSearch.text}";
+      } else {
+        params =
+            "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy";
+      }
+    } else if (ProductController.to.productSearch.text != "") {
+      params =
+          "&per_page=$pageSize&page=$pageNumber&order=$sort&search=${ProductController.to.productSearch.text}";
+    } else {
+      params = "&per_page=$pageSize&page=$pageNumber&order=$sort";
+    }
+
+    print("params is $params");
     productsLoading = true;
     try {
       // var res = await repository.getProducts(params: "&category=$categoryId");
-      var res = await repository.getProducts();
+      var res = await repository.getProducts(params: params);
       if (statusCode == 200) {
         productsLoading = false;
+        ProductController.to.loadMore = false;
         if (res.isNotEmpty) {
           productsDetails = res;
           productsEmpty = false;
+          ProductController.to.loadMore = false;
+
           debugPrint("products get successfully with data: $productsDetails");
         } else {
           productsEmpty = true;
+          ProductController.to.loadMore = false;
+
           debugPrint("categories get successfully but no data");
         }
       } else {
         productsLoading = false;
+        ProductController.to.loadMore = false;
       }
     } catch (e) {
       productsLoading = false;
+      ProductController.to.loadMore = false;
       debugPrint("Error from get products on controller $e");
     }
   }

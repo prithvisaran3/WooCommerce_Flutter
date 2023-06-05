@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:template/app/ui/screens/profile/edit_profile.dart';
 import 'package:template/app/ui/screens/profile/selectlanguage_screen.dart';
 import 'package:template/app/ui/themes/colors.dart';
 import 'package:template/app/ui/themes/font_size.dart';
@@ -85,9 +84,7 @@ class ProfileScreen extends StatelessWidget {
                   ProfileOptionsTile(
                     icon: Ionicons.pencil_outline,
                     text: "Edit Profile",
-                    onTap: () {
-                      Get.to(() => EditProfile());
-                    },
+                    onTap: () {},
                   ),
                   ProfileOptionsTile(
                     icon: Ionicons.location_outline,
@@ -125,7 +122,7 @@ class ProfileScreen extends StatelessWidget {
                   ),
                   ProfileOptionsTile(
                     icon: Ionicons.help_circle_outline,
-                    text: "Contact us",
+                    text: "Edit Profile",
                     onTap: () {},
                   ),
                   SizedBox(height: 20),

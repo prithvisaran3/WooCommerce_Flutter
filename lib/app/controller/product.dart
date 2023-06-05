@@ -1,7 +1,17 @@
+import 'dart:async';
+
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import 'dashboard.dart';
 
 class ProductController extends GetxController {
   static ProductController get to => Get.put(ProductController());
+
+  final ScrollController scrollController = ScrollController();
+
+  final TextEditingController productSearch = TextEditingController();
+  Timer? debounce;
 
   final _selectIndex = 0.obs;
 
@@ -11,35 +21,46 @@ class ProductController extends GetxController {
     _selectIndex.value = value;
   }
 
-  final _onPressedCheckPincode = false.obs;
+  final _loadMore = false.obs;
 
-  get onPressedCheckPincode => _onPressedCheckPincode.value;
+  get loadMore => _loadMore.value;
 
-  set onPressedCheckPincode(value) {
-    _onPressedCheckPincode.value = value;
+  set loadMore(value) {
+    _loadMore.value = value;
   }
 
-  final _onPressedApplyCoupon = false.obs;
+  final _imageIndicator = 0.obs;
 
-  get onPressedApplyCoupon => _onPressedApplyCoupon.value;
+  get imageIndicator => _imageIndicator.value;
 
-  set onPressedApplyCoupon(value) {
-    _onPressedApplyCoupon.value = value;
+  set imageIndicator(value) {
+    _imageIndicator.value = value;
   }
 
-  final _isReadMore = false.obs;
+  final _shortDescription = false.obs;
 
-  get isReadMore => _isReadMore.value;
+  get shortDescription => _shortDescription.value;
 
-  set isReadMore(value) {
-    _isReadMore.value = value;
+  set shortDescription(value) {
+    _shortDescription.value = value;
   }
 
-  final _onPressedColors = 0.obs;
+  loadMoreFunction() {
+    scrollController.addListener(() {
+      if (scrollController.position.pixels ==
+          scrollController.position.maxScrollExtent) {
+        loadMore = true;
+        HomeController.to.getProducts();
+        HomeController.to.pageNumber = ++HomeController.to.pageNumber;
+      }
+    });
+  }
 
-  get onPressedColors => _onPressedColors.value;
+  searchProduct() {
+    if (debounce?.isActive ?? false) debounce?.cancel();
 
-  set onPressedColors(value) {
-    _onPressedColors.value = value;
+    debounce = Timer(const Duration(milliseconds: 500), () {
+      HomeController.to.getProducts();
+    });
   }
 }
