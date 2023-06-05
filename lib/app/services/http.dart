@@ -235,7 +235,7 @@ class HttpHelper {
     if (isLoginToken == true) {
       headers.addAll({
         HttpHeaders.authorizationHeader:
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NoYW5kcmFuc3RlZWxzb25saW5lLmNvbSIsImlhdCI6MTY4NTExMDI5NywibmJmIjoxNjg1MTEwMjk3LCJleHAiOjE2ODU3MTUwOTcsImRhdGEiOnsidXNlciI6eyJpZCI6IjI2In19fQ.E0fonEwKRr9PiBftBifM4r8G9mXuBxXCFFVBmB3P0IA"
+            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NoYW5kcmFuc3RlZWxzb25saW5lLmNvbSIsImlhdCI6MTY4NTQ0OTM4MCwibmJmIjoxNjg1NDQ5MzgwLCJleHAiOjE2ODYwNTQxODAsImRhdGEiOnsidXNlciI6eyJpZCI6IjI2In19fQ.woCycnv2m0MpJNqV170WV_RapPZva8vdglkFp2k82-k"
       });
     }
     return headers;

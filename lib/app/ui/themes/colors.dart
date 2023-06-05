@@ -6,7 +6,7 @@ class AppColors {
   static const Color secondPrimary = Color.fromRGBO(230, 186, 102, 1);
   static const Color gradient = Color.fromRGBO(246, 200, 114, 1);
   static const Color blue = Color.fromRGBO(0, 42, 255, 1.0);
-  static const Color green = Color.fromRGBO(15, 199, 10, 1.0);
+  static const Color green = Color.fromRGBO(3, 117, 1, 1.0);
   static const Color black = Color.fromRGBO(16, 16, 16, 1.0);
   static const Color red = Color.fromRGBO(255, 0, 0, 1.0);
   static const Color sandal = Color.fromRGBO(255, 154, 0, 1.0);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
-import '../../screens/productdetails_screen.dart';
+import '../../screens/product_details.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../common/text.dart';

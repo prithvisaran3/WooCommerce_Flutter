@@ -28,18 +28,16 @@ class _CartAddRemoveState extends State<CartAddRemove> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20.0),
-        color: AppColors.black,
-        // boxShadow: [
-        //   BoxShadow(
-        //       color: AppColors.grey.withOpacity(.3),
-        //       blurRadius: 1,
-        //       spreadRadius: 1)
-        // ],
-      ),
+          borderRadius: BorderRadius.circular(8.0),
+          color: AppColors.white,
+          boxShadow: [
+            BoxShadow(
+                color: AppColors.grey.withOpacity(.3),
+                blurRadius: 1,
+                spreadRadius: 1)
+          ]),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -54,8 +52,7 @@ class _CartAddRemoveState extends State<CartAddRemove> {
             },
             child: const Icon(
               Icons.remove,
-              size: 15,
-              color: Colors.white,
+              size: 25,
             ),
           ),
           SizedBox(
@@ -63,7 +60,7 @@ class _CartAddRemoveState extends State<CartAddRemove> {
             child: CommonText(
               text: "${widget.value}",
               textAlign: TextAlign.center,
-              style: boldText(fontSize: 16, color: Colors.white),
+              style: regularText(fontSize: 16),
             ),
           ),
           GestureDetector(
@@ -77,8 +74,7 @@ class _CartAddRemoveState extends State<CartAddRemove> {
             },
             child: const Icon(
               Icons.add,
-              size: 15,
-              color: Colors.white,
+              size: 25,
             ),
           ),
         ],

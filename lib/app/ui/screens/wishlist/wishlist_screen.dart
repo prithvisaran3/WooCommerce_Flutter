@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:template/app/controller/wish_list.dart';
-import 'package:template/app/ui/screens/productdetails_screen.dart';
 import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 import 'package:template/app/ui/widgets/wishlist/wishlist_product_container.dart';
@@ -40,16 +39,7 @@ class WishlistScreen extends StatelessWidget {
                   childAspectRatio: 0.75),
               itemCount: 8,
               itemBuilder: (context, index) {
-                return WishlistItemTile(
-                  imageUrl:
-                      "https://4.imimg.com/data4/MA/PK/MY-1147817/china-plate-laser-designed-500x500.png",
-                  name: "Steel Plate",
-                  mrpCost: "1530",
-                  saleCost: "1000",
-                  onTap: () {
-                    Get.to(()=>ProductDetailsScreen());
-                  },
-                );
+                return WishlistItemTile();
               },
             ),
           )
