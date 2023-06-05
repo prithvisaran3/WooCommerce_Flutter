@@ -90,6 +90,14 @@ class HomeController extends GetxController {
     _productsDetails.value = value;
   }
 
+  final _crossSellProducts = <dynamic>[].obs;
+
+  get crossSellProducts => _crossSellProducts.value;
+
+  set crossSellProducts(value) {
+    _crossSellProducts.value = value;
+  }
+
   final _topSellingLoading = false.obs;
 
   get topSellingLoading => _topSellingLoading.value;
@@ -183,32 +191,44 @@ class HomeController extends GetxController {
     _sort.value = value;
   }
 
-  getProducts({categoryId}) async {
+  final _crossSellIds = <dynamic>[].obs;
+
+  get crossSellIds => _crossSellIds.value;
+
+  set crossSellIds(value) {
+    _crossSellIds.value = value;
+  }
+
+  getProducts({categoryId, indexId}) async {
     var search = "";
     var tag = "";
-    // var productId = "&include=${productId.join(",").toString()}";
     if (search.isNotEmpty) {
       params = "&search=$search";
+    }
+    if (crossSellIds.isNotEmpty) {
+      params =
+          "&per_page=$pageSize&page=$pageNumber&order=$sort&include=${crossSellIds.join(",").toString()}";
+    } else {
+      if (orderBy != "") {
+        if (ProductController.to.productSearch.text != "") {
+          params =
+              "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy&search=${ProductController.to.productSearch.text}";
+        } else {
+          params =
+              "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy";
+        }
+      } else if (ProductController.to.productSearch.text != "") {
+        params =
+            "&per_page=$pageSize&page=$pageNumber&order=$sort&search=${ProductController.to.productSearch.text}";
+      } else {
+        params = "&per_page=$pageSize&page=$pageNumber&order=$sort";
+      }
     }
     if (tag.isNotEmpty) {
       params = "&tag=$tag";
     }
     if (categoryId != null) {
       params = "&category=$categoryId";
-    }
-    if (orderBy != "") {
-      if (ProductController.to.productSearch.text != "") {
-        params =
-            "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy&search=${ProductController.to.productSearch.text}";
-      } else {
-        params =
-            "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy";
-      }
-    } else if (ProductController.to.productSearch.text != "") {
-      params =
-          "&per_page=$pageSize&page=$pageNumber&order=$sort&search=${ProductController.to.productSearch.text}";
-    } else {
-      params = "&per_page=$pageSize&page=$pageNumber&order=$sort";
     }
 
     print("params is $params");
@@ -221,6 +241,11 @@ class HomeController extends GetxController {
         ProductController.to.loadMore = false;
         if (res.isNotEmpty) {
           productsDetails = res;
+          if (indexId != null || indexId != "") {
+            print("index id is $indexId");
+            // crossSellIds = res[indexId]['cross_sell_ids'];
+            // crossSellProducts = res;
+          }
           productsEmpty = false;
           ProductController.to.loadMore = false;
 

@@ -15,7 +15,7 @@ class ApiService {
 
   //cart
   static const addCart = "${AppConfig.baseUrl}addtocart";
-  static const getCart = "${AppConfig.baseUrl}orders";
+  static const getCart = "${AppConfig.baseUrl}cart";
 
 
   // static const addCart = "https://chandransteelsonline.com/wp-json/wc/store/cart/add-item";

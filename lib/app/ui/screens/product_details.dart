@@ -294,24 +294,24 @@ class ProductDetails extends StatelessWidget {
                                 height: 160,
                                 child: ListView.builder(
                                     itemCount: HomeController
-                                        .to.productsDetails.length,
+                                        .to.crossSellProducts.length,
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
                                     itemBuilder: (context, int index) {
                                       return Products(
                                         name:
-                                            "${HomeController.to.productsDetails[index]['name']}",
+                                            "${HomeController.to.crossSellProducts[index]['name']}",
                                         image: HomeController
                                                 .to
-                                                .productsDetails[index]
+                                                .crossSellProducts[index]
                                                     ['images']
                                                 .isEmpty
                                             ? "null"
-                                            : "${HomeController.to.productsDetails[index]['images'][0]['src']}",
+                                            : "${HomeController.to.crossSellProducts[index]['images'][0]['src']}",
                                         regularPrice:
-                                            "${HomeController.to.productsDetails[index]['regular_price'] == "" ? "0" : HomeController.to.productsDetails[index]['regular_price']}",
+                                            "${HomeController.to.crossSellProducts[index]['regular_price'] == "" ? "0" : HomeController.to.crossSellProducts[index]['regular_price']}",
                                         salePrice:
-                                            "${HomeController.to.productsDetails[index]['sale_price'] == "" ? "0" : HomeController.to.productsDetails[index]['sale_price']}",
+                                            "${HomeController.to.crossSellProducts[index]['sale_price'] == "" ? "0" : HomeController.to.crossSellProducts[index]['sale_price']}",
                                       );
                                     }),
                               )),

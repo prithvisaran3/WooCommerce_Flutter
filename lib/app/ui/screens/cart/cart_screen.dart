@@ -211,12 +211,23 @@ class CartScreen extends StatelessWidget {
   }
 
   cartTotal() {
+    dynamic amount;
     if (CartController.to.cartDetails.isNotEmpty) {
-      var amount = CartController.to.cartDetails
-          .map((e) => e['product_sale_price'])
-          .reduce((key, value) {
-        return key + value;
-      });
+      if (CartController.to.cartDetails.map((e) => e['line_subtotal']).length >
+          1) {
+        amount = CartController.to.cartDetails
+            .map((e) => e['line_subtotal'])
+            .reduce((key, value) {
+          return key + value;
+        });
+      } else {
+        amount = CartController.to.cartDetails
+            .map((e) => e['line_subtotal'])
+            .reduce((key, value) {
+          return value;
+        });
+      }
+
       debugPrint("Total amount is $amount");
       return amount;
     }
