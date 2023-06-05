@@ -1,158 +1,161 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:template/app/controller/cart.dart';
 import 'package:template/app/ui/themes/colors.dart';
 import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 
-import '../cart_add_remove.dart';
-
-class CartItemContainer extends StatelessWidget {
-  const CartItemContainer(
+class CartItemTile extends StatelessWidget {
+  const CartItemTile(
       {Key? key,
-      required this.image,
+      required this.imageUrl,
       required this.name,
-      required this.salePrice,
-      required this.regularPrice,
-      required this.count,
-      required this.onChanged,
-      required this.deletePressed})
+      required this.cost,
+      required this.qty})
       : super(key: key);
-  final String image;
+  final String imageUrl;
   final String name;
-  final String salePrice;
-  final String regularPrice;
-  final int count;
-  final Function(dynamic) onChanged;
-  final Function() deletePressed;
+  final String cost;
+  final String qty;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 10, left: 10, top: 10, bottom: 5),
-      padding: const EdgeInsets.all(10),
+      margin: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+      padding: EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.shade400,
+            color: AppColors.grey.withOpacity(0.5),
             spreadRadius: 1,
             blurRadius: 1,
           ),
         ],
-        color: AppColors.white,
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            // AppColors.primary,
-            AppColors.secondary,
-            AppColors.white,
-          ],
-        ),
+        color: Colors.white,
       ),
-      child: Row(
+      child: Column(
         children: [
-          Container(
-            padding: const EdgeInsets.all(5),
-            margin: const EdgeInsets.all(5.0),
-            height: 80,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(8),
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.grey.shade300,
-                  spreadRadius: 1,
-                  blurRadius: 1,
-                ),
-              ],
-            ),
-            child: Image.network(
-              image,
-              fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(
-            width: 15.0,
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            // crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              CommonText(
-                textAlign: TextAlign.start,
-                text: name.length > 15
-                    ? "${name.substring(0, 15)}\n${name.substring(15)}"
-                    : name,
-                style: mediumText(fontSize: 16),
+              Container(
+                padding: EdgeInsets.all(10),
+                margin: EdgeInsets.symmetric(horizontal: 9, vertical: 5),
+                height: 80,
+                // width: 100,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(8),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.shade300,
+                      spreadRadius: 1,
+                      blurRadius: 1,
+                    ),
+                  ],
+                ),
+                child: Image.network(imageUrl),
               ),
-              Row(
+              Column(
+                // mainAxisAlignment: MainAxisAlignment.start,
                 children: [
+                  CommonText(
+                    text: name,
+                    style: mediumText(
+                      fontSize: 18,
+                      color: AppColors.black,
+                    ),
+                  ),
                   RupeeText(
-                      amount: regularPrice,
-                      color: AppColors.red,
-                      fontSize: 12,
-                      textDecoration: TextDecoration.lineThrough,
-                      type: 'medium'),
-                  SizedBox(width: 5),
-                  RupeeText(
-                      amount: salePrice,
-                      color: AppColors.white,
-                      fontSize: 16,
-                      type: 'bold'),
+                    amount: cost,
+                    color: AppColors.primary,
+                    fontSize: 18,
+                    type: 'bold',
+                  )
+                ],
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Container(
+                    padding: EdgeInsets.symmetric(horizontal: 8, vertical: 3),
+                    margin: EdgeInsets.symmetric(horizontal: 5),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.grey,
+                          spreadRadius: 1,
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(Ionicons.remove, size: 20),
+                        SizedBox(width: 20),
+                        CommonText(
+                          text: qty,
+                          style: regularText(fontSize: 15),
+                        ),
+                        SizedBox(width: 15),
+                        Icon(
+                          Ionicons.add,
+                          size: 20,
+                        )
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 15),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.primary,
+                        ),
+                        child: Icon(
+                          Ionicons.heart_outline,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      Container(
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.red,
+                        ),
+                        child: Icon(
+                          Ionicons.trash_bin_outline,
+                          color: Colors.white,
+                          size: 20,
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               )
             ],
           ),
-          Spacer(),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            crossAxisAlignment: CrossAxisAlignment.end,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              CartAddRemove(
-                lowerLimit: 0,
-                upperLimit: 1000,
-                stepValue: 1,
-                iconSize: 22,
-                value: count,
-                onChanged: onChanged,
+              CommonText(
+                text: "You saved  " ,
+                style: mediumText(fontSize: 12),
               ),
-              SizedBox(height: 15),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.primary,
-                    ),
-                    child: Icon(
-                      Ionicons.heart_outline,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                  SizedBox(width: 5),
-                  GestureDetector(
-                    onTap: deletePressed,
-                    child: Container(
-                      padding: EdgeInsets.all(5),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.red,
-                      ),
-                      child: Icon(
-                        Ionicons.trash_bin_outline,
-                        color: Colors.white,
-                        size: 20,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              RupeeText(
+                  amount: "200",
+                  color: AppColors.secondary,
+                  fontSize: 14,
+                  type: 'bold')
             ],
           )
         ],

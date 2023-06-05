@@ -8,7 +8,7 @@ import '../../../controller/auth.dart';
 import '../../../controller/dashboard.dart';
 import '../../themes/colors.dart';
 import '../myorders/myorders_screen.dart';
-import '../product_details.dart';
+import '../productdetails_screen.dart';
 import '../wishlist/wishlist_screen.dart';
 import 'main.dart';
 

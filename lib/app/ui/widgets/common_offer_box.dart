@@ -5,7 +5,8 @@ import 'package:template/app/ui/widgets/common/text.dart';
 
 class CommonOffer extends StatelessWidget {
   const CommonOffer({Key? key, required this.discount}) : super(key: key);
-final String discount;
+  final String discount;
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -13,17 +14,19 @@ final String discount;
       width: 45,
       padding: EdgeInsets.all(3),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: AppColors.green,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black,
-            spreadRadius: 1,
-            blurRadius: 1,
-          )
-        ]
+          borderRadius: BorderRadius.circular(8),
+          color: AppColors.green,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.green.withOpacity(0.7),
+              spreadRadius: 1,
+              blurRadius: 1,
+            )
+          ]),
+      child: CommonText(
+        text: discount,
+        style: mediumText(fontSize: 12, color: Colors.white),
       ),
-      child: CommonText(text: discount, style: mediumText(fontSize: 12,color: Colors.white),),
     );
   }
 }

@@ -112,8 +112,6 @@ class ProductReview extends StatelessWidget {
           IndividualReviewTile(),
           IndividualReviewTile(),
           IndividualReviewTile(),
-          IndividualReviewTile(),
-          IndividualReviewTile(),
         ],
       ),
     );

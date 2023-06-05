@@ -25,13 +25,13 @@ class ProductOptionsCard extends StatelessWidget {
       child: Obx(
         () => Container(
           height: 32,
-          width: Get.width * 0.24,
+          // width: Get.width * 0.24,
           margin: EdgeInsets.all(8),
-          padding: EdgeInsets.all(5),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(4),
             color: ProductController.to.selectIndex == index
-                ? AppColors.primary
+                ? AppColors.black
                 : AppColors.white,
             boxShadow: [
               BoxShadow(
@@ -44,8 +44,10 @@ class ProductOptionsCard extends StatelessWidget {
           child: CommonText(
             text: selectTitle,
             style: ProductController.to.selectIndex == index
-                ? boldText(color: AppColors.white, fontSize: 15)
-                : regularText(color: AppColors.primary),
+                ? boldText(color: AppColors.white, fontSize: 14)
+                : regularText(
+                    color: AppColors.black,
+                  ),
           ),
         ),
       ),
