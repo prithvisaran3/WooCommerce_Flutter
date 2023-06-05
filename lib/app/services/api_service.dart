@@ -15,11 +15,7 @@ class ApiService {
 
   //cart
   static const addCart = "${AppConfig.baseUrl}addtocart";
-  static const getCart = "${AppConfig.baseUrl}orders";
-
-
-  // static const addCart = "https://chandransteelsonline.com/wp-json/wc/store/cart/add-item";
-  // static const getCart = "https://chandransteelsonline.com/wp-json/wc/store/cart";
+  static const getCart = "${AppConfig.storeUrl}cart/get-cart/";
 
   //dashboard
   static const getDashboard = "${AppConfig.storeUrl}woocommerce/get-dashboard";

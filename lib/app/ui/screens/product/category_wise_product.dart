@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:template/app/ui/widgets/common/loading.dart';
 import '../../../controller/dashboard.dart';
-import '../../../data/model/order_by.dart';
-import '../../../utility/utility.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
-import '../../widgets/common/loading.dart';
 import '../../widgets/common/text.dart';
-import '../../widgets/product/category_wise.dart';
+import '../../widgets/products/category_wise.dart';
 
 class CategoryProducts extends StatelessWidget {
   CategoryProducts({Key? key, required this.categoryId}) : super(key: key);
@@ -127,9 +125,6 @@ class CategoryProducts extends StatelessWidget {
                                     ""
                                 ? "0"
                                 : "${HomeController.to.productsDetails[index]['sale_price']}",
-                            discount:
-                                "${calculateDiscount(regularPrice: int.parse(HomeController.to.productsDetails[index]['regular_price'] == "" ? "0" : "${HomeController.to.productsDetails[index]['regular_price']}"), salePrice: int.parse(HomeController.to.productsDetails[index]['sale_price'] == "" ? "0" : "${HomeController.to.productsDetails[index]['sale_price']}"))}",
-                            onTap: () {},
                           );
                         },
                       ),
@@ -140,3 +135,10 @@ class CategoryProducts extends StatelessWidget {
   }
 }
 
+class SortBy {
+  final String value;
+  final String text;
+  final String sortOrder;
+
+  SortBy(this.value, this.text, this.sortOrder);
+}

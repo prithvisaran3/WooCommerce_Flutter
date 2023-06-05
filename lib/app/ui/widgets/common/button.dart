@@ -3,15 +3,10 @@ import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 
 class CommonButton extends StatelessWidget {
-  const CommonButton({
-    Key? key,
-    required this.text,
-    required this.onTap,
-    this.fontColor = AppColors.black,
-  }) : super(key: key);
+  const CommonButton({Key? key, required this.text, required this.onTap})
+      : super(key: key);
   final String text;
   final Function() onTap;
-  final Color fontColor;
 
   @override
   Widget build(BuildContext context) {
@@ -24,17 +19,21 @@ class CommonButton extends StatelessWidget {
         width: media.width / 2,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20.0),
-          color: AppColors.white,
+          color: AppColors.black,
           gradient: const LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              tileMode: TileMode.mirror,
-              colors: [AppColors.primary, AppColors.secondary]),
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
+            tileMode: TileMode.mirror,
+            colors: [AppColors.primary, AppColors.secondary],
+          ),
         ),
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: boldText(fontSize: 16, color: fontColor),
+          style: boldText(
+            fontSize: 16,
+            color: AppColors.white,
+          ),
         ),
       ),
     );

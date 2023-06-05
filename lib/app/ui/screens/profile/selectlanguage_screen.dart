@@ -49,9 +49,33 @@ class SelectLanguageScreen extends StatelessWidget {
                 color: AppColors.primary,
               ),
             ),
-            SelectLanguageTile(
-              language: 'English',
-              onTap: () {},
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    AppColors.primary,
+                    AppColors.secondary,
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: AppColors.primary,
+                ),
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  CommonText(
+                    text: "English",
+                    style: boldText(
+                      fontSize: 16,
+                      color: Colors.white,
+                    ),
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 30),
             CommonText(
@@ -69,7 +93,7 @@ class SelectLanguageScreen extends StatelessWidget {
                   index: index,
                   language: 'Tamil',
                   onTap: () {
-                    MainController.to.isSelectLanguage=index;
+                    MainController.to.isSelectLanguage = index;
                   },
                 );
               },

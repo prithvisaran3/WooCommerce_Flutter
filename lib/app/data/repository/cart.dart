@@ -14,7 +14,7 @@ class CartRepository {
 
   Future<dynamic> getCart({required userId}) async {
     var response = await helper.get(
-        url: "${ApiService.getCart}");
+        url: "${ApiService.getCart}",isLoginToken: true);
     var res = jsonDecode(response);
     return res;
   }

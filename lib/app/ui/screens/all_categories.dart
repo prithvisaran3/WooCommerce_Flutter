@@ -107,13 +107,13 @@ class AllCategories extends StatelessWidget {
                             image:
                                 "${HomeController.to.categoryDetails[index]['image']}",
                             onTap: () async {
-                              // HomeController.to.getProducts(
-                              //     categoryId:
-                              //         "${HomeController.to.categoryDetails[index]['id']}");
-                              // await Get.to(() => CategoryProducts(
-                              //       categoryId:
-                              //           "${HomeController.to.categoryDetails[index]['id']}",
-                              //     ));
+                              HomeController.to.getProducts(
+                                  categoryId:
+                                      "${HomeController.to.categoryDetails[index]['id']}");
+                              await Get.to(() => CategoryProducts(
+                                    categoryId:
+                                        "${HomeController.to.categoryDetails[index]['id']}",
+                                  ));
                             },
                           );
                         },
@@ -125,4 +125,10 @@ class AllCategories extends StatelessWidget {
   }
 }
 
+class SortBy {
+  final String value;
+  final String text;
+  final String sortOrder;
 
+  SortBy(this.value, this.text, this.sortOrder);
+}
