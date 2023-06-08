@@ -6,6 +6,7 @@ import 'package:template/app/config/config.dart';
 import 'package:template/app/controller/main.dart';
 import 'package:template/app/controller/product.dart';
 import 'package:template/app/data/model/slider.dart';
+import 'package:template/app/ui/screens/errors/500.dart';
 
 import '../data/model/order_by.dart';
 import '../data/repository/home.dart';
@@ -256,6 +257,9 @@ class HomeController extends GetxController {
 
           debugPrint("categories get successfully but no data");
         }
+      } else if (statusCode == 500) {
+        productsLoading = false;
+        Get.to(() => const Error500());
       } else {
         productsLoading = false;
         ProductController.to.loadMore = false;

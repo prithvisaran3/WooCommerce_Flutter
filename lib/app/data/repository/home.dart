@@ -18,6 +18,7 @@ class DashboardRepository {
     }
     var response = await helper.get(url: "${ApiService.getProducts}$slug");
     var res = jsonDecode(response);
+    print("repo res is ${res}");
     return res;
   }
 

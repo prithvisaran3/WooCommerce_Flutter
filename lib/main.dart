@@ -1,9 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import 'app/ui/screens/home/homemain.dart';
-import 'app/ui/screens/onboarding_screen.dart';
+import 'app/routes/app_routes.dart';
 
 class MyHttpOverrides extends HttpOverrides {
   @override
@@ -16,7 +14,7 @@ class MyHttpOverrides extends HttpOverrides {
 
 void main() {
   HttpOverrides.global = MyHttpOverrides();
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -34,7 +32,8 @@ class MyApp extends StatelessWidget {
       },
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        home: HomeMain(),
+        getPages: AppRoutes.routes,
+        initialRoute: '/',
       ),
     );
   }

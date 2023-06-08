@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 
+import '../../screens/errors/500.dart';
 import '../../themes/colors.dart';
 
 class SearchBar extends StatelessWidget {
@@ -28,9 +30,14 @@ class SearchBar extends StatelessWidget {
             color: AppColors.primary,
           ),
           Spacer(),
-          Icon(
-            Ionicons.notifications_outline,
-            color: AppColors.primary,
+          GestureDetector(
+            onTap: (){
+             Get.to(()=>Error500());
+            },
+            child: Icon(
+              Ionicons.notifications_outline,
+              color: AppColors.primary,
+            ),
           ),
           SizedBox(width: 5),
         ],

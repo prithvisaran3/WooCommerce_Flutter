@@ -33,9 +33,9 @@ class Dashboard extends StatelessWidget {
         init: HomeController(),
         initState: (_) {
           // HomeController.to.getCategories();
-          HomeController.to.getProducts();
+          // HomeController.to.getProducts();
           // HomeController.to.getTopSellingProducts();
-          // HomeController.to.getDashboard();
+          HomeController.to.getDashboard();
         },
         builder: (_) {
           return SafeArea(

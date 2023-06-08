@@ -5,7 +5,7 @@ commonToast({required msg, Color? fontColor = Colors.white}) async {
   Fluttertoast.showToast(
       msg: "$msg",
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 2,
       backgroundColor: Colors.grey,
       textColor: fontColor,

@@ -26,12 +26,12 @@ class AuthButton extends StatelessWidget {
               colors: [
                 AppColors.primary,
                 AppColors.secondary,
-                AppColors.background,
+                // AppColors.background,
               ],
             ),
             boxShadow: [
               BoxShadow(
-                color: AppColors.grey,
+                color: AppColors.grey.withOpacity(.3),
                 spreadRadius: 0,
                 blurRadius: 5,
               )
@@ -39,7 +39,7 @@ class AuthButton extends StatelessWidget {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: boldText(fontSize: 16, color: AppColors.black),
+          style: boldText(fontSize: 16, color: AppColors.white),
         ),
       ),
     );

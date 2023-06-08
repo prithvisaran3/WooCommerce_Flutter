@@ -164,6 +164,7 @@ class HttpHelper {
   }
 
   returnResponse(http.Response response) async {
+    debugPrint("http status code: ${response.statusCode}");
     switch (response.statusCode) {
       case 200:
         var body = response.body;
@@ -172,7 +173,7 @@ class HttpHelper {
         return body;
       case 201:
         var jsonData = response.body;
-        var code = response.statusCode;
+        statusCode = response.statusCode;
         return jsonData;
       case 400:
         var body = response.body;
@@ -180,13 +181,29 @@ class HttpHelper {
         statusCode = code;
         return body;
       case 401:
+        var body = response.body;
         int code = response.statusCode;
         statusCode = code;
-        return code;
+        return body;
+      case 403:
+        var body = response.body;
+        statusCode = response.statusCode;
+        return body;
+      case 404:
+        var body = response.body;
+        int code = response.statusCode;
+        statusCode = code;
+        return body;
       case 408:
+        var body = response.body;
         int code = response.statusCode;
         statusCode = code;
-        return code;
+        return body;
+      case 500:
+        int code = response.statusCode;
+        var body = response.body;
+        statusCode = code;
+        return body;
     }
   }
 
@@ -233,10 +250,9 @@ class HttpHelper {
       headers.addAll({HttpHeaders.authorizationHeader: "Basic $token"});
     }
     if (isLoginToken == true) {
-      headers.addAll({
-        HttpHeaders.authorizationHeader:
-            "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJodHRwczovL2NoYW5kcmFuc3RlZWxzb25saW5lLmNvbSIsImlhdCI6MTY4NTQ0OTM4MCwibmJmIjoxNjg1NDQ5MzgwLCJleHAiOjE2ODYwNTQxODAsImRhdGEiOnsidXNlciI6eyJpZCI6IjI2In19fQ.woCycnv2m0MpJNqV170WV_RapPZva8vdglkFp2k82-k"
-      });
+      SharedPreferences pref = await SharedPreferences.getInstance();
+      var token = pref.getString('token');
+      headers.addAll({HttpHeaders.authorizationHeader: "Bearer $token"});
     }
     return headers;
   }

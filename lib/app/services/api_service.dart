@@ -17,7 +17,6 @@ class ApiService {
   static const addCart = "${AppConfig.baseUrl}addtocart";
   static const getCart = "${AppConfig.baseUrl}cart";
 
-
   // static const addCart = "https://chandransteelsonline.com/wp-json/wc/store/cart/add-item";
   // static const getCart = "https://chandransteelsonline.com/wp-json/wc/store/cart";
 
@@ -26,4 +25,10 @@ class ApiService {
 
   //wishList
   static const getWishList = "${AppConfig.storeUrl}wishlist/get-wishlist";
+
+  //profile
+  static const getProfile = "${AppConfig.baseUrl}customers/";
+
+  //orders
+static const getOrders = "${AppConfig.baseUrl}orders?";
 }

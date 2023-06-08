@@ -25,7 +25,7 @@ class OrderPendingTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: EdgeInsets.symmetric(horizontal: 2, vertical: 8),
+        margin: EdgeInsets.symmetric(horizontal: 10, vertical: 8),
         padding: EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),

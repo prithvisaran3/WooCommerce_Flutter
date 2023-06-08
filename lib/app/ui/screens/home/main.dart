@@ -1,196 +1,150 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/config/config.dart';
-import 'package:template/app/ui/screens/all_categories.dart';
+import 'package:ionicons/ionicons.dart';
+import '../../../controller/auth.dart';
 import '../../../controller/dashboard.dart';
 import '../../themes/colors.dart';
-import '../../themes/font_size.dart';
-import '../../widgets/common/button.dart';
-import '../../widgets/common/loading.dart';
-import '../../widgets/common/slider.dart';
-import '../../widgets/common/text.dart';
-import '../../widgets/home/categories.dart';
-import '../../widgets/home/hot_selling.dart';
-import '../../widgets/home/produts.dart';
-import '../product/category_wise_product.dart';
+import '../cart/cart_screen.dart';
+import '../orders/all_orders.dart';
+import '../profile/profile_screen.dart';
+import '../wishlist/wishlist_screen.dart';
+import 'dashboard.dart';
 
-class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
+class HomeMain extends StatelessWidget {
+  HomeMain({Key? key}) : super(key: key);
+  final List<Widget> pages = [
+    Dashboard(),
+    WishlistScreen(),
+    CartScreen(),
+    MyOrders(),
+    Profile(),
+  ];
 
   @override
   Widget build(BuildContext context) {
-    // HomeController.to.getDashboard();
-    // HomeController.to.getCategories();
-    return Scaffold(
-      // appBar: AppBar(),
-      body: Container(
-        color: AppColors.white,
-        child: ListView(
-          children: [
-            Obx(
-              () => HomeController.to.loading == true
-                  ? const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Center(
-                          child: SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: CircularProgressIndicator(
-                          color: AppColors.primary,
-                          strokeWidth: 2,
-                        ),
-                      )),
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child:
-                          CommonSlider(imageSliders: HomeController.to.banners),
-                    ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonText(
-                      text: "All Categories", style: mediumText(fontSize: 16)),
-                  GestureDetector(
-                    onTap: () async {
-                      await HomeController.to.getCategories();
-                      Get.to(() => const AllCategories());
-                    },
-                    child: CommonText(
-                        text: "View All",
-                        style:
-                            mediumText(fontSize: 14, color: AppColors.primary)),
+    Future<bool> onWillPop() async {
+      // This dialog will exit your app on saying yes
+      return (await showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0)),
+              title: const Center(
+                  child: Text(
+                'Are you sure?',
+                style: TextStyle(fontFamily: 'medium'),
+              )),
+              content: const Text('Do you want to exit an App'),
+              contentTextStyle:
+                  const TextStyle(fontFamily: 'medium', color: AppColors.grey),
+              titleTextStyle: const TextStyle(
+                  fontFamily: 'medium', color: AppColors.primary, fontSize: 16),
+              actions: [
+                MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  color: AppColors.grey,
+                  onPressed: () => Navigator.of(context).pop(false),
+                  child: const Text(
+                    'No',
+                    style:
+                        TextStyle(color: AppColors.white, fontFamily: 'medium'),
                   ),
-                ],
-              ),
+                ),
+                MaterialButton(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8.0)),
+                  color: AppColors.primary,
+                  onPressed: () => Navigator.of(context).pop(true),
+                  child: const Text(
+                    'Yes',
+                    style: TextStyle(
+                        color: AppColors.white,
+                        fontFamily: 'medium',
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+              ],
             ),
-            Obx(() => HomeController.to.categoryLoading == true
-                ? const SimpleLoading()
-                : HomeController.to.categoryEmpty == true
-                    ? const Text("empty")
-                    : SizedBox(
-                        height: 130,
-                        child: ListView.builder(
-                            itemCount: HomeController.to.categoryDetails.length,
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemBuilder: (context, int index) {
-                              return Categories(
-                                name:
-                                    "${HomeController.to.categoryDetails[index]['name']}",
-                                image:
-                                    "${HomeController.to.categoryDetails[index]['image']}",
-                                onTap: () async {
-                                  HomeController.to.getProducts(
-                                      categoryId:
-                                          "${HomeController.to.categoryDetails[index]['id']}");
-                                  await Get.to(() => CategoryProducts(
-                                        categoryId:
-                                            "${HomeController.to.categoryDetails[index]['id']}",
-                                      ));
-                                },
-                              );
-                            }),
-                      )),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+          )) ??
+          false;
+    }
+
+    return SafeArea(
+      child: WillPopScope(
+        onWillPop: onWillPop,
+        child: SafeArea(
+          child: Scaffold(
+            backgroundColor: Colors.grey.shade50,
+            bottomNavigationBar: Container(
+              margin: const EdgeInsets.all(15.0),
+              height: 60,
+              width: Get.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(30),
+                gradient: const LinearGradient(
+                    colors: [AppColors.primary, AppColors.secondary]),
+              ),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  CommonText(
-                      text: "All Products", style: mediumText(fontSize: 16)),
-                  CommonText(
-                      text: "View All",
-                      style:
-                          mediumText(fontSize: 14, color: AppColors.primary)),
+                  buildIcon(
+                      index: 0,
+                      icon: Icons.home_outlined,
+                      onTap: () {
+                        HomeController.to.selectedIndex = 0;
+                      }),
+                  buildIcon(
+                      index: 1,
+                      icon: Ionicons.heart_outline,
+                      onTap: () {
+                        HomeController.to.selectedIndex = 1;
+                      }),
+                  buildIcon(
+                      index: 2,
+                      icon: Icons.shopping_cart_outlined,
+                      onTap: () {
+                        HomeController.to.selectedIndex = 2;
+                      }),
+                  buildIcon(
+                      index: 3,
+                      icon: Ionicons.briefcase_outline,
+                      onTap: () {
+                        HomeController.to.selectedIndex = 3;
+                      }),
+                  buildIcon(
+                      index: 4,
+                      icon: Icons.person_outline,
+                      onTap: () {
+                        HomeController.to.selectedIndex = 4;
+                      }),
                 ],
               ),
             ),
-            Obx(() => HomeController.to.productsLoading == true
-                ? const SimpleLoading()
-                : HomeController.to.productsEmpty == true
-                    ? const Text("empty")
-                    : SizedBox(
-                        height: 160,
-                        child: ListView.builder(
-                            itemCount: HomeController.to.productsDetails.length,
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemBuilder: (context, int index) {
-                              return Products(
-                                name:
-                                    "${HomeController.to.productsDetails[index]['name']}",
-                                image: HomeController
-                                        .to
-                                        .productsDetails[index]['images']
-                                        .isEmpty
-                                    ? "null"
-                                    : "${HomeController.to.productsDetails[index]['images'][0]['src']}",
-                                regularPrice:
-                                    "${HomeController.to.productsDetails[index]['regular_price'] == "" ? "0" : HomeController.to.productsDetails[index]['regular_price']}",
-                                salePrice:
-                                    "${HomeController.to.productsDetails[index]['sale_price'] == "" ? "0" : HomeController.to.productsDetails[index]['sale_price']}",
-                              );
-                            }),
-                      )),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  CommonText(
-                      text: "Hot Selling Products",
-                      style: mediumText(fontSize: 16)),
-                  CommonText(
-                      text: "View All",
-                      style:
-                          mediumText(fontSize: 14, color: AppColors.primary)),
-                ],
-              ),
-            ),
-            Obx(() => HomeController.to.topSellingLoading == true
-                ? const SimpleLoading()
-                : HomeController.to.topSellingEmpty == true
-                    ? const Text("empty")
-                    : SizedBox(
-                        height: 160,
-                        child: ListView.builder(
-                            itemCount:
-                                HomeController.to.topSellingDetails.length,
-                            scrollDirection: Axis.horizontal,
-                            shrinkWrap: true,
-                            itemBuilder: (context, int index) {
-                              return HotSelling(
-                                name:
-                                    "${HomeController.to.topSellingDetails[index]['name']}",
-                                image: HomeController
-                                        .to
-                                        .topSellingDetails[index]['images']
-                                        .isEmpty
-                                    ? "null"
-                                    : "${HomeController.to.topSellingDetails[index]['images'][0]['src']}",
-                                regularPrice:
-                                    "${HomeController.to.topSellingDetails[index]['regular_price'] == "" ? "0" : HomeController.to.topSellingDetails[index]['regular_price']}",
-                                salePrice:
-                                    "${HomeController.to.topSellingDetails[index]['sale_price'] == "" ? "0" : HomeController.to.topSellingDetails[index]['sale_price']}",
-                              );
-                            }),
-                      )),
-            CommonButton(
-                text: "tap",
-                onTap: () {
-                  // AuthController.to.login();
-                  HomeController.to.getCategories(perPage: 5);
-                  HomeController.to.getDashboard();
-                  HomeController.to.getProducts();
-                  HomeController.to.getTopSellingProducts();
-                })
-          ],
+            body: Obx(() => pages[HomeController.to.selectedIndex]),
+          ),
         ),
       ),
     );
+  }
+
+  Obx buildIcon({required index, required Function() onTap, required icon}) {
+    return Obx(() => GestureDetector(
+          onTap: AuthController.to.logoutLoading == true ? null : onTap,
+          child: Container(
+              alignment: Alignment.center,
+              padding: const EdgeInsets.all(7),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: HomeController.to.selectedIndex == index
+                      ? AppColors.white
+                      : Colors.transparent),
+              child: Icon(
+                icon,
+                color: HomeController.to.selectedIndex == index
+                    ? AppColors.primary
+                    : AppColors.white,
+              )),
+        ));
   }
 }
