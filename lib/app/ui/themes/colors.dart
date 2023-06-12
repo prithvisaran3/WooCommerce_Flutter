@@ -15,8 +15,8 @@ class AppColors {
   static const Color white = Color.fromRGBO(255, 255, 255, 1.0);
   static const Color skilled = Color.fromRGBO(13, 26, 71, 1.0);
   static const Color background = Color(0xFFD2FFF4);
-  static const Color pending = Color(0xfffdae22);
-  static const Color pending2 = Color(0xFFfdd201);
+  static const Color processing = Color(0xfffdae22);
+  static const Color processing2 = Color(0xFFfdd201);
   static const Color delivered = Color(0xff3bea3b);
   static const Color delivered2 = Color(0xff2bb757);
   static const Color failed = Color(0xffec3737);

@@ -26,17 +26,36 @@ class OrderController extends GetxController {
     _ordersEmpty.value = value;
   }
 
+  final _orderDetails = <dynamic>[].obs;
+
+  get orderDetails => _orderDetails.value;
+
+  set orderDetails(value) {
+    _orderDetails.value = value;
+  }
+
+  final _orderStatus = ''.obs;
+
+  get orderStatus => _orderStatus.value;
+
+  set orderStatus(value) {
+    _orderStatus.value = value;
+  }
+
   getOrders() async {
     getOrdersLoading = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
     var id = pref.getString('userId');
-    var params = "&customer=$id";
+    print("Id is $id");
+    var params = "&customer=36";
     try {
       var res = await repository.getOrders(params: params);
       if (statusCode == 200) {
         getOrdersLoading = false;
         if (res.isNotEmpty) {
           ordersEmpty = false;
+          orderDetails = res;
+          print("ORDER DETAILS : $orderDetails");
           debugPrint("orders get successfully with data");
         } else {
           ordersEmpty = true;

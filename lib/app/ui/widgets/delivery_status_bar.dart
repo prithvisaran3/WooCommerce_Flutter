@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:template/app/controller/order.dart';
 import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 
-import '../../controller/myorders.dart';
+
 
 class DeliverStatusBar extends StatelessWidget {
   const DeliverStatusBar({Key? key}) : super(key: key);
@@ -39,9 +40,9 @@ class DeliverStatusBar extends StatelessWidget {
               height: 12,
               width: 100,
               decoration: BoxDecoration(
-                color: MyOrderController.to.orderStatus == 'p'
+                color: OrderController.to.orderStatus == 'processing'
                     ? Colors.transparent
-                    : MyOrderController.to.orderStatus == 'd'
+                    : OrderController.to.orderStatus == 'delivered'
                         ? Colors.black
                         : Colors.black,
                 border: Border.all(
@@ -62,7 +63,7 @@ class DeliverStatusBar extends StatelessWidget {
               height: 12,
               width: 100,
               decoration: BoxDecoration(
-                color: MyOrderController.to.orderStatus == 'p'
+                color: OrderController.to.orderStatus == 'processing'
                     ? Colors.transparent
                     : Colors.black,
                 border: Border.all(
