@@ -26,7 +26,7 @@ class PaymentMethodScreen extends StatelessWidget {
 
                 backgroundColor: Colors.transparent,
                 leading: IconButton(
-                  icon: Icon(
+                  icon: const Icon(
                     Icons.arrow_back_ios,
                     color: AppColors.primary,
                   ),
@@ -44,16 +44,17 @@ class PaymentMethodScreen extends StatelessWidget {
                 ),
               ),
               body: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0),
                 child: Column(
                   children: [
                     ListView.builder(
-                      itemCount: 4,
+                      itemCount: 2,
                       shrinkWrap: true,
-                      physics: BouncingScrollPhysics(),
+                      physics: const BouncingScrollPhysics(),
                       itemBuilder: (context, int index) {
                         return PaymentMethodTile(
-                          text: 'Credit/Debit Card',
+                          text: index == 0 ? "Razorpay" : "Paytm",
                           onTap: () {
                             PaymentController.to.onPressedPaymentMethod = index;
                           },

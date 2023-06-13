@@ -11,6 +11,34 @@ class ProfileController extends GetxController {
 
   final repository = ProfileRepository();
 
+  //update
+  final TextEditingController userName = TextEditingController();
+
+  //billing
+  final TextEditingController bFName = TextEditingController();
+  final TextEditingController bLName = TextEditingController();
+  final TextEditingController bCompany = TextEditingController();
+  final TextEditingController bAddress1 = TextEditingController();
+  final TextEditingController bAddress2 = TextEditingController();
+  final TextEditingController bCity = TextEditingController();
+  final TextEditingController bPostCode = TextEditingController();
+  final TextEditingController bCountry = TextEditingController();
+  final TextEditingController bState = TextEditingController();
+  final TextEditingController bEmail = TextEditingController();
+  final TextEditingController bPhone = TextEditingController();
+
+  //shipping
+  final TextEditingController sFName = TextEditingController();
+  final TextEditingController sLName = TextEditingController();
+  final TextEditingController sCompany = TextEditingController();
+  final TextEditingController sAddress1 = TextEditingController();
+  final TextEditingController sAddress2 = TextEditingController();
+  final TextEditingController sCity = TextEditingController();
+  final TextEditingController sPostCode = TextEditingController();
+  final TextEditingController sCountry = TextEditingController();
+  final TextEditingController sState = TextEditingController();
+  final TextEditingController sPhone = TextEditingController();
+
   final _getProfileLoading = false.obs;
 
   get getProfileLoading => _getProfileLoading.value;
@@ -25,6 +53,22 @@ class ProfileController extends GetxController {
 
   set profileDetails(value) {
     _profileDetails.value = value;
+  }
+
+  final _billingAsSameShipping = false.obs;
+
+  get billingAsSameShipping => _billingAsSameShipping.value;
+
+  set billingAsSameShipping(value) {
+    _billingAsSameShipping.value = value;
+  }
+
+  final _updateProfileLoading = false.obs;
+
+  get updateProfileLoading => _updateProfileLoading.value;
+
+  set updateProfileLoading(value) {
+    _updateProfileLoading.value = value;
   }
 
   getProfile() async {
@@ -54,5 +98,58 @@ class ProfileController extends GetxController {
     }
   }
 
+  updateProfile() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var id = pref.getString('userId');
+    var body = {
+      "username": userName.text == "" || userName.text.isEmpty
+          ? "${profileDetails.username}"
+          : userName.text,
+      "billing": {
+        "first_name": bFName.text,
+        "last_name": bLName.text,
+        "company": bCompany.text,
+        "address_1": bAddress1.text,
+        "address_2": bAddress2.text,
+        "city": bCity.text,
+        "state": bState.text,
+        "postcode": bPostCode.text,
+        "country": bCountry.text,
+        "email": bEmail.text == "" || bEmail.text.isEmpty
+            ? "${profileDetails.email}"
+            : bEmail.text,
+        "phone": bPhone.text
+      },
+      "shipping": {
+        "first_name": billingAsSameShipping == true ? bFName.text : sFName.text,
+        "last_name": billingAsSameShipping == true ? bLName.text : sLName.text,
+        "company":
+            billingAsSameShipping == true ? bCompany.text : sCompany.text,
+        "address_1":
+            billingAsSameShipping == true ? bAddress1.text : sAddress1.text,
+        "address_2":
+            billingAsSameShipping == true ? bAddress2.text : sAddress2.text,
+        "city": billingAsSameShipping == true ? bCity.text : sCity.text,
+        "state": billingAsSameShipping == true ? bState.text : sState.text,
+        "postcode":
+            billingAsSameShipping == true ? bPostCode.text : sPostCode.text,
+        "country": billingAsSameShipping == true ? bCountry.text : sCountry.text
+      },
+    };
 
+    try {
+      var res = await repository.updateProfile(userId: id, body: body);
+      if (statusCode == 200 || statusCode == 201) {
+        updateProfileLoading = false;
+        debugPrint("update profile completed");
+      } else {
+        updateProfileLoading = false;
+        debugPrint("update profile failed");
+      }
+    } catch (e) {
+      updateProfileLoading = false;
+      debugPrint("Error from server on update profile $e");
+      commonToast(msg: "Url No-found or Server Error");
+    }
+  }
 }

@@ -15,5 +15,11 @@ class ProfileRepository {
     return res;
   }
 
-
+  Future<ProfileRes> updateProfile({required userId, required body}) async {
+    var response = await helper.put(
+        url: "${ApiService.getProfile}$userId${AppConfig.paramKey}",
+        body: body);
+    var res = ProfileRes.fromMap(jsonDecode(response));
+    return res;
+  }
 }
