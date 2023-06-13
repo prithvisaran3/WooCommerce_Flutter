@@ -34,7 +34,7 @@ class CommonButton extends StatelessWidget {
         child: Text(
           text,
           textAlign: TextAlign.center,
-          style: boldText(fontSize: 16, color: fontColor),
+          style: boldText(fontSize: 16, color: AppColors.white),
         ),
       ),
     );

@@ -178,9 +178,9 @@ class AllProducts extends StatelessWidget {
                                   discount:
                                       "${calculateDiscount(regularPrice: int.parse(HomeController.to.productsDetails[index]['regular_price'] == "" ? "0" : "${HomeController.to.productsDetails[index]['regular_price']}"), salePrice: int.parse(HomeController.to.productsDetails[index]['sale_price'] == "" ? "0" : "${HomeController.to.productsDetails[index]['sale_price']}"))}",
                                   onTap: () async {
-                                    await HomeController.to.getProducts(
-                                        indexId: HomeController
-                                            .to.productsDetails[index]);
+                                    // await HomeController.to.getProducts(
+                                    //     indexId: HomeController
+                                    //         .to.productsDetails[index]);
                                     Get.to(() => ProductDetails(
                                           data: HomeController
                                               .to.productsDetails[index],

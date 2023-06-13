@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:template/app/ui/themes/colors.dart';
 
 class CommonFilter extends StatelessWidget {
   const CommonFilter({Key? key}) : super(key: key);
@@ -14,14 +15,16 @@ class CommonFilter extends StatelessWidget {
         borderRadius: BorderRadius.circular(8),
         color: Colors.white,
         boxShadow: [
-
           BoxShadow(
             color: Colors.grey.shade200,
             spreadRadius: 2,
           ),
         ],
       ),
-      child: Icon(Ionicons.filter),
+      child: Icon(
+        Ionicons.filter,
+        color: AppColors.primary,
+      ),
     );
   }
 }

@@ -30,5 +30,9 @@ class ApiService {
   static const getProfile = "${AppConfig.baseUrl}customers/";
 
   //orders
-static const getOrders = "${AppConfig.baseUrl}orders?";
+  static const getOrders = "${AppConfig.baseUrl}orders?";
+
+//review
+  static const getAllReviews = "${AppConfig.baseUrl}products/reviews";
+  static const sendReview = "${AppConfig.baseUrl}products/reviews";
 }

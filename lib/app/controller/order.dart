@@ -8,6 +8,8 @@ import 'main.dart';
 class OrderController extends GetxController {
   static OrderController get to => Get.put(OrderController());
 
+  final TextEditingController orderSearch = TextEditingController();
+
   final repository = OrderRepository();
 
   final _getOrdersLoading = false.obs;
@@ -42,12 +44,41 @@ class OrderController extends GetxController {
     _orderStatus.value = value;
   }
 
+  final _sort = "asc".obs;
+
+  get sort => _sort.value;
+
+  set sort(value) {
+    _sort.value = value;
+  }
+
+  final _orderBy = "any".obs;
+
+  get orderBy => _orderBy.value;
+
+  set orderBy(value) {
+    _orderBy.value = value;
+  }
+
+  var _params = "".obs;
+
+  get params => _params.value;
+
+  set params(value) {
+    _params.value = value;
+  }
+
   getOrders() async {
     getOrdersLoading = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
     var id = pref.getString('userId');
     print("Id is $id");
-    var params = "&customer=36";
+    if (orderBy != null) {
+      params = "&status=$orderBy";
+    }
+    else{
+      // params="customer=36";
+    }
     try {
       var res = await repository.getOrders(params: params);
       if (statusCode == 200) {

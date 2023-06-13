@@ -10,6 +10,7 @@ import 'package:template/app/utility/utility.dart';
 
 import '../../controller/dashboard.dart';
 import '../../controller/product.dart';
+import '../../controller/review.dart';
 import '../widgets/common/loading.dart';
 import '../widgets/home/produts.dart';
 import '../widgets/products/details.dart';
@@ -189,13 +190,18 @@ class ProductDetails extends StatelessWidget {
                                               index: 0,
                                             ),
                                             ProductOptionsCard(
-                                              selectTitle: 'Reviews',
-                                              onTap: () {
-                                                ProductController
-                                                    .to.selectIndex = 1;
-                                              },
-                                              index: 1,
-                                            ),
+                                                selectTitle: 'Reviews',
+                                                onTap: () {
+                                                  ProductController
+                                                      .to.selectIndex = 1;
+                                                  ReviewController
+                                                      .to.reviewCount = 0;
+                                                  ReviewController.to
+                                                      .getAllReviews();
+                                                },
+                                                index: 1,
+                                              ),
+
                                             ProductOptionsCard(
                                               selectTitle: 'Related',
                                               onTap: () {
@@ -229,7 +235,9 @@ class ProductDetails extends StatelessWidget {
                                                     : ProductController.to
                                                                 .selectIndex ==
                                                             1
-                                                        ? ProductReview()
+                                                        ?  ProductReview(
+                                                              id: data['id'],
+                                                            )
                                                         : ProductRelated(),
                                               ],
                                             ),

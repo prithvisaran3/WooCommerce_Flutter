@@ -8,7 +8,7 @@ class OrderRepository {
 
   Future<dynamic> getOrders({required params}) async {
     var response = await helper.get(
-        url: "${ApiService.getOrders}${AppConfig.paramKey2}");
+        url: "${ApiService.getOrders}${AppConfig.paramKey2}$params");
     var res = jsonDecode(response);
     return res;
   }
