@@ -1,5 +1,7 @@
-
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:template/app/controller/review.dart';
+import 'package:template/app/ui/widgets/common/loading.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
@@ -7,7 +9,8 @@ import '../common/text.dart';
 import 'individualreview_tile.dart';
 
 class ProductReview extends StatelessWidget {
-  const ProductReview({Key? key}) : super(key: key);
+  ProductReview({Key? key, required this.id}) : super(key: key);
+  dynamic id;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +24,6 @@ class ProductReview extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
-
                 children: [
                   Text(
                     '4.1',
@@ -57,63 +59,56 @@ class ProductReview extends StatelessWidget {
                             ),
                           ],
                         ),
-                        Text('150 reviews')
+                        ReviewController.to.reviewLoading == true
+                            ? SizedBox()
+                            : CommonText(
+                                text: "${ReviewController.to.reviewCount}",
+                                style: regularText(),
+                              ),
                       ],
                     ),
                   ),
                 ],
               ),
-              Column(
-                children: [
-                  Container(
-                    height: 40,
-                    width: 40,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppColors.green,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.thumb_up,
-                      color: AppColors.white,
-                    ),
-                  ),
-                  CommonText(
-                    text: "30",
-                    style: boldText(color: Colors.black, fontSize: 16),
-                  ),
-                ],
-              ),
-              Column(
-                children: [
-                  Container(
-                    height: 40,
-                    width: 40,
-                    padding: EdgeInsets.all(8),
-                    decoration: BoxDecoration(
-                      color: AppColors.red,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Icon(
-                      Icons.thumb_down,
-                      color: AppColors.white,
-
-                    ),
-                  ),
-                  CommonText(
-                    text: "5",
-                    style: boldText(color: Colors.black, fontSize: 16),
-                  ),
-                ],
-              ),
             ],
           ),
+          Obx(
+            () => ReviewController.to.reviewLoading == true
+                ? SimpleLoading()
+                : ListView.builder(
+                    itemCount: ReviewController.to.allReviewDetails.length,
+                    scrollDirection: Axis.vertical,
+                    physics: BouncingScrollPhysics(),
+                    shrinkWrap: true,
+                    itemBuilder: (context, int index) {
+                      ReviewController.to.allReviewDetails[index]
+                                  ['product_id'] ==
+                              id
+                          ? ReviewController.to.reviewCount++
+                          : null;
+
+                      print("REVIEW COUNT: ${ReviewController.to.reviewCount}");
+
+                      return ReviewController.to.allReviewDetails[index]
+                                  ['product_id'] ==
+                              id
+                          ? IndividualReviewTile(
+                              reviewer:
+                                  "${ReviewController.to.allReviewDetails[index]['reviewer']}",
+                              reviewerEmail:
+                                  "${ReviewController.to.allReviewDetails[index]['reviewer_email']}",
+                              review:
+                                  "${ReviewController.to.allReviewDetails[index]['review']}",
+                            )
+                          : SizedBox();
+                    },
+                  ),
+          ),
+          ReviewController.to.reviewCount == 0
+              ? CommonText(
+                  text: "No Reviews found", style: regularText(fontSize: 18))
+              : SizedBox(),
           SizedBox(height: 10),
-          IndividualReviewTile(),
-          IndividualReviewTile(),
-          IndividualReviewTile(),
-          IndividualReviewTile(),
-          IndividualReviewTile(),
         ],
       ),
     );

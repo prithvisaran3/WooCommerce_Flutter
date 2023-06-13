@@ -10,4 +10,6 @@ class AppConfig {
 
   static const todayOffersProductTagId = "62";
   static const topSellingProductTagId = "64";
+
+
 }

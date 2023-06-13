@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -9,6 +7,8 @@ import 'main.dart';
 
 class OrderController extends GetxController {
   static OrderController get to => Get.put(OrderController());
+
+  final TextEditingController orderSearch = TextEditingController();
 
   final repository = OrderRepository();
 
@@ -42,6 +42,30 @@ class OrderController extends GetxController {
 
   set orderStatus(value) {
     _orderStatus.value = value;
+  }
+
+  final _sort = "asc".obs;
+
+  get sort => _sort.value;
+
+  set sort(value) {
+    _sort.value = value;
+  }
+
+  final _orderBy = "any".obs;
+
+  get orderBy => _orderBy.value;
+
+  set orderBy(value) {
+    _orderBy.value = value;
+  }
+
+  var _params = "".obs;
+
+  get params => _params.value;
+
+  set params(value) {
+    _params.value = value;
   }
 
   getOrders() async {

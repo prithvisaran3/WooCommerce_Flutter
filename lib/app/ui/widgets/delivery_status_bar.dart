@@ -3,14 +3,13 @@ import 'package:template/app/controller/order.dart';
 import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 
-
-
 class DeliverStatusBar extends StatelessWidget {
-  const DeliverStatusBar({Key? key}) : super(key: key);
-
+  const DeliverStatusBar({Key? key, required this.status}) : super(key: key);
+final String status;
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Column(
           children: [
@@ -18,8 +17,9 @@ class DeliverStatusBar extends StatelessWidget {
               margin: EdgeInsets.symmetric(
                 horizontal: 2,
               ),
-              height: 12,
-              width: 100,
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+              // height: 12,
+              // width: 100,
               decoration: BoxDecoration(
                 color: Colors.black,
                 border: Border.all(
@@ -37,12 +37,11 @@ class DeliverStatusBar extends StatelessWidget {
               margin: EdgeInsets.symmetric(
                 horizontal: 2,
               ),
-              height: 12,
-              width: 100,
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
               decoration: BoxDecoration(
-                color: OrderController.to.orderStatus == 'processing'
+                color: status == 'processing'
                     ? Colors.transparent
-                    : OrderController.to.orderStatus == 'delivered'
+                    : status == 'delivered'
                         ? Colors.black
                         : Colors.black,
                 border: Border.all(
@@ -60,10 +59,9 @@ class DeliverStatusBar extends StatelessWidget {
               margin: EdgeInsets.symmetric(
                 horizontal: 2,
               ),
-              height: 12,
-              width: 100,
+              padding: EdgeInsets.symmetric(horizontal: 40, vertical: 5),
               decoration: BoxDecoration(
-                color: OrderController.to.orderStatus == 'processing'
+                color: status == 'processing'
                     ? Colors.transparent
                     : Colors.black,
                 border: Border.all(

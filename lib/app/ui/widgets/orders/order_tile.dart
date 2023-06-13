@@ -7,8 +7,8 @@ import 'package:template/app/ui/widgets/common/text.dart';
 import '../../themes/colors.dart';
 import '../common/common_rupee_text.dart';
 
-class OrderPendingTile extends StatelessWidget {
-  const OrderPendingTile(
+class OrdersTile extends StatelessWidget {
+  const OrdersTile(
       {Key? key,
       required this.orderId,
       required this.orderDate,
@@ -45,7 +45,7 @@ class OrderPendingTile extends StatelessWidget {
                     AppColors.processing2,
                   ],
                 )
-              : orderStatus == "delivered"
+              : orderStatus == "delivered"||orderStatus == "completed"
                   ? LinearGradient(
                       colors: [
                         AppColors.delivered,
@@ -93,7 +93,7 @@ class OrderPendingTile extends StatelessWidget {
                         ),
                       ],
                     )
-                  : orderStatus == "delivered"
+                  : orderStatus == "delivered"||orderStatus == "completed"
                       ? Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -103,7 +103,7 @@ class OrderPendingTile extends StatelessWidget {
                             ),
                             SizedBox(width: 5),
                             CommonText(
-                              text: "Order delivered",
+                              text: orderStatus == "completed"?"Order Completed":"Order delivered",
                               style: boldText(
                                 color: AppColors.delivered,
                                 fontSize: 20,
@@ -203,7 +203,7 @@ class OrderPendingTile extends StatelessWidget {
             Shimmer.fromColors(
               highlightColor: orderStatus == "processing"
                   ? AppColors.processing
-                  : orderStatus == "delivered"
+                  : orderStatus == "delivered"||orderStatus == "completed"
                       ? AppColors.delivered
                       : AppColors.failed,
               baseColor: Colors.black.withOpacity(0.5),

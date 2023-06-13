@@ -9,7 +9,7 @@ class CommonTextFormField extends StatefulWidget {
       this.validator,
       this.obscureText,
       this.maxLength,
-      this.errorText})
+      this.errorText,  this.maxLines,this.inputType})
       : super(key: key);
   final String hintText;
   final String? errorText;
@@ -17,6 +17,8 @@ class CommonTextFormField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool? obscureText;
   final int? maxLength;
+  final int? maxLines;
+  final TextInputType? inputType;
 
   @override
   State<CommonTextFormField> createState() => _CommonTextFormFieldState();
@@ -32,11 +34,12 @@ class _CommonTextFormFieldState extends State<CommonTextFormField> {
           fontFamily: "medium",
           fontSize: 14,
         ),
+        keyboardType: widget.inputType,
         validator: widget.validator,
         cursorColor: AppColors.primary,
         controller: widget.controller,
         maxLength: widget.maxLength,
-        maxLines: 1,
+        maxLines: widget.maxLines??1,
         obscuringCharacter: "*",
         obscureText: widget.obscureText == true ? !passwordVisible : false,
         decoration: InputDecoration(
