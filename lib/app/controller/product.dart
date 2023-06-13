@@ -45,6 +45,30 @@ class ProductController extends GetxController {
     _shortDescription.value = value;
   }
 
+  final _onPressedApplyCoupon = false.obs;
+
+  get onPressedApplyCoupon => _onPressedApplyCoupon.value;
+
+  set onPressedApplyCoupon(value) {
+    _onPressedApplyCoupon.value = value;
+  }
+
+  final _onPressedColors = 0.obs;
+
+  get onPressedColors => _onPressedColors.value;
+
+  set onPressedColors(value) {
+    _onPressedColors.value = value;
+  }
+
+  final _onPressedCheckPincode = false.obs;
+
+  get onPressedCheckPincode => _onPressedCheckPincode.value;
+
+  set onPressedCheckPincode(value) {
+    _onPressedCheckPincode.value = value;
+  }
+
   loadMoreFunction() {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==

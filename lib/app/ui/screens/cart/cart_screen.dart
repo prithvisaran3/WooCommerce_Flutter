@@ -11,6 +11,7 @@ import '../../themes/font_size.dart';
 import '../../widgets/cart/cart_item_tile.dart';
 import '../../widgets/common/common_rupee_text.dart';
 import '../../widgets/common/text.dart';
+import '../payment/payment.dart';
 
 class CartScreen extends StatelessWidget {
   CartScreen({Key? key}) : super(key: key);
@@ -174,7 +175,8 @@ class CartScreen extends StatelessWidget {
                             const Spacer(),
                             GestureDetector(
                               onTap: () {
-                                CartController.to.getCart();
+                                // CartController.to.getCart();
+                                Get.to(() => PaymentMethodScreen());
                                 // CartController.to.addCart(productId: 5737);
                                 // CartController.to
                                 //     .updateQty(productId: 5737, qty: 1);

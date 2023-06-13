@@ -13,6 +13,7 @@ import '../../controller/product.dart';
 import '../../controller/review.dart';
 import '../widgets/common/loading.dart';
 import '../widgets/home/produts.dart';
+import '../widgets/products/availability.dart';
 import '../widgets/products/details.dart';
 import '../widgets/products/review.dart';
 import '../widgets/products/services.dart';
@@ -182,7 +183,7 @@ class ProductDetails extends StatelessWidget {
                                         Row(
                                           children: [
                                             ProductOptionsCard(
-                                              selectTitle: 'Details',
+                                              selectTitle: 'Availability',
                                               onTap: () {
                                                 ProductController
                                                     .to.selectIndex = 0;
@@ -190,55 +191,73 @@ class ProductDetails extends StatelessWidget {
                                               index: 0,
                                             ),
                                             ProductOptionsCard(
-                                                selectTitle: 'Reviews',
-                                                onTap: () {
-                                                  ProductController
-                                                      .to.selectIndex = 1;
-                                                  ReviewController
-                                                      .to.reviewCount = 0;
-                                                  ReviewController.to
-                                                      .getAllReviews();
-                                                },
-                                                index: 1,
-                                              ),
-
+                                              selectTitle: 'Detail',
+                                              onTap: () {
+                                                ProductController
+                                                    .to.selectIndex = 1;
+                                              },
+                                              index: 1,
+                                            ),
                                             ProductOptionsCard(
-                                              selectTitle: 'Related',
+                                              selectTitle: 'Reviews',
                                               onTap: () {
                                                 ProductController
                                                     .to.selectIndex = 2;
+                                                ReviewController
+                                                    .to.reviewCount = 0;
+                                                ReviewController.to
+                                                    .getAllReviews();
                                               },
                                               index: 2,
                                             ),
                                           ],
                                         ),
                                         Container(
-                                          height: ProductController
-                                                      .to.selectIndex ==
-                                                  1
-                                              ? Get.height * 0.41
-                                              : null,
+                                          // height: ProductController
+                                          //             .to.selectIndex ==
+                                          //         1
+                                          //     ? Get.height * 0.41
+                                          //     : null,
                                           child: SingleChildScrollView(
                                             child: Column(
                                               children: [
                                                 ProductController
                                                             .to.selectIndex ==
                                                         0
-                                                    ? ProductDetail(
-                                                        description: ProductController
-                                                                    .to
-                                                                    .shortDescription ==
-                                                                true
-                                                            ? "${data['description']}"
-                                                            : "${data['short_description']}",
-                                                      )
+                                                    ? const ProductAvailability()
                                                     : ProductController.to
                                                                 .selectIndex ==
                                                             1
-                                                        ?  ProductReview(
-                                                              id: data['id'],
-                                                            )
-                                                        : ProductRelated(),
+                                                        ? ProductDetail(
+                                                            description: ProductController
+                                                                        .to
+                                                                        .shortDescription ==
+                                                                    true
+                                                                ? "${data['description']}"
+                                                                : "${data['short_description']}",
+                                                          )
+                                                        : ProductReview(
+                                                            id: data['id'],
+                                                          ),
+
+                                                // ProductController
+                                                //             .to.selectIndex ==
+                                                //         0
+                                                //     ? ProductDetail(
+                                                //         description: ProductController
+                                                //                     .to
+                                                //                     .shortDescription ==
+                                                //                 true
+                                                //             ? "${data['description']}"
+                                                //             : "${data['short_description']}",
+                                                //       )
+                                                //     : ProductController.to
+                                                //                 .selectIndex ==
+                                                //             1
+                                                //         ?  ProductReview(
+                                                //               id: data['id'],
+                                                //             )
+                                                //         : ProductRelated(),
                                               ],
                                             ),
                                           ),

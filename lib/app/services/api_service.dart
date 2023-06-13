@@ -33,7 +33,6 @@ class ApiService {
   static const getOrders = "${AppConfig.baseUrl}orders?";
   static const createOrders = "${AppConfig.baseUrl}orders?";
   static const deleteOrder = "${AppConfig.baseUrl}orders/";
-  static const getOrders = "${AppConfig.baseUrl}orders?";
 
 //review
   static const getAllReviews = "${AppConfig.baseUrl}products/reviews";
