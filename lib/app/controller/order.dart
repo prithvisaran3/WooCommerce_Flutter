@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../data/repository/order.dart';
 import '../ui/widgets/common/toast.dart';
 import 'main.dart';
+import 'payment.dart';
 
 class OrderController extends GetxController {
   static OrderController get to => Get.put(OrderController());
@@ -109,13 +110,14 @@ class OrderController extends GetxController {
     }
   }
 
-  createOrder() async {
+  createOrder({transactionId}) async {
     var body = {
       'payment_method': "razorpay",
-      'payment_method_title': "Direct Bank Transfer",
-      'set_paid': "false",
+      'payment_method_title': "RazorPay",
+      'set_paid': true,
       'status': "processing",
       'customer_id': "32",
+      'transaction_id': "$transactionId",
       'billing': {
         'first_name': "John",
         'last_name': "Doe",
@@ -156,7 +158,11 @@ class OrderController extends GetxController {
       var res = await repository.createOrder(body: jsonEncode(body));
       Future.delayed(Duration(seconds: 3), () {
         if (statusCode == 200 || statusCode == 201) {
-          // commonToast(msg: "Create order successfully");
+          commonToast(msg: "Create order successfully");
+          PaymentController.to.selectIndex = 2;
+          Future.delayed(Duration(seconds: 2), () {
+            Get.back();
+          });
         } else if (statusCode == 408) {
           commonToast(msg: "Timeout");
         }

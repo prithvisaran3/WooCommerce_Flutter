@@ -112,7 +112,9 @@ class Profile extends StatelessWidget {
                         ProfileOptionsTile(
                           icon: Ionicons.location_outline,
                           text: "Add/Update Billing Addresses",
-                          onTap: () {},
+                          onTap: () {
+                            Get.toNamed('/add_address');
+                          },
                         ),
                         ProfileOptionsTile(
                           icon: Ionicons.card_outline,

@@ -141,11 +141,15 @@ class HttpHelper {
       required body,
       bool auth = false,
       bool contentHeader = false,
+      bool tempContentHeader = false,
       bool cors = false}) async {
     dynamic responseJson;
     try {
-      Map<String, String> hd =
-          await headers(auth: auth, contentHeader: contentHeader, cors: cors);
+      Map<String, String> hd = await headers(
+          auth: auth,
+          contentHeader: contentHeader,
+          cors: cors,
+          tempContentHeader: tempContentHeader);
       if (kDebugMode) {
         print("Passing Url: $url, Passing Headers $hd");
       }

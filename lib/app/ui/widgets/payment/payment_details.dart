@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:template/app/controller/payment.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
@@ -135,10 +136,14 @@ class PaymentDetailsBox extends StatelessWidget {
                 ),
               ],
             ),
-            Container(
-                width: Get.width,
-                margin: EdgeInsets.all(10.0),
-                child: CommonButton(text: "Pay", onTap: () {})),
+            // Container(
+            //     width: Get.width,
+            //     margin: EdgeInsets.all(10.0),
+            //     child: CommonButton(
+            //         text: "Pay",
+            //         onTap: () {
+            //           PaymentController.to.selectIndex = 2;
+            //         })),
           ],
         ),
       ),

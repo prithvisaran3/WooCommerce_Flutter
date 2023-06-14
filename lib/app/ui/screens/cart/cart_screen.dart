@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:template/app/controller/auth.dart';
 import 'package:template/app/controller/cart.dart';
 import 'package:template/app/controller/dashboard.dart';
+import 'package:template/app/controller/payment.dart';
 import 'package:template/app/data/model/cart/req.dart';
 import 'package:template/app/ui/widgets/common/button.dart';
 import 'package:template/app/ui/widgets/common/loading.dart';
@@ -176,13 +177,21 @@ class CartScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 // CartController.to.getCart();
-                                Get.to(() => PaymentMethodScreen());
+                                // Get.to(() => PaymentMethodScreen());
+                                // PaymentController.to.getPaymentGateways();
                                 // CartController.to.addCart(productId: 5737);
                                 // CartController.to
                                 //     .updateQty(productId: 5737, qty: 1);
                                 // AuthController.to.login();
                                 // CartController.to.addCart(
                                 //     productId: 5737, qty: 2, userId: "26");
+                                print(
+                                    "${CartController.to.cartDetails.map((e){
+                                      print("productId: ${e['product_id']}");
+                                      print("quantity: ${e['qty']}");
+                                      print("variationId: ${e['variation_id']}");
+
+                                    })}");
                               },
                               child: Container(
                                 padding: const EdgeInsets.only(

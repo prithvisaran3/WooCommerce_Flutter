@@ -1,25 +1,27 @@
 import 'package:flutter/cupertino.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
+import 'package:template/app/controller/order.dart';
 
 class RazorPaymentService {
-  Razorpay _razorPay = Razorpay();
+  Razorpay razorPay = Razorpay();
 
   initPaymentGateway() {
-    _razorPay.on(Razorpay.EVENT_EXTERNAL_WALLET, externalwallet);
-    _razorPay.on(Razorpay.EVENT_PAYMENT_SUCCESS,  paymentSuccess);
-    _razorPay.on(Razorpay.EVENT_PAYMENT_ERROR, paymentError);
+    razorPay.on(Razorpay.EVENT_EXTERNAL_WALLET, externalWallet);
+    razorPay.on(Razorpay.EVENT_PAYMENT_SUCCESS, paymentSuccess);
+    razorPay.on(Razorpay.EVENT_PAYMENT_ERROR, paymentError);
   }
 
-  void externalwallet(ExternalWalletResponse response) {
-    print(response.walletName);
+  void externalWallet(ExternalWalletResponse response) {
+    debugPrint(response.walletName);
   }
 
   void paymentSuccess(PaymentSuccessResponse response) {
-    print("SUCCESS: " + response.paymentId.toString());
+    debugPrint("SUCCESS: ${response.paymentId}");
+    OrderController.to.createOrder(transactionId: response.paymentId);
   }
 
   void paymentError(PaymentFailureResponse response) {
-    print("ERROR: ${response.message} - ${response.code}");
+    debugPrint("ERROR: ${response.message} - ${response.code}");
   }
 
   getPayment(BuildContext context) {
@@ -33,7 +35,9 @@ class RazorPaymentService {
     };
 
     try {
-      _razorPay.open(options);
-    } catch (e) {}
+      razorPay.open(options);
+    } catch (e) {
+      debugPrint("Error from server on razorpay payment $e");
+    }
   }
 }

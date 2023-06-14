@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import '../ui/screens/address.dart';
 import '../ui/screens/auth/login.dart';
 import '../ui/screens/auth/signup.dart';
 import '../ui/screens/home/main.dart';
@@ -24,6 +25,11 @@ class AppRoutes {
     GetPage(
         name: "/homeMain",
         page: () => HomeMain(),
+        transition: Transition.cupertinoDialog,
+        transitionDuration: const Duration(seconds: 2)),
+    GetPage(
+        name: "/add_address",
+        page: () => AddBillingAddress(),
         transition: Transition.cupertinoDialog,
         transitionDuration: const Duration(seconds: 2)),
   ];
