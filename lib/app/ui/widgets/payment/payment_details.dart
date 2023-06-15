@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/payment.dart';
+import 'package:steels/app/controller/payment.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';

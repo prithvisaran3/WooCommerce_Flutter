@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/coupon.dart';
-import 'package:template/app/controller/product.dart';
-import 'package:template/app/ui/themes/font_size.dart';
-import 'package:template/app/ui/widgets/common/alert.dart';
-import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
-import 'package:template/app/ui/widgets/common/loading.dart';
-import 'package:template/app/ui/widgets/common/text.dart';
+import 'package:steels/app/controller/coupon.dart';
+import 'package:steels/app/controller/product.dart';
+import 'package:steels/app/ui/themes/font_size.dart';
+import 'package:steels/app/ui/widgets/common/alert.dart';
+import 'package:steels/app/ui/widgets/common/common_rupee_text.dart';
+import 'package:steels/app/ui/widgets/common/loading.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
 
 import '../../../utility/utility.dart';
 import '../../themes/colors.dart';

@@ -4,7 +4,7 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:template/app/config/config.dart';
+import 'package:steels/app/config/config.dart';
 import '../controller/main.dart';
 
 class HttpHelper {

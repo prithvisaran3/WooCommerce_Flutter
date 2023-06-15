@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:template/app/controller/wish_list.dart';
-import 'package:template/app/ui/themes/font_size.dart';
-import 'package:template/app/ui/widgets/common/text.dart';
-import 'package:template/app/ui/widgets/wishlist/wishlist_product_container.dart';
+import 'package:steels/app/controller/wish_list.dart';
+import 'package:steels/app/ui/themes/font_size.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
+import 'package:steels/app/ui/widgets/wishlist/wishlist_product_container.dart';
 
 import '../../themes/colors.dart';
 import '../../widgets/common/button.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_html_v3/flutter_html.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/product.dart';
+import 'package:steels/app/controller/product.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';

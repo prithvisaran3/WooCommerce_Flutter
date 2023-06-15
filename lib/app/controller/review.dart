@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/main.dart';
-import 'package:template/app/controller/profile.dart';
-import 'package:template/app/data/repository/review.dart';
+import 'package:steels/app/controller/main.dart';
+import 'package:steels/app/controller/profile.dart';
+import 'package:steels/app/data/repository/review.dart';
 
 class ReviewController extends GetxController {
   static ReviewController get to => Get.put(ReviewController());

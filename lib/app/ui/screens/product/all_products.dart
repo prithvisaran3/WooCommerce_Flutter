@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/product.dart';
-import 'package:template/app/ui/screens/home/main.dart';
-import 'package:template/app/ui/widgets/common/loading.dart';
-import 'package:template/app/utility/utility.dart';
+import 'package:steels/app/controller/product.dart';
+import 'package:steels/app/ui/screens/home/main.dart';
+import 'package:steels/app/ui/widgets/common/loading.dart';
+import 'package:steels/app/utility/utility.dart';
 import '../../../controller/dashboard.dart';
 import '../../../data/model/order_by.dart';
 import '../../themes/colors.dart';

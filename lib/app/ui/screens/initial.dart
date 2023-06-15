@@ -21,6 +21,7 @@ class _InitialState extends State<Initial> {
       body: GetBuilder<AuthController>(
           init: AuthController(),
           initState: (state) async {
+            AuthController.to.checkIsUpdateAvailable();
             bool login = await AuthController.to.loginCheck();
             debugPrint("is Login: $login");
             // bool onBoarding = await AuthController.to.checkOnBoarding();

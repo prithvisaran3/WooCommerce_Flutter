@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/auth.dart';
-import 'package:template/app/controller/dashboard.dart';
-import 'package:template/app/ui/themes/colors.dart';
-import 'package:template/app/ui/themes/font_size.dart';
-import 'package:template/app/ui/widgets/common/common_filter.dart';
-import 'package:template/app/ui/widgets/common/common_search.dart';
-import 'package:template/app/ui/widgets/common/search_bar.dart';
-import 'package:template/app/ui/widgets/common/text.dart';
-import 'package:template/app/ui/widgets/dashboard/topsavers_bigtile.dart';
-import 'package:template/app/ui/widgets/dashboard/topsavers_tile.dart';
+import 'package:steels/app/controller/auth.dart';
+import 'package:steels/app/controller/dashboard.dart';
+import 'package:steels/app/ui/themes/colors.dart';
+import 'package:steels/app/ui/themes/font_size.dart';
+import 'package:steels/app/ui/widgets/common/common_filter.dart';
+import 'package:steels/app/ui/widgets/common/common_search.dart';
+import 'package:steels/app/ui/widgets/common/search_bar.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
+import 'package:steels/app/ui/widgets/dashboard/topsavers_bigtile.dart';
+import 'package:steels/app/ui/widgets/dashboard/topsavers_tile.dart';
 
 import '../widgets/dashboard/search_bar.dart';
 

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "322253636667",
+    "project_id": "chandran-steels-woocommerce",
+    "storage_bucket": "chandran-steels-woocommerce.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:322253636667:android:e16bffd8e7831720d1081e",
+        "android_client_info": {
+          "package_name": "steels.woocommerce"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "322253636667-va812dkq1bgn4f5csfj8ldu3vg7rk7cn.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGl14YsWVt28umSwkBMgk4Bwr-vSp8CLs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "322253636667-va812dkq1bgn4f5csfj8ldu3vg7rk7cn.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

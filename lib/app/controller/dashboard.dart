@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:get/get.dart';
-import 'package:template/app/config/config.dart';
-import 'package:template/app/controller/main.dart';
-import 'package:template/app/controller/product.dart';
-import 'package:template/app/data/model/slider.dart';
-import 'package:template/app/ui/screens/errors/500.dart';
+import 'package:steels/app/config/config.dart';
+import 'package:steels/app/controller/main.dart';
+import 'package:steels/app/controller/product.dart';
+import 'package:steels/app/data/model/slider.dart';
+import 'package:steels/app/ui/screens/errors/500.dart';
 
 import '../data/model/order_by.dart';
 import '../data/repository/home.dart';

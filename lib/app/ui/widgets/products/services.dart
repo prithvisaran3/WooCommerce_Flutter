@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:template/app/ui/widgets/products/relatedproducts.dart';
+import 'package:steels/app/ui/widgets/products/relatedproducts.dart';
 
 class ProductRelated extends StatelessWidget {
   const ProductRelated({Key? key}) : super(key: key);

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/ui/screens/home/main.dart';
-import 'package:template/app/ui/screens/auth/login.dart';
-import 'package:template/app/ui/themes/colors.dart';
-import 'package:template/app/ui/widgets/common/button.dart';
+import 'package:steels/app/ui/screens/home/main.dart';
+import 'package:steels/app/ui/screens/auth/login.dart';
+import 'package:steels/app/ui/themes/colors.dart';
+import 'package:steels/app/ui/widgets/common/button.dart';
 
 
 class OnBoarding extends StatelessWidget {

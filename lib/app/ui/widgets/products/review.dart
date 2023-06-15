@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/review.dart';
-import 'package:template/app/ui/widgets/common/loading.dart';
+import 'package:steels/app/controller/review.dart';
+import 'package:steels/app/ui/widgets/common/loading.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
