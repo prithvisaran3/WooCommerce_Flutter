@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
 import 'package:template/app/controller/order.dart';
+import 'package:template/app/ui/widgets/common/toast.dart';
 
 class RazorPaymentService {
   Razorpay razorPay = Razorpay();
@@ -12,7 +14,7 @@ class RazorPaymentService {
   }
 
   void externalWallet(ExternalWalletResponse response) {
-    debugPrint(response.walletName);
+    debugPrint("EXTERNAL: ${response.walletName}");
   }
 
   void paymentSuccess(PaymentSuccessResponse response) {
@@ -22,16 +24,19 @@ class RazorPaymentService {
 
   void paymentError(PaymentFailureResponse response) {
     debugPrint("ERROR: ${response.message} - ${response.code}");
+    Get.back();
+    commonToast(msg: "Cancelled by user");
   }
 
-  getPayment(BuildContext context) {
-    // var cartItems= getCartItems
+  getPayment(BuildContext context, {amount, phone, email, name}) {
+    debugPrint(
+        "Amount Details: Name: $name, Email: $email, Phone: $phone, Amount: $amount");
     var options = {
       'key': 'rzp_test_jgECJhGI2uXCm8',
-      'amount': 50 * 100,
+      'amount': amount * 100,
       'description': 'Payment for our products',
-      'prefill': {"contact": "9095023456", "email": "limitless360@"},
-      'name': 'Raman'
+      'prefill': {"contact": "$phone", "email": "$email"},
+      'name': '$name'
     };
 
     try {

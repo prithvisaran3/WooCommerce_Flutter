@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../../controller/cart.dart';
+import '../../../controller/order.dart';
 import '../../../controller/payment.dart';
 import '../../../controller/profile.dart';
 import '../../../payment/razorpay.dart';
@@ -18,6 +20,7 @@ class PaymentMethodScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    OrderController.to.getLineItems();
     return GetBuilder(
         init: PaymentController(),
         initState: (_) {
@@ -200,13 +203,15 @@ class PaymentMethodScreen extends StatelessWidget {
                       text:
                           "${PaymentController.to.paymentGatewayDetails[index]['id'].toString().capitalizeFirst}",
                       onTap: () {
+                        PaymentController.to.onPressedPaymentMethod = index;
+
+                        PaymentController.to.paymentMethod = PaymentController
+                            .to.paymentGatewayDetails[index]['id'];
+                        print(
+                            "Payment Method: ${PaymentController.to.paymentMethod}");
                         if (PaymentController.to.paymentGatewayDetails[index]
                                 ['id'] ==
                             "razorpay") {
-                          PaymentController.to.onPressedPaymentMethod = index;
-                          RazorPaymentService payment = RazorPaymentService();
-                          payment.initPaymentGateway();
-                          payment.getPayment(context);
                         } else {
                           print("kjhlkhkjhlkjhk");
                         }

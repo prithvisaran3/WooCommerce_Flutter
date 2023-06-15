@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:template/app/controller/auth.dart';
 import 'package:template/app/controller/cart.dart';
 import 'package:template/app/controller/dashboard.dart';
+import 'package:template/app/controller/order.dart';
 import 'package:template/app/controller/payment.dart';
 import 'package:template/app/data/model/cart/req.dart';
 import 'package:template/app/ui/widgets/common/button.dart';
@@ -84,11 +85,15 @@ class CartScreen extends StatelessWidget {
                                         qty: data);
                                   },
                                   deletePressed: () {
-                                    CartController.to.addCart(
+                                    CartController.to.removeItem(
                                         productId: CartController.to
-                                            .cartDetails[index]['product_id'],
-                                        qty: 2,
-                                        userId: 26);
+                                            .cartDetails[index]['product_id']);
+
+                                    // CartController.to.addCart(
+                                    //     productId: CartController.to
+                                    //         .cartDetails[index]['product_id'],
+                                    //     qty: 2,
+                                    //     userId: 26);
                                   },
                                 );
                               },
@@ -177,7 +182,7 @@ class CartScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 // CartController.to.getCart();
-                                // Get.to(() => PaymentMethodScreen());
+                                Get.to(() => PaymentMethodScreen());
                                 // PaymentController.to.getPaymentGateways();
                                 // CartController.to.addCart(productId: 5737);
                                 // CartController.to
@@ -185,13 +190,18 @@ class CartScreen extends StatelessWidget {
                                 // AuthController.to.login();
                                 // CartController.to.addCart(
                                 //     productId: 5737, qty: 2, userId: "26");
-                                print(
-                                    "${CartController.to.cartDetails.map((e){
-                                      print("productId: ${e['product_id']}");
-                                      print("quantity: ${e['qty']}");
-                                      print("variationId: ${e['variation_id']}");
-
-                                    })}");
+                                // print(
+                                //     "${CartController.to.cartDetails.map((e){
+                                //       print("productId: ${e['product_id']}");
+                                //       print("quantity: ${e['qty']}");
+                                //       print("variationId: ${e['variation_id']}");
+                                //
+                                //     })}");
+                                // CartController.to.addCart(
+                                //     productId: 5724,
+                                //     qty: 2,
+                                //     userId: "32");
+                                // CartController.to.removeItem(productId: 5724);
                               },
                               child: Container(
                                 padding: const EdgeInsets.only(
@@ -210,7 +220,13 @@ class CartScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-            )
+            ),
+            Obx(() => CartController.to.removeLoading == true
+                ? Container(
+                    color: AppColors.black.withOpacity(.3),
+                    child: const SimpleLoading(),
+                  )
+                : const SizedBox())
           ],
         );
       },
@@ -235,7 +251,8 @@ class CartScreen extends StatelessWidget {
         });
       }
 
-      debugPrint("Total amount is $amount");
+      debugPrint("Total amount is ${CartController.to.cartTotalAmount}");
+      CartController.to.cartTotalAmount = amount;
       return amount;
     }
   }

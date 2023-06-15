@@ -7,7 +7,8 @@ class CartRepository {
   final HttpHelper helper = HttpHelper();
 
   Future<dynamic> addCart({required body}) async {
-    var response = await helper.post(url: ApiService.addCart, body: body);
+    var response = await helper.post(
+        url: ApiService.addCart, body: body, tempContentHeader: true);
     var res = jsonDecode(response);
     return res;
   }
