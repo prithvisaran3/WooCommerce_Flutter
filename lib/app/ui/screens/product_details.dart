@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:template/app/controller/coupon.dart';
 import 'package:template/app/ui/themes/colors.dart';
 import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
@@ -30,6 +31,8 @@ class ProductDetails extends StatelessWidget {
         initState: (_) {
           ProductController.to.imageIndicator = 0;
           ProductController.to.shortDescription = false;
+          CouponController.to.isCouponApplied = false;
+
         },
         builder: (_) {
           return SafeArea(
@@ -148,15 +151,53 @@ class ProductDetails extends StatelessWidget {
                                           TextDecoration.lineThrough,
                                     ),
                                     const SizedBox(width: 10),
-                                    RupeeText(
-                                      amount: "${data['sale_price']}",
-                                      color: AppColors.black,
-                                      fontSize: 40,
-                                      type: 'bold',
+                                    Obx(
+                                      () => RupeeText(
+                                        amount: CouponController
+                                                    .to.isCouponApplied ==
+                                                false
+                                            ? "${data['sale_price']}"
+                                            : "${CouponController.to.afterCouponPrice}",
+                                        color: AppColors.black,
+                                        fontSize: 40,
+                                        type: 'bold',
+                                      ),
                                     ),
                                   ],
                                 ),
                                 SizedBox(height: 10),
+                                Obx(
+                                  () => CouponController.to.isCouponApplied ==
+                                          true
+                                      ? Column(
+                                          children: [
+                                            CommonText(
+                                              text:
+                                                  "Your coupon ${CouponController.to.couponByIDdetails['code']} is applied",
+                                              style: mediumText(),
+                                            ),
+                                            Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.center,
+                                              children: [
+                                                CommonText(
+                                                  text:
+                                                      "Coupon savings amount:  ",
+                                                  style:
+                                                      mediumText(fontSize: 14),
+                                                ),
+                                                RupeeText(
+                                                    amount:
+                                                        "${CouponController.to.couponAppliedAmount}",
+                                                    color: Colors.black,
+                                                    fontSize: 14,
+                                                    type: 'bold'),
+                                              ],
+                                            )
+                                          ],
+                                        )
+                                      : SizedBox(),
+                                ),
                                 Container(
                                   // height: Get.height * 0.6,
                                   width: Get.width,
@@ -224,7 +265,12 @@ class ProductDetails extends StatelessWidget {
                                                 ProductController
                                                             .to.selectIndex ==
                                                         0
-                                                    ? const ProductAvailability()
+                                                    ? ProductAvailability(
+                                                        productPrice:
+                                                            double.parse(
+                                                          data['sale_price'],
+                                                        ),
+                                                      )
                                                     : ProductController.to
                                                                 .selectIndex ==
                                                             1
@@ -276,9 +322,14 @@ class ProductDetails extends StatelessWidget {
                                           int.parse(data['sale_price'])) >
                                   0,
                               child: Positioned(
-                                  left: 10,
-                                  top: 50,
-                                  child: Container(
+                                left: 10,
+                                top:
+                                    CouponController.to.isCouponApplied == false
+                                        ? 50
+                                        : 35,
+                                child: Column(
+                                  children: [
+                                    Container(
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8, vertical: 4),
                                       decoration: BoxDecoration(
@@ -293,7 +344,47 @@ class ProductDetails extends StatelessWidget {
                                           color: AppColors.white,
                                           fontSize: 12,
                                         ),
-                                      ))),
+                                      ),
+                                    ),
+                                    Obx(
+                                      () => CouponController
+                                                  .to.isCouponApplied ==
+                                              true
+                                          ? Column(
+                                              children: [
+                                                CommonText(
+                                                  text: "+",
+                                                  style: boldText(
+                                                      fontSize: 12,
+                                                      color: Colors.black),
+                                                ),
+                                                Container(
+                                                  padding: const EdgeInsets
+                                                          .symmetric(
+                                                      horizontal: 8,
+                                                      vertical: 4),
+                                                  decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15.0),
+                                                    color: AppColors.green,
+                                                  ),
+                                                  child: CommonText(
+                                                    text:
+                                                        "${CouponController.to.couponPercentage}% OFF",
+                                                    style: boldText(
+                                                      color: AppColors.white,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                              ],
+                                            )
+                                          : SizedBox(),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             )
                           ],
                         )),

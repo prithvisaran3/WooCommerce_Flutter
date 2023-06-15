@@ -177,21 +177,21 @@ class CartScreen extends StatelessWidget {
                             GestureDetector(
                               onTap: () {
                                 // CartController.to.getCart();
-                                // Get.to(() => PaymentMethodScreen());
+                                Get.to(() => PaymentMethodScreen());
                                 // PaymentController.to.getPaymentGateways();
                                 // CartController.to.addCart(productId: 5737);
                                 // CartController.to
                                 //     .updateQty(productId: 5737, qty: 1);
                                 // AuthController.to.login();
                                 // CartController.to.addCart(
-                                //     productId: 5737, qty: 2, userId: "26");
-                                print(
-                                    "${CartController.to.cartDetails.map((e){
-                                      print("productId: ${e['product_id']}");
-                                      print("quantity: ${e['qty']}");
-                                      print("variationId: ${e['variation_id']}");
-
-                                    })}");
+                                // //     productId: 5737, qty: 2, userId: "26");
+                                // print(
+                                //     "${CartController.to.cartDetails.map((e){
+                                //       print("productId: ${e['product_id']}");
+                                //       print("quantity: ${e['qty']}");
+                                //       print("variationId: ${e['variation_id']}");
+                                //
+                                //     })}");
                               },
                               child: Container(
                                 padding: const EdgeInsets.only(

@@ -1,28 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:template/app/controller/coupon.dart';
 import 'package:template/app/controller/product.dart';
 import 'package:template/app/ui/themes/font_size.dart';
+import 'package:template/app/ui/widgets/common/alert.dart';
 import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
+import 'package:template/app/ui/widgets/common/loading.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 
+import '../../../utility/utility.dart';
 import '../../themes/colors.dart';
 
 class ProductAvailability extends StatelessWidget {
-  const ProductAvailability({Key? key}) : super(key: key);
+  const ProductAvailability({Key? key, required this.productPrice})
+      : super(key: key);
+  final double productPrice;
 
   @override
   Widget build(BuildContext context) {
+    print("PRODUCT PRICE IS $productPrice");
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
       child: Obx(
-            () => Column(
+        () => Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SelectColorSection(),
             SizedBox(height: 10),
             PincodeSection(),
             SizedBox(height: 10),
-            CouponSection(),
+            CouponSection(context),
             // Coupon not applicable text
 
             // CommonText(
@@ -38,7 +45,7 @@ class ProductAvailability extends StatelessWidget {
     );
   }
 
-  Column CouponSection() {
+  Column CouponSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -62,6 +69,7 @@ class ProductAvailability extends StatelessWidget {
                   ),
                 ),
                 child: TextFormField(
+                  controller: CouponController.to.couponCode,
                   decoration: InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
@@ -74,7 +82,29 @@ class ProductAvailability extends StatelessWidget {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  ProductController.to.onPressedApplyCoupon = true;
+                  CouponController.to.couponMatch = 0;
+                  CouponController.to.getAllCoupons();
+                  CouponController.to.allCouponDetails.forEach(
+                    (e) {
+                      e['code'] == CouponController.to.couponCode.text
+                          ? CouponController.to.getCouponByID(id: e['id'])
+                          : print("ID mismatch");
+                    },
+                  );
+
+                  Future.delayed(
+                    Duration(seconds: 5),
+                    () {
+                      CouponController.to.couponAppliedAmount =
+                          calculateCouponPrice(
+                              price: productPrice,
+                              couponDiscount: CouponController
+                                  .to.couponByIDdetails['amount']);
+                    },
+                  );
+
+                  print(
+                      "Coupon match count: ${CouponController.to.couponMatch}");
                 },
                 child: Container(
                   height: 40,
@@ -99,38 +129,88 @@ class ProductAvailability extends StatelessWidget {
             )
           ],
         ),
-        ProductController.to.onPressedApplyCoupon == true
-            ? Column(
-          children: [
-            CommonText(
-              text: "Your coupon is applied!",
-              style: mediumText(
-                fontSize: 12,
-                color: Colors.black,
+        Center(
+          child: GestureDetector(
+            onTap: () async {
+              CouponController.to.getAllCoupons();
+
+              await couponAlertDialog(
+                context,
+                content: "Available coupons",
+                confirmButtonPressed: () {
+                  Get.back();
+                },
+              );
+            },
+            child: CommonText(
+              text: "Click to check for available coupons",
+              style: boldText(
+                fontSize: 13,
+                color: AppColors.primary,
               ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CommonText(
-                  text: "Coupon savings amount: ",
-                  style: regularText(
-                    fontSize: 12,
-                    color: Colors.black,
-                  ),
-                ),
-                SizedBox(width: 5),
-                RupeeText(
-                  amount: "500",
-                  color: AppColors.primary,
-                  fontSize: 12,
-                  type: 'bold',
-                ),
-              ],
-            ),
-          ],
-        )
-            : SizedBox(),
+          ),
+        ),
+        SizedBox(height: 10),
+        Obx(
+          () => CouponController.to.couponLoading == true
+              ? SimpleLoading()
+              : CouponController.to.isCouponApplied == true
+                  ? CouponController.to.couponMatch == 0
+                      ? CommonText(
+                          text: "Invalid Coupon",
+                          style: regularText(color: AppColors.red),
+                        )
+                      : Column(
+                          children: [
+                            CommonText(
+                              text:
+                                  "Your coupon ${CouponController.to.couponByIDdetails['code']} is applied!",
+                              style: mediumText(
+                                fontSize: 12,
+                                color: Colors.black,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                CommonText(
+                                  text: "Coupon savings amount: ",
+                                  style: regularText(
+                                    fontSize: 12,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                                SizedBox(width: 5),
+                                RupeeText(
+                                  amount:
+                                      "${CouponController.to.afterCouponPrice}",
+                                  color: AppColors.primary,
+                                  fontSize: 12,
+                                  type: 'bold',
+                                ),
+                              ],
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                CouponController.to.isCouponApplied = false;
+                                CouponController.to.couponCode.text = "";
+                              },
+                              child: CommonText(
+                                text: "Remove coupon",
+                                style: mediumText(
+                                    color: AppColors.red, fontSize: 14),
+                              ),
+                            ),
+                          ],
+                        )
+                  : CouponController.to.couponMatch == 0
+                      ? CommonText(
+                          text: "Invalid Coupon",
+                          style: regularText(color: AppColors.red),
+                        )
+                      : SizedBox(),
+        ),
       ],
     );
   }
@@ -157,13 +237,13 @@ class ProductAvailability extends StatelessWidget {
                   ProductController.to.onPressedColors = index;
                 },
                 child: Obx(
-                      () => Column(
+                  () => Column(
                     children: [
                       Container(
                         height: 40,
                         width: 40,
                         margin:
-                        EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                            EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.purpleAccent,
@@ -180,11 +260,11 @@ class ProductAvailability extends StatelessWidget {
                         text: "Deep Purple",
                         style: ProductController.to.onPressedColors == index
                             ? boldText(
-                          fontSize: 14,
-                        )
+                                fontSize: 14,
+                              )
                             : regularText(
-                          fontSize: 12,
-                        ),
+                                fontSize: 12,
+                              ),
                       ),
                     ],
                   ),
@@ -224,8 +304,8 @@ class ProductAvailability extends StatelessWidget {
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                        )),
+                      borderSide: BorderSide.none,
+                    )),
                   )),
             ),
             Expanded(
@@ -259,36 +339,36 @@ class ProductAvailability extends StatelessWidget {
         ),
         ProductController.to.onPressedCheckPincode == true
             ? Column(
-          children: [
-            CommonText(
-              text: "Your pincode 638009 is available for delivery",
-              style: regularText(
-                fontSize: 12,
-                color: Colors.black,
-              ),
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                CommonText(
-                  text: "Estimated Delivery Date :",
-                  style: regularText(
-                    fontSize: 12,
-                    color: Colors.black,
+                children: [
+                  CommonText(
+                    text: "Your pincode 638009 is available for delivery",
+                    style: regularText(
+                      fontSize: 12,
+                      color: Colors.black,
+                    ),
                   ),
-                ),
-                SizedBox(width: 5),
-                CommonText(
-                  text: "24th June,2023",
-                  style: boldText(
-                    fontSize: 12,
-                    color: AppColors.primary,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      CommonText(
+                        text: "Estimated Delivery Date :",
+                        style: regularText(
+                          fontSize: 12,
+                          color: Colors.black,
+                        ),
+                      ),
+                      SizedBox(width: 5),
+                      CommonText(
+                        text: "24th June,2023",
+                        style: boldText(
+                          fontSize: 12,
+                          color: AppColors.primary,
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          ],
-        )
+                ],
+              )
             : SizedBox(),
       ],
     );

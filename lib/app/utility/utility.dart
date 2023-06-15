@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:template/app/controller/coupon.dart';
 
 calculateDiscount({regularPrice, salePrice}) {
   if (regularPrice != null && salePrice != null) {
@@ -10,6 +11,15 @@ calculateDiscount({regularPrice, salePrice}) {
   }
 }
 
+ calculateCouponPrice({price, couponDiscount}) {
+  var coupon = double.parse(couponDiscount);
+  var couponAmount = price * coupon / 100;
+  var afterCouponPrice = price - couponAmount;
+  CouponController.to.afterCouponPrice = afterCouponPrice.toString();
+  CouponController.to.couponPercentage =
+      couponDiscount.toString().replaceAll('.00', '');
+  return couponAmount.toString();
+}
 
 String getIsoToLocalTime({required String date}) {
   var dateTime = DateFormat("yyyy-MM-dd HH:mm:ss").parse(date, true);

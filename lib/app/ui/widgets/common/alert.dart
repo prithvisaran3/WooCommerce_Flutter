@@ -1,9 +1,12 @@
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:template/app/controller/coupon.dart';
+import 'package:template/app/ui/widgets/common/loading.dart';
+import 'package:template/app/ui/widgets/coupon/coupon_tile.dart';
 
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
+import 'common_textform.dart';
 import 'text.dart';
 
 commonAlertDialog(BuildContext context,
@@ -77,6 +80,106 @@ commonAlertDialog(BuildContext context,
     ),
     actions: [
       cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
+}
+
+couponAlertDialog(BuildContext context,
+    {required String content, required Function() confirmButtonPressed}) {
+  CouponController.to.onPressedCouponCode = 100;
+
+  var media = MediaQuery.of(context).size;
+  Widget continueButton = TextButton(
+    onPressed: confirmButtonPressed,
+    child: Container(
+      // height: 30,
+      width: media.width,
+      padding: const EdgeInsets.only(top: 15, bottom: 15),
+      decoration: BoxDecoration(
+        color: Colors.black,
+        borderRadius: BorderRadius.circular(10),
+        // gradient: LinearGradient(colors: [
+        //   AppColors.primary,
+        //   AppColors.secondary,
+        // ])
+      ),
+      child: Center(
+        child: CommonText(
+          text: "Confirm",
+          style: boldText(fontSize: 16, color: Colors.white),
+        ),
+      ),
+    ),
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(
+        Radius.circular(15.0),
+      ),
+    ),
+    backgroundColor: Colors.grey.shade300,
+    content: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CommonText(
+              text: content,
+              style: boldText(fontSize: 20, color: AppColors.black),
+            )
+          ],
+        ),
+        SizedBox(
+          height: media.width * 0.02,
+        ),
+        SizedBox(
+          height: Get.height / 4,
+          width: Get.width,
+          child: Obx(
+            () => CouponController.to.couponLoading == true
+                ? SimpleLoading()
+                : CouponController.to.isCouponEmpty == false
+                    ? ListView.builder(
+                        physics: BouncingScrollPhysics(),
+                        itemCount: CouponController.to.allCouponDetails.length,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemBuilder: (context, int index) {
+                          return CouponTile(
+                            couponCode: CouponController
+                                .to.allCouponDetails[index]['code'],
+                            onTap: () {
+                              CouponController.to.onPressedCouponCode = index;
+                              CouponController.to.couponCode.text =
+                                  CouponController.to.allCouponDetails[index]['code'];
+                              print(
+                                  "X Selected is: ${CouponController.to.couponCode.text}");
+                            },
+                            index: index,
+                          );
+                        },
+                      )
+                    : Center(
+                        child: CommonText(
+                            text: "No coupons found",
+                            style: boldText(fontSize: 18))),
+          ),
+        ),
+      ],
+    ),
+    actions: [
       continueButton,
     ],
   );

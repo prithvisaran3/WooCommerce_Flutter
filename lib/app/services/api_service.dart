@@ -38,6 +38,9 @@ class ApiService {
   static const getAllReviews = "${AppConfig.baseUrl}products/reviews";
   static const sendReview = "${AppConfig.baseUrl}products/reviews";
 
+  //coupon
+static const getAllCoupons="${AppConfig.baseUrl}coupons";
+
   //paymentGateway
 
   static const getAllPaymentGateway = "${AppConfig.baseUrl}payment_gateways";
