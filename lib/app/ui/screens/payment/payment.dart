@@ -68,7 +68,7 @@ class PaymentMethodScreen extends StatelessWidget {
                   children: [
                     Center(
                       child: SizedBox(
-                        height: 40,
+                        height: 50,
                         child: ListView.builder(
                             itemCount: 3,
                             shrinkWrap: true,
