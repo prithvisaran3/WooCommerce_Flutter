@@ -46,8 +46,17 @@ class PaymentController extends GetxController {
 
   set paymentGatewayDetails(value) {
     _paymentGatewayDetails.value = value;
-  } //billing
+  }
 
+  final _paymentMethod = "".obs;
+
+  get paymentMethod => _paymentMethod.value;
+
+  set paymentMethod(value) {
+    _paymentMethod.value = value;
+  }
+
+  //billing
   final TextEditingController bFName = TextEditingController();
   final TextEditingController bLName = TextEditingController();
   final TextEditingController bCompany = TextEditingController();

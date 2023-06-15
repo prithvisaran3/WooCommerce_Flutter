@@ -62,12 +62,27 @@ class CartController extends GetxController {
     _addProductMap.value = value;
   }
 
-  addCart({productId, userId, qty}) async {
-    // cartDetails.forEach((e) {
-    //   addCartProducts
-    //       .add({"product_id": e['product_id'], "quantity": e['qty']});
-    // });
+  final _addCartDetails = <dynamic>[].obs;
 
+  get addCartDetails => _addCartDetails.value;
+
+  set addCartDetails(value) {
+    _addCartDetails.value = value;
+  }
+
+  final _cartTotalAmount = 0.obs;
+
+  get cartTotalAmount => _cartTotalAmount.value;
+
+  set cartTotalAmount(value) {
+    _cartTotalAmount.value = value;
+  }
+
+  addCart({productId, userId, qty}) async {
+    cartDetails.forEach((e) {
+      addCartProducts
+          .add({"product_id": e['product_id'], "quantity": e['qty']});
+    });
     if (addCartProducts.isEmpty) {
       addCartProducts.add({"product_id": productId, "quantity": qty});
     } else {
@@ -135,6 +150,14 @@ class CartController extends GetxController {
     }
   }
 
+  final _removeLoading = false.obs;
+
+  get removeLoading => _removeLoading.value;
+
+  set removeLoading(value) {
+    _removeLoading.value = value;
+  }
+
   updateQty({required productId, required qty}) {
     var isProductExist = cartDetails
         .firstWhere((e) => e['product_id'] == productId, orElse: () => null);
@@ -142,9 +165,42 @@ class CartController extends GetxController {
     if (isProductExist != null) {
       isProductExist['qty'] = qty;
       update();
-      print("product qty: ${isProductExist['qty']}");
+      debugPrint("product qty: ${isProductExist['qty']}");
+      if (isProductExist['qty'] == 0) {
+        removeLoading = true;
+        Future.delayed(const Duration(seconds: 3), () {
+          removeLoading = false;
+          removeItem(productId: productId, isZero: true);
+        });
+        debugPrint("Remove Quantity is 0");
+      } else {
+        debugPrint("Quantity is: ${isProductExist['qty']}");
+      }
     }
     update();
+  }
+
+  removeItem({productId, isZero = false}) {
+    if (isZero == true) {
+      var isProductExits = cartDetails
+          .firstWhere((e) => e['product_id'] == productId, orElse: () => null);
+      if (isProductExits != null) {
+        cartDetails.remove(isProductExits);
+      }
+      update();
+    } else {
+      removeLoading = true;
+      Future.delayed(const Duration(seconds: 3), () {
+        removeLoading = false;
+        var isProductExits = cartDetails.firstWhere(
+            (e) => e['product_id'] == productId,
+            orElse: () => null);
+        if (isProductExits != null) {
+          cartDetails.remove(isProductExits);
+        }
+        update();
+      });
+    }
   }
 
   updateCart(Function onCallback) async {
@@ -157,12 +213,12 @@ class CartController extends GetxController {
           .add(CartProducts(productId: e['product_id'], quantity: e['qty']));
     });
     await addCart();
-    // if (addCartDetails.isNotEmpty) {
-    //   cartDetails = [];
-    //   cartDetails.addAll(addCartDetails);
-    //   onCallback(addCartRes);
-    //   update();
-    // }
+    if (addCartDetails.isNotEmpty) {
+      cartDetails = [];
+      cartDetails.addAll(addCartDetails);
+      onCallback(addCartDetails);
+      update();
+    }
   }
 }
 
