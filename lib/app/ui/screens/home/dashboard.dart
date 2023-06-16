@@ -32,7 +32,7 @@ class Dashboard extends StatelessWidget {
     return GetBuilder(
         init: HomeController(),
         initState: (_) {
-          // HomeController.to.getCategories();
+          HomeController.to.getCategories(isInitial: true);
           // HomeController.to.getProducts();
           // HomeController.to.getTopSellingProducts();
           HomeController.to.getDashboard();
@@ -67,57 +67,56 @@ class Dashboard extends StatelessWidget {
                 //           padding: const EdgeInsets.all(8.0),
                 //           child: DashboardImageSlider()),
                 // ),
-                // Padding(
-                //   padding: const EdgeInsets.symmetric(
-                //       horizontal: 15.0, vertical: 8.0),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       CommonText(
-                //           text: "All Categories",
-                //           style: boldText(fontSize: 16)),
-                //       GestureDetector(
-                //         onTap: () async {
-                //           await HomeController.to.getCategories();
-                //           Get.to(() => const AllCategories());
-                //         },
-                //         child: CommonText(
-                //             text: "View All",
-                //             style: mediumText(
-                //                 fontSize: 14, color: AppColors.primary)),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                // Obx(() => HomeController.to.categoryLoading == true
-                //     ? const SimpleLoading()
-                //     : HomeController.to.categoryEmpty == true
-                //         ? const Text("empty")
-                //         : SizedBox(
-                //             height: 130,
-                //             child: ListView.builder(
-                //                 itemCount:
-                //                     HomeController.to.categoryDetails.length,
-                //                 scrollDirection: Axis.horizontal,
-                //                 shrinkWrap: true,
-                //                 itemBuilder: (context, int index) {
-                //                   return Categories(
-                //                     name:
-                //                         "${HomeController.to.categoryDetails[index]['name']}",
-                //                     image:
-                //                         "${HomeController.to.categoryDetails[index]['image']}",
-                //                     onTap: () async {
-                //                       HomeController.to.getProducts(
-                //                           categoryId:
-                //                               "${HomeController.to.categoryDetails[index]['id']}");
-                //                       await Get.to(() => CategoryProducts(
-                //                             categoryId:
-                //                                 "${HomeController.to.categoryDetails[index]['id']}",
-                //                           ));
-                //                     },
-                //                   );
-                //                 }),
-                //           )),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      CommonText(
+                          text: "All Categories",
+                          style: boldText(fontSize: 16)),
+                      GestureDetector(
+                        onTap: () async {
+                          Get.to(() => const AllCategories());
+                        },
+                        child: CommonText(
+                            text: "View All",
+                            style: mediumText(
+                                fontSize: 14, color: AppColors.primary)),
+                      ),
+                    ],
+                  ),
+                ),
+                Obx(() => HomeController.to.categoryLoading == true
+                    ? const SimpleLoading()
+                    : HomeController.to.categoryEmpty == true
+                        ? const Text("empty")
+                        : SizedBox(
+                            height: 130,
+                            child: ListView.builder(
+                                itemCount: HomeController
+                                    .to.initialCategoryDetails.length,
+                                scrollDirection: Axis.horizontal,
+                                shrinkWrap: true,
+                                itemBuilder: (context, int index) {
+                                  return Categories(
+                                    name:
+                                        "${HomeController.to.initialCategoryDetails[index]['name']}",
+                                    image:
+                                        "${HomeController.to.initialCategoryDetails[index]['image']}",
+                                    onTap: () async {
+                                      HomeController.to.getProducts(
+                                          categoryId:
+                                              "${HomeController.to.initialCategoryDetails[index]['id']}");
+                                      await Get.to(() => CategoryProducts(
+                                            categoryId:
+                                                "${HomeController.to.initialCategoryDetails[index]['id']}",
+                                          ));
+                                    },
+                                  );
+                                }),
+                          )),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
@@ -126,8 +125,8 @@ class Dashboard extends StatelessWidget {
                       CommonText(
                           text: "All Products", style: boldText(fontSize: 16)),
                       GestureDetector(
-                        onTap: (){
-                          Get.to(()=>AllProducts());
+                        onTap: () {
+                          Get.to(() => AllProducts());
                         },
                         child: CommonText(
                             text: "View All",

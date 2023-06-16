@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -55,14 +56,6 @@ class OrderController extends GetxController {
     _sort.value = value;
   }
 
-  final _orderBy = "any".obs;
-
-  get orderBy => _orderBy.value;
-
-  set orderBy(value) {
-    _orderBy.value = value;
-  }
-
   var _params = "".obs;
 
   get params => _params.value;
@@ -87,6 +80,30 @@ class OrderController extends GetxController {
     _paymentTitle.value = value;
   }
 
+  final _perPage = 10.obs;
+
+  get perPage => _perPage.value;
+
+  set perPage(value) {
+    _perPage.value = value;
+  }
+
+  final _pageNumber = 1.obs;
+
+  get pageNumber => _pageNumber.value;
+
+  set pageNumber(value) {
+    _pageNumber.value = value;
+  }
+
+  final _status = "".obs;
+
+  get status => _status.value;
+
+  set status(value) {
+    _status.value = value;
+  }
+
   getLineItems() {
     lineItems = [];
     CartController.to.cartDetails.forEach((e) {
@@ -101,12 +118,35 @@ class OrderController extends GetxController {
     debugPrint("order items $lineItems");
   }
 
+  Timer? debounce;
+
+  searchOrders() {
+    if (debounce?.isActive ?? false) debounce?.cancel();
+    debounce = Timer(const Duration(milliseconds: 500), () {
+      getOrders();
+    });
+  }
+
   getOrders() async {
     getOrdersLoading = true;
     SharedPreferences pref = await SharedPreferences.getInstance();
     var id = pref.getString('userId');
-    print("Id is $id");
-    var params = "&customer=$id";
+    if (status == "") {
+      if (orderSearch.text == "") {
+        params = "&customer=$id&per_page=$perPage&page=$pageNumber";
+      } else {
+        params =
+            "&customer=$id&per_page=$perPage&page=$pageNumber&search=${orderSearch.text}";
+      }
+    } else {
+      if (orderSearch.text != "") {
+        params =
+            "&customer=$id&per_page=$perPage&page=$pageNumber&status=$status&search=${orderSearch.text}";
+      } else {
+        params =
+            "&customer=$id&per_page=$perPage&page=$pageNumber&status=$status";
+      }
+    }
     try {
       var res = await repository.getOrders(params: params);
       if (statusCode == 200) {
@@ -243,7 +283,8 @@ class OrderController extends GetxController {
       Future.delayed(const Duration(seconds: 3), () {
         if (statusCode == 200 || statusCode == 201) {
           print("order deleted successfully");
-          // commonToast(msg: "Create order successfully");
+          commonToast(msg: "Order deleted successfully");
+          getOrders();
         } else if (statusCode == 408) {
           commonToast(msg: "Timeout");
         } else if (statusCode == 404) {

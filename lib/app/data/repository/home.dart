@@ -5,8 +5,8 @@ import '../../services/http.dart';
 class DashboardRepository {
   final HttpHelper helper = HttpHelper();
 
-  Future<dynamic> getCategories() async {
-    var response = await helper.get(url: ApiService.getCategories);
+  Future<dynamic> getCategories({params}) async {
+    var response = await helper.get(url: "${ApiService.getCategories}$params");
     var res = jsonDecode(response);
     return res;
   }

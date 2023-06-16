@@ -236,23 +236,30 @@ class CartScreen extends StatelessWidget {
   cartTotal() {
     dynamic amount;
     if (CartController.to.cartDetails.isNotEmpty) {
-      if (CartController.to.cartDetails.map((e) => e['line_subtotal']).length >
-          1) {
-        amount = CartController.to.cartDetails
-            .map((e) => e['line_subtotal'])
-            .reduce((key, value) {
-          return key + value;
-        });
+      if (CartController.to.cartDetails.map((e) => e['line_subtotal']) !=
+          null) {
+        if (CartController.to.cartDetails
+                .map((e) => e['line_subtotal'])
+                .length >
+            1) {
+          amount = CartController.to.cartDetails
+              .map((e) => e['line_subtotal'])
+              .reduce((key, value) {
+            return key + value;
+          });
+        } else {
+          amount = CartController.to.cartDetails
+              .map((e) => e['line_subtotal'])
+              .reduce((key, value) {
+            return value;
+          });
+        }
+        debugPrint("Total amount is ${CartController.to.cartTotalAmount}");
+        CartController.to.cartTotalAmount = 0;
       } else {
-        amount = CartController.to.cartDetails
-            .map((e) => e['line_subtotal'])
-            .reduce((key, value) {
-          return value;
-        });
+        debugPrint("Total amount is ${CartController.to.cartTotalAmount}");
+        CartController.to.cartTotalAmount = amount;
       }
-
-      debugPrint("Total amount is ${CartController.to.cartTotalAmount}");
-      CartController.to.cartTotalAmount = amount;
       return amount;
     }
   }

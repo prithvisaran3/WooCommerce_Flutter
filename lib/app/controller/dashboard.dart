@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -16,8 +18,10 @@ class HomeController extends GetxController {
   static HomeController get to => Get.put(HomeController());
   final repository = DashboardRepository();
 
-  final ScrollController scrollController = ScrollController();
+  final ScrollController categoryScrollController = ScrollController();
   final ScrollController allProductscrollController = ScrollController();
+
+  final TextEditingController categorySearch = TextEditingController();
 
   final _selectedIndex = 0.obs;
 
@@ -123,20 +127,77 @@ class HomeController extends GetxController {
     _topSellingDetails.value = value;
   }
 
+  final _initialCategoryDetails = <dynamic>[].obs;
+
+  get initialCategoryDetails => _initialCategoryDetails.value;
+
+  set initialCategoryDetails(value) {
+    _initialCategoryDetails.value = value;
+  }
+
+  final _categoryPerPage = 10.obs;
+
+  get categoryPerPage => _categoryPerPage.value;
+
+  set categoryPerPage(value) {
+    _categoryPerPage.value = value;
+  }
+
+  final _categoryPageNumber = 1.obs;
+
+  get categoryPageNumber => _categoryPageNumber.value;
+
+  set categoryPageNumber(value) {
+    _categoryPageNumber.value = value;
+  }
+
   order(SortBy sort) {
     orderBy = sort;
     update();
   }
 
-  getCategories({perPage}) async {
+  Timer? debounce;
+
+  searchCategories() {
+    if (debounce?.isActive ?? false) debounce?.cancel();
+    debounce = Timer(const Duration(milliseconds: 500), () {
+      getCategories(isInitial: false);
+    });
+  }
+
+  categoryLoadMoreFunction() {
+    categoryScrollController.addListener(() {
+      if (categoryScrollController.position.pixels ==
+          categoryScrollController.position.maxScrollExtent) {
+        HomeController.to.getCategories(isInitial: false);
+        HomeController.to.categoryPageNumber =
+            ++HomeController.to.categoryPageNumber;
+      }
+    });
+  }
+
+  getCategories({isInitial = true}) async {
     categoryLoading = true;
-    var params = "&page=2&per_page=$pageSize";
+    if (isInitial == true) {
+      params = "&page=$categoryPageNumber&per_page=$categoryPerPage";
+    } else {
+      if (categorySearch.text == "") {
+        params = "&page=$categoryPageNumber&per_page=12";
+      } else {
+        params =
+            "&page=$categoryPageNumber&per_page=12&search=${categorySearch.text}";
+      }
+    }
     try {
-      var res = await repository.getCategories();
+      var res = await repository.getCategories(params: params);
       if (statusCode == 200) {
         categoryLoading = false;
         if (res.isNotEmpty) {
-          categoryDetails = res;
+          if (isInitial == true) {
+            initialCategoryDetails = res;
+          } else {
+            categoryDetails = res;
+          }
           categoryEmpty = false;
           debugPrint("categories get successfully with data: $categoryDetails");
         } else {

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:template/app/controller/dashboard.dart';
 import 'package:template/app/controller/main.dart';
 import 'package:template/app/controller/product.dart';
@@ -124,13 +125,15 @@ class CartController extends GetxController {
   }
 
   getCart() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var id = pref.getString('userId');
     getCartLoading = true;
     try {
-      var res = await repository.getCart(userId: "26");
+      var res = await repository.getCart(userId: "$id");
       if (statusCode == 200) {
         getCartLoading = false;
         if (res['status'] == 200) {
-          if (res['data'].isNotEmpty || res['data'] != null) {
+          if (res['data'].isNotEmpty) {
             cartEmpty = false;
             cartDetails = [];
             cartDetails = res['data'];

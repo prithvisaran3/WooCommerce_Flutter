@@ -102,7 +102,7 @@ class CategoryProducts extends StatelessWidget {
                   : Flexible(
                       child: GridView.builder(
                         itemCount: HomeController.to.productsDetails.length,
-                        controller: HomeController.to.scrollController,
+                        controller: HomeController.to.categoryScrollController,
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2, childAspectRatio: 0.95),
