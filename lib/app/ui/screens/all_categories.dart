@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:template/app/ui/widgets/common/loading.dart';
+import 'package:steels/app/ui/widgets/common/loading.dart';
 
 import '../../controller/dashboard.dart';
 import '../themes/colors.dart';

@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
-import 'package:template/app/controller/order.dart';
-import 'package:template/app/ui/widgets/common/toast.dart';
+import 'package:steels/app/controller/order.dart';
+import 'package:steels/app/controller/order.dart';
+import 'package:steels/app/ui/widgets/common/toast.dart';
 
 class RazorPaymentService {
   Razorpay razorPay = Razorpay();

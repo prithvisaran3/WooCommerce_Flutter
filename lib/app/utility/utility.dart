@@ -1,5 +1,5 @@
 import 'package:intl/intl.dart';
-import 'package:template/app/controller/coupon.dart';
+import 'package:steels/app/controller/coupon.dart';
 
 calculateDiscount({regularPrice, salePrice}) {
   if (regularPrice != null && salePrice != null) {

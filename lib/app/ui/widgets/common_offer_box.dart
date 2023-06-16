@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:template/app/ui/themes/colors.dart';
-import 'package:template/app/ui/themes/font_size.dart';
-import 'package:template/app/ui/widgets/common/text.dart';
+import 'package:steels/app/ui/themes/colors.dart';
+import 'package:steels/app/ui/themes/font_size.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
 
 class CommonOffer extends StatelessWidget {
   const CommonOffer({Key? key, required this.discount}) : super(key: key);

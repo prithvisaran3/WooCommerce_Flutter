@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:template/app/ui/screens/product_details.dart';
-import 'package:template/app/ui/screens/topselling_screen.dart';
-import 'package:template/app/ui/themes/colors.dart';
-import 'package:template/app/ui/widgets/common/text.dart';
-import 'package:template/app/ui/widgets/dashboard/category_tile.dart';
-import 'package:template/app/ui/widgets/dashboard/search_bar.dart';
-import 'package:template/app/ui/widgets/dashboard/topsavers_tile.dart';
+import 'package:steels/app/ui/screens/product_details.dart';
+import 'package:steels/app/ui/screens/topselling_screen.dart';
+import 'package:steels/app/ui/themes/colors.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
+import 'package:steels/app/ui/widgets/dashboard/category_tile.dart';
+import 'package:steels/app/ui/widgets/dashboard/search_bar.dart';
+import 'package:steels/app/ui/widgets/dashboard/topsavers_tile.dart';
 
 import '../../../controller/dashboard.dart';
 import '../../themes/font_size.dart';

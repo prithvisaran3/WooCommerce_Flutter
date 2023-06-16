@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/auth.dart';
-import 'package:template/app/controller/cart.dart';
-import 'package:template/app/controller/dashboard.dart';
-import 'package:template/app/controller/order.dart';
-import 'package:template/app/controller/payment.dart';
-import 'package:template/app/data/model/cart/req.dart';
-import 'package:template/app/ui/widgets/common/button.dart';
-import 'package:template/app/ui/widgets/common/loading.dart';
+import 'package:steels/app/controller/auth.dart';
+import 'package:steels/app/controller/cart.dart';
+import 'package:steels/app/controller/dashboard.dart';
+import 'package:steels/app/controller/payment.dart';
+import 'package:steels/app/data/model/cart/req.dart';
+import 'package:steels/app/ui/widgets/common/button.dart';
+import 'package:steels/app/ui/widgets/common/loading.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../../widgets/cart/cart_item_tile.dart';
@@ -197,11 +196,6 @@ class CartScreen extends StatelessWidget {
                                 //       print("variationId: ${e['variation_id']}");
                                 //
                                 //     })}");
-                                // CartController.to.addCart(
-                                //     productId: 5724,
-                                //     qty: 2,
-                                //     userId: "32");
-                                // CartController.to.removeItem(productId: 5724);
                               },
                               child: Container(
                                 padding: const EdgeInsets.only(

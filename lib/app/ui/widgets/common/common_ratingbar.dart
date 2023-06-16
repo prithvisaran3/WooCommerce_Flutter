@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:template/app/controller/review.dart';
+import 'package:steels/app/controller/review.dart';
 
 import '../../themes/font_size.dart';
 import 'text.dart';

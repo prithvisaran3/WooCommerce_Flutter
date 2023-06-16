@@ -1,6 +1,6 @@
 import 'dart:convert';
-import 'package:template/app/config/config.dart';
-import 'package:template/app/services/api_service.dart';
+import 'package:steels/app/config/config.dart';
+import 'package:steels/app/services/api_service.dart';
 
 import '../../services/http.dart';
 import '../model/profile.dart';

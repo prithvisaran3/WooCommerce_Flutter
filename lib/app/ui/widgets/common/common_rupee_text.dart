@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:template/app/ui/widgets/common/text.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
 
 import '../../themes/font_size.dart';
 

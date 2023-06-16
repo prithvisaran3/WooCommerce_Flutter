@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/ui/widgets/common/toast.dart';
+import 'package:steels/app/controller/payment.dart';
+
+import 'package:steels/app/ui/widgets/common/toast.dart';
 import '../../../controller/cart.dart';
 import '../../../controller/payment.dart';
 import '../../../payment/razorpay.dart';
+import '../../../controller/cart.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../common/button.dart';
 import '../common/common_rupee_text.dart';
 import '../common/text.dart';
+import '../common/toast.dart';
 
 class PaymentDetailsBox extends StatelessWidget {
   const PaymentDetailsBox({Key? key}) : super(key: key);

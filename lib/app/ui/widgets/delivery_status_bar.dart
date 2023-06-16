@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:template/app/controller/order.dart';
-import 'package:template/app/ui/themes/font_size.dart';
-import 'package:template/app/ui/widgets/common/text.dart';
+import 'package:steels/app/controller/order.dart';
+import 'package:steels/app/ui/themes/font_size.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
 
 class DeliverStatusBar extends StatelessWidget {
   const DeliverStatusBar({Key? key, required this.status}) : super(key: key);

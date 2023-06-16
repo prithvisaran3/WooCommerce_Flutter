@@ -4,6 +4,8 @@ import 'package:shimmer/shimmer.dart';
 import 'package:template/app/ui/themes/font_size.dart';
 import 'package:template/app/ui/widgets/common/text.dart';
 import 'package:template/app/utility/utility.dart';
+import 'package:steels/app/ui/themes/font_size.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
 
 import '../../themes/colors.dart';
 import '../common/common_rupee_text.dart';

@@ -1,13 +1,13 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:template/app/controller/coupon.dart';
-import 'package:template/app/ui/themes/colors.dart';
-import 'package:template/app/ui/themes/font_size.dart';
-import 'package:template/app/ui/widgets/common/common_rupee_text.dart';
-import 'package:template/app/ui/widgets/common/text.dart';
-import 'package:template/app/ui/widgets/dashboard/bottom_pricebar.dart';
-import 'package:template/app/utility/utility.dart';
+import 'package:steels/app/controller/coupon.dart';
+import 'package:steels/app/ui/themes/colors.dart';
+import 'package:steels/app/ui/themes/font_size.dart';
+import 'package:steels/app/ui/widgets/common/common_rupee_text.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
+import 'package:steels/app/ui/widgets/dashboard/bottom_pricebar.dart';
+import 'package:steels/app/utility/utility.dart';
 
 import '../../controller/dashboard.dart';
 import '../../controller/product.dart';

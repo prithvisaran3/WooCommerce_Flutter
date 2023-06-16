@@ -114,6 +114,8 @@ class Login extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Get.toNamed('/register');
+
+                      AuthController.to.registerFieldsEmpty();
                     },
                     child: CommonText(
                         text: "Sign up",

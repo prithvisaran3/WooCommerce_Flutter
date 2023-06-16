@@ -1,4 +1,4 @@
-package com.example.template;
+package steels.woocommerce;
 
 import io.flutter.embedding.android.FlutterActivity;
 
