@@ -28,8 +28,13 @@ class AllProducts extends StatelessWidget {
         init: ProductController(),
         initState: (_) {
           ProductController.to.loadMoreFunction();
+          ProductController.to.productSearch.text = "";
+          HomeController.to.orderBy = "";
           ProductController.to.productSearch.addListener(() {
             ProductController.to.searchProduct();
+          });
+          Future.delayed(const Duration(seconds: 0), () {
+            HomeController.to.getProducts(isInitial: false);
           });
         },
         builder: (_) {
@@ -42,7 +47,7 @@ class AllProducts extends StatelessWidget {
               backgroundColor: AppColors.primary,
               automaticallyImplyLeading: true,
               title: CommonText(
-                text: "Woo Commerce",
+                text: "All Products",
                 style: mediumText(color: AppColors.white),
               ),
               actions: const [
@@ -108,7 +113,7 @@ class AllProducts extends StatelessWidget {
                               HomeController.to.orderBy = "price";
                               HomeController.to.sort = "asc";
                             }
-                            HomeController.to.getProducts();
+                            HomeController.to.getProducts(isInitial: false);
                           },
                           itemBuilder: (context) {
                             return sortByOptions.map((e) {

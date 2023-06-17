@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:steels/app/controller/cart.dart';
 import 'package:steels/app/controller/coupon.dart';
 import 'package:steels/app/ui/themes/colors.dart';
 import 'package:steels/app/ui/themes/font_size.dart';
@@ -26,13 +27,14 @@ class ProductDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print("product id is: ${data['id']}");
+    print("product stock status is: ${data['stock_status']}");
     return GetBuilder(
         init: ProductController(),
         initState: (_) {
           ProductController.to.imageIndicator = 0;
           ProductController.to.shortDescription = false;
           CouponController.to.isCouponApplied = false;
-
         },
         builder: (_) {
           return SafeArea(
@@ -52,7 +54,15 @@ class ProductDetails extends StatelessWidget {
                   },
                 ),
               ),
-              bottomNavigationBar: BottomPriceBar(),
+              bottomNavigationBar: BottomPriceBar(
+                amount: CouponController.to.isCouponApplied == false
+                    ? CartController.to.quantityUpdateAmount != 0
+                        ? "${CartController.to.quantityUpdateAmount}"
+                        : "${data['sale_price']}"
+                    : "${CouponController.to.afterCouponPrice}",
+                productId: "${data['id']}",
+                isOutOfStock: data['stock_status'],
+              ),
               body: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -165,7 +175,7 @@ class ProductDetails extends StatelessWidget {
                                     ),
                                   ],
                                 ),
-                                SizedBox(height: 10),
+                                const SizedBox(height: 10),
                                 Obx(
                                   () => CouponController.to.isCouponApplied ==
                                           true
@@ -196,13 +206,13 @@ class ProductDetails extends StatelessWidget {
                                             )
                                           ],
                                         )
-                                      : SizedBox(),
+                                      : const SizedBox(),
                                 ),
                                 Container(
                                   // height: Get.height * 0.6,
                                   width: Get.width,
-                                  padding: EdgeInsets.all(10),
-                                  margin: EdgeInsets.symmetric(
+                                  padding: const EdgeInsets.all(10),
+                                  margin: const EdgeInsets.symmetric(
                                       horizontal: 10, vertical: 10),
                                   decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
@@ -380,7 +390,7 @@ class ProductDetails extends StatelessWidget {
                                                 ),
                                               ],
                                             )
-                                          : SizedBox(),
+                                          : const SizedBox(),
                                     ),
                                   ],
                                 ),
@@ -396,7 +406,7 @@ class ProductDetails extends StatelessWidget {
                           CommonText(
                               text: "Related Products",
                               style: mediumText(color: AppColors.black)),
-                          Spacer(),
+                          const Spacer(),
                           CommonText(
                               text: "View All",
                               style: boldText(
@@ -430,6 +440,7 @@ class ProductDetails extends StatelessWidget {
                                             "${HomeController.to.crossSellProducts[index]['regular_price'] == "" ? "0" : HomeController.to.crossSellProducts[index]['regular_price']}",
                                         salePrice:
                                             "${HomeController.to.crossSellProducts[index]['sale_price'] == "" ? "0" : HomeController.to.crossSellProducts[index]['sale_price']}",
+                                        onTap: () {},
                                       );
                                     }),
                               )),

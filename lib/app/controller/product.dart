@@ -69,22 +69,22 @@ class ProductController extends GetxController {
     _onPressedCheckPincode.value = value;
   }
 
-  loadMoreFunction() {
+  loadMoreFunction({categoryId}) {
     scrollController.addListener(() {
       if (scrollController.position.pixels ==
           scrollController.position.maxScrollExtent) {
         loadMore = true;
-        HomeController.to.getProducts();
+        HomeController.to.getProducts(categoryId: categoryId, isInitial: false);
         HomeController.to.pageNumber = ++HomeController.to.pageNumber;
       }
     });
   }
 
-  searchProduct() {
+  searchProduct({categoryId}) {
     if (debounce?.isActive ?? false) debounce?.cancel();
 
     debounce = Timer(const Duration(milliseconds: 500), () {
-      HomeController.to.getProducts();
+      HomeController.to.getProducts(categoryId: categoryId, isInitial: false);
     });
   }
 }

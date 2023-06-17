@@ -9,6 +9,7 @@ import 'package:steels/app/controller/main.dart';
 import 'package:steels/app/controller/product.dart';
 import 'package:steels/app/data/model/slider.dart';
 import 'package:steels/app/ui/screens/errors/500.dart';
+import 'package:steels/app/ui/widgets/common/toast.dart';
 
 import '../data/model/order_by.dart';
 import '../data/repository/home.dart';
@@ -37,6 +38,14 @@ class HomeController extends GetxController {
 
   set banners(value) {
     _banners.value = value;
+  }
+
+  final _firstLoading = false.obs;
+
+  get firstLoading => _firstLoading.value;
+
+  set firstLoading(value) {
+    _firstLoading.value = value;
   }
 
   final _loading = false.obs;
@@ -93,6 +102,14 @@ class HomeController extends GetxController {
 
   set productsDetails(value) {
     _productsDetails.value = value;
+  }
+
+  final _initialProductDetails = <dynamic>[].obs;
+
+  get initialProductDetails => _initialProductDetails.value;
+
+  set initialProductDetails(value) {
+    _initialProductDetails.value = value;
   }
 
   final _crossSellProducts = <dynamic>[].obs;
@@ -192,6 +209,7 @@ class HomeController extends GetxController {
       var res = await repository.getCategories(params: params);
       if (statusCode == 200) {
         categoryLoading = false;
+        firstLoading = true;
         if (res.isNotEmpty) {
           if (isInitial == true) {
             initialCategoryDetails = res;
@@ -261,7 +279,7 @@ class HomeController extends GetxController {
     _crossSellIds.value = value;
   }
 
-  getProducts({categoryId, indexId}) async {
+  getProducts({categoryId, indexId, isInitial = true}) async {
     var search = "";
     var tag = "";
     if (search.isNotEmpty) {
@@ -270,11 +288,23 @@ class HomeController extends GetxController {
     if (crossSellIds.isNotEmpty) {
       params =
           "&per_page=$pageSize&page=$pageNumber&order=$sort&include=${crossSellIds.join(",").toString()}";
+    } else if (categoryId != null &&
+        ProductController.to.productSearch.text != "") {
+      params =
+          "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy&search=${ProductController.to.productSearch.text}&category=$categoryId";
     } else {
       if (orderBy != "") {
         if (ProductController.to.productSearch.text != "") {
+          if (categoryId != null) {
+            params =
+                "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy&search=${ProductController.to.productSearch.text}&category=$categoryId";
+          } else {
+            params =
+                "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy&search=${ProductController.to.productSearch.text}";
+          }
+        } else if (categoryId != null) {
           params =
-              "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy&search=${ProductController.to.productSearch.text}";
+              "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy&category=$categoryId";
         } else {
           params =
               "&per_page=$pageSize&page=$pageNumber&order=$sort&orderby=$orderBy";
@@ -282,15 +312,15 @@ class HomeController extends GetxController {
       } else if (ProductController.to.productSearch.text != "") {
         params =
             "&per_page=$pageSize&page=$pageNumber&order=$sort&search=${ProductController.to.productSearch.text}";
+      } else if (categoryId != null) {
+        params =
+            "&per_page=$pageSize&page=$pageNumber&order=$sort&category=$categoryId";
       } else {
         params = "&per_page=$pageSize&page=$pageNumber&order=$sort";
       }
     }
     if (tag.isNotEmpty) {
       params = "&tag=$tag";
-    }
-    if (categoryId != null) {
-      params = "&category=$categoryId";
     }
 
     print("params is $params");
@@ -300,9 +330,14 @@ class HomeController extends GetxController {
       var res = await repository.getProducts(params: params);
       if (statusCode == 200) {
         productsLoading = false;
+        firstLoading = true;
         ProductController.to.loadMore = false;
         if (res.isNotEmpty) {
-          productsDetails = res;
+          if (isInitial == true) {
+            initialProductDetails = res;
+          } else {
+            productsDetails = res;
+          }
           if (indexId != null || indexId != "") {
             print("index id is $indexId");
             // crossSellIds = res[indexId]['cross_sell_ids'];
@@ -321,7 +356,12 @@ class HomeController extends GetxController {
       } else if (statusCode == 500) {
         productsLoading = false;
         Get.to(() => const Error500());
+      } else if (statusCode == 400) {
+        productsLoading = false;
+        productsEmpty = true;
+        commonToast(msg: "Invalid search key");
       } else {
+        productsEmpty = false;
         productsLoading = false;
         ProductController.to.loadMore = false;
       }
@@ -349,6 +389,7 @@ class HomeController extends GetxController {
           tagId: AppConfig.topSellingProductTagId);
       if (statusCode == 200) {
         topSellingLoading = false;
+        firstLoading = true;
         if (res.isNotEmpty) {
           topSellingDetails = res;
           topSellingEmpty = false;
@@ -372,6 +413,7 @@ class HomeController extends GetxController {
     try {
       var res = await repository.getDashboard();
       if (statusCode == 200) {
+        firstLoading = true;
         if (res != null) {
           if (res['banner'] != null) {
             loading = false;

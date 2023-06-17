@@ -11,6 +11,7 @@ import 'package:steels/app/controller/dashboard.dart';
 import 'package:steels/app/controller/main.dart';
 import 'package:steels/app/controller/product.dart';
 import 'package:steels/app/data/model/cart/req.dart';
+import 'package:steels/app/ui/widgets/common/toast.dart';
 
 import '../data/repository/cart.dart';
 
@@ -83,43 +84,71 @@ class CartController extends GetxController {
     _cartTotalAmount.value = value;
   }
 
-  addCart({productId, userId, qty}) async {
-    cartDetails.forEach((e) {
-      addCartProducts
-          .add({"product_id": e['product_id'], "quantity": e['qty']});
-    });
-    if (addCartProducts.isEmpty) {
-      addCartProducts.add({"product_id": productId, "quantity": qty});
-    } else {
-      var isProductExits = addCartProducts.firstWhere(
-          (pro) => pro['product_id'] == productId,
-          orElse: () => null);
-      print("isProductExits $isProductExits");
-      if (isProductExits != null) {
-        addCartProducts.remove(isProductExits);
-      } else {
-        addCartProducts.add({"product_id": productId, "quantity": qty});
-        // addCartProducts.add(cartDetails.forEach((e) {
-        //   addCartProducts
-        //       .add({"product_id": e['product_id'], "quantity": e['qty']});
-        // }));
-      }
-    }
+  final _showAmountCard = false.obs;
 
-    addCartMap.addAll({"user_id": userId, "products": addCartProducts});
-    debugPrint("$addCartMap");
+  get showAmountCard => _showAmountCard.value;
+
+  set showAmountCard(value) {
+    _showAmountCard.value = value;
+  }
+
+  final _quantityUpdateAmount = 0.obs;
+
+  get quantityUpdateAmount => _quantityUpdateAmount.value;
+
+  set quantityUpdateAmount(value) {
+    _quantityUpdateAmount.value = value;
+  }
+
+  final _isMoveToCart = false.obs;
+
+  get isMoveToCart => _isMoveToCart.value;
+
+  set isMoveToCart(value) {
+    _isMoveToCart.value = value;
+  }
+
+  addCart({productId, userId, qty}) async {
+    // cartDetails.forEach((e) {
+    //   addCartProducts
+    //       .add({"product_id": e['product_id'], "quantity": e['qty']});
+    // });
+    // if (addCartProducts.isEmpty) {
+    //   addCartProducts.add({"product_id": productId, "quantity": qty});
+    // } else {
+    //   var isProductExits = addCartProducts.firstWhere(
+    //       (pro) => pro['product_id'] == productId,
+    //       orElse: () => null);
+    //   print("isProductExits $isProductExits");
+    //   if (isProductExits != null) {
+    //     addCartProducts.remove(isProductExits);
+    //   } else {
+    //     addCartProducts.add({"product_id": productId, "quantity": qty});
+    //     // addCartProducts.add(cartDetails.forEach((e) {
+    //     //   addCartProducts
+    //     //       .add({"product_id": e['product_id'], "quantity": e['qty']});
+    //     // }));
+    //   }
+    // }
+    //
+    // addCartMap.addAll({"user_id": userId, "products": addCartProducts});
+    debugPrint("body is: $addCartMap");
 
     try {
       var res = await repository.addCart(body: jsonEncode(addCartMap));
 
       if (statusCode == 200) {
         if (res['status'] == 200) {
+          isMoveToCart = true;
+
           if (res['data'].isNotEmpty) {
             // cartDetails = [];
-            cartDetails.addAll(res['data']);
+            cartDetails = res['data'];
             update();
           }
-        } else if (res['status'] == 404) {}
+        } else if (res['status'] == 404) {
+          isMoveToCart = false;
+        }
       } else {
         print("404");
       }
@@ -141,12 +170,18 @@ class CartController extends GetxController {
             cartEmpty = false;
             cartDetails = [];
             cartDetails = res['data'];
+            showAmountCard = true;
             debugPrint("Cart get successfully with data ${res['data']}");
           } else {
             cartEmpty = true;
+            showAmountCard = false;
             debugPrint("Cart get successfully but no data");
           }
         }
+      } else if (statusCode == 408) {
+        getCartLoading = false;
+        commonToast(msg: "Timeout please refresh");
+        debugPrint("Cart get failed");
       } else {
         getCartLoading = false;
         debugPrint("Cart get failed");

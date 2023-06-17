@@ -1,5 +1,3 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
@@ -56,15 +54,15 @@ class HotSelling extends StatelessWidget {
               RupeeText(
                 amount: regularPrice,
                 color: AppColors.red,
-                fontSize: 10,
+                fontSize: 12,
                 type: 'medium',
                 textDecoration: TextDecoration.lineThrough,
               ),
-              const SizedBox(width: 2),
+              const SizedBox(width: 4),
               RupeeText(
                 amount: salePrice,
                 color: AppColors.black,
-                fontSize: 12,
+                fontSize: 14,
                 type: 'bold',
               ),
             ],

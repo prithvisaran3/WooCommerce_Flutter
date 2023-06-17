@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:steels/app/ui/widgets/common/toast.dart';
 import '../themes/colors.dart';
 import '../themes/font_size.dart';
 import 'common/text.dart';
@@ -42,14 +43,18 @@ class _CartAddRemoveState extends State<CartAddRemove> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           GestureDetector(
-            onTap: () {
-              setState(() {
-                widget.value = widget.value == widget.lowerLimit
-                    ? widget.lowerLimit
-                    : widget.value -= widget.stepValue;
-                widget.onChanged(widget.value);
-              });
-            },
+            onTap: widget.value == 1
+                ? () {
+                    commonToast(msg: "Minimum quantity 1");
+                  }
+                : () {
+                    setState(() {
+                      widget.value = widget.value == widget.lowerLimit
+                          ? widget.lowerLimit
+                          : widget.value -= widget.stepValue;
+                      widget.onChanged(widget.value);
+                    });
+                  },
             child: const Icon(
               Icons.remove,
               size: 25,

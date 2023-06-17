@@ -6,6 +6,7 @@ import 'package:steels/app/ui/widgets/common/loading.dart';
 import '../../controller/dashboard.dart';
 import '../themes/colors.dart';
 import '../themes/font_size.dart';
+import '../widgets/common/button.dart';
 import '../widgets/common/text.dart';
 import '../widgets/home/categories.dart';
 import 'product/category_wise_product.dart';
@@ -22,7 +23,15 @@ class AllCategories extends StatelessWidget {
           HomeController.to.categorySearch.text = "";
           HomeController.to.categoryPageNumber = 1;
           HomeController.to.categorySearch.addListener(() {
-            HomeController.to.searchCategories();
+            if (HomeController.to.categoryEmpty != true) {
+              HomeController.to.searchCategories();
+            }
+            if (HomeController.to.categorySearch.text == "") {
+              HomeController.to.categoryPageNumber = 1;
+            } else {
+              HomeController.to.categoryPageNumber = 1;
+              HomeController.to.searchCategories();
+            }
           });
           Future.delayed(const Duration(seconds: 0), () {
             HomeController.to.getCategories(isInitial: false);
@@ -106,7 +115,36 @@ class AllCategories extends StatelessWidget {
                 Obx(() => HomeController.to.categoryLoading == true
                     ? SimpleLoading()
                     : HomeController.to.categoryEmpty == true
-                        ? Text("jkjhkh")
+                        ? Padding(
+                            padding: EdgeInsets.only(top: Get.height / 4),
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Icon(
+                                    Icons.category_outlined,
+                                    color: AppColors.grey.withOpacity(.5),
+                                    size: 100,
+                                  ),
+                                  CommonText(
+                                    text: "No Categories",
+                                    style: mediumText(
+                                        fontSize: 16,
+                                        color: AppColors.grey.withOpacity(.6)),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  CommonButton(
+                                    text: "Got to Shop",
+                                    onTap: () {
+                                      Get.back();
+                                      HomeController.to.selectedIndex = 0;
+                                    },
+                                    fontColor: AppColors.white,
+                                  )
+                                ],
+                              ),
+                            ),
+                          )
                         : Flexible(
                             child: GridView.builder(
                               itemCount:
@@ -125,6 +163,12 @@ class AllCategories extends StatelessWidget {
                                   image:
                                       "${HomeController.to.categoryDetails[index]['image']}",
                                   onTap: () async {
+                                    await Get.to(() => CategoryProducts(
+                                          categoryId:
+                                              "${HomeController.to.categoryDetails[index]['id']}",
+                                          categoryName:
+                                              "${HomeController.to.categoryDetails[index]['name']}",
+                                        ));
                                     // HomeController.to.getProducts(
                                     //     categoryId:
                                     //         "${HomeController.to.categoryDetails[index]['id']}");

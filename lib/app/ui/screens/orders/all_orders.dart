@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/dashboard.dart';
 import '../../../controller/order.dart';
 import '../../../data/model/order_by.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
+import '../../widgets/common/button.dart';
 import '../../widgets/common/loading.dart';
 import '../../widgets/common/text.dart';
 
@@ -33,7 +35,9 @@ class MyOrders extends StatelessWidget {
         OrderController.to.status = "";
         OrderController.to.orderSearch.text = "";
         OrderController.to.orderSearch.addListener(() {
-          OrderController.to.searchOrders();
+          if (OrderController.to.ordersEmpty != true) {
+            OrderController.to.searchOrders();
+          }
         });
       },
       builder: (_) {
@@ -57,20 +61,26 @@ class MyOrders extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    OrderSearchBar(),
-                    const SizedBox(
-                      width: 15,
-                    ),
-                    OrderFilterBox(sortByOptions),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                  ],
+                Obx(
+                  () => OrderController.to.ordersEmpty == true
+                      ? const SizedBox()
+                      : OrderController.to.showSearchBar == false
+                          ? const SizedBox()
+                          : Row(
+                              children: [
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                orderSearchBar(),
+                                const SizedBox(
+                                  width: 15,
+                                ),
+                                orderFilterBox(sortByOptions),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                              ],
+                            ),
                 ),
                 const SizedBox(height: 10),
                 Obx(() => OrderController.to.getOrdersLoading == true
@@ -80,15 +90,27 @@ class MyOrders extends StatelessWidget {
                             padding: EdgeInsets.only(top: Get.height / 4),
                             child: Center(
                               child: Column(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
                                   Icon(
-                                    Icons.hourglass_empty_outlined,
-                                    size: 80,
-                                    color: AppColors.primary.withOpacity(.3),
+                                    Icons.shopping_bag_outlined,
+                                    color: AppColors.grey.withOpacity(.5),
+                                    size: 100,
                                   ),
                                   CommonText(
-                                      text: "Orders Empty",
-                                      style: regularText(fontSize: 16))
+                                    text: "Orders Empty",
+                                    style: mediumText(
+                                        fontSize: 16,
+                                        color: AppColors.grey.withOpacity(.6)),
+                                  ),
+                                  const SizedBox(height: 10),
+                                  CommonButton(
+                                    text: "Got to Shop",
+                                    onTap: () {
+                                      HomeController.to.selectedIndex = 0;
+                                    },
+                                    fontColor: AppColors.white,
+                                  )
                                 ],
                               ),
                             ),
@@ -133,7 +155,7 @@ class MyOrders extends StatelessWidget {
     );
   }
 
-  Flexible OrderSearchBar() {
+  Flexible orderSearchBar() {
     return Flexible(
       child: TextField(
         controller: OrderController.to.orderSearch,
@@ -150,7 +172,7 @@ class MyOrders extends StatelessWidget {
     );
   }
 
-  Container OrderFilterBox(List<SortBy> sortByOptions) {
+  Container orderFilterBox(List<SortBy> sortByOptions) {
     return Container(
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9.0),

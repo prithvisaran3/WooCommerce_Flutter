@@ -116,7 +116,7 @@ class CartItemContainer extends StatelessWidget {
                 upperLimit: 1000,
                 stepValue: 1,
                 iconSize: 22,
-                value: count,
+                value: count.toString(),
                 onChanged: onChanged,
               ),
               SizedBox(height: 15),

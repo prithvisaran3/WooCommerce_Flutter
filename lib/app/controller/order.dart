@@ -104,6 +104,14 @@ class OrderController extends GetxController {
     _status.value = value;
   }
 
+  final _showSearchBar = false.obs;
+
+  get showSearchBar => _showSearchBar.value;
+
+  set showSearchBar(value) {
+    _showSearchBar.value = value;
+  }
+
   getLineItems() {
     lineItems = [];
     CartController.to.cartDetails.forEach((e) {
@@ -154,10 +162,12 @@ class OrderController extends GetxController {
         if (res.isNotEmpty) {
           ordersEmpty = false;
           orderDetails = res;
+          showSearchBar = true;
           print("ORDER DETAILS : $orderDetails");
           debugPrint("orders get successfully with data");
         } else {
           ordersEmpty = true;
+          showSearchBar = false;
           debugPrint("orders get successfully but no data");
         }
       } else if (statusCode == 408) {

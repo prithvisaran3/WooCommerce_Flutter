@@ -208,15 +208,12 @@ class AuthController extends GetxController {
 
   storeUserToFirebase({required id}) async {
     try {
-      await FirebaseFirestore.instance
-          .collection("users")
-          .doc('${AuthController.to.fName.text}')
-          .set({
+      await FirebaseFirestore.instance.collection("users").doc(fName.text).set({
         'id': '$id',
-        'email': '${AuthController.to.email.text}',
-        'name': "${AuthController.to.fName.text}",
+        'email': email.text,
+        'name': fName.text,
       }, SetOptions(merge: true)).whenComplete(
-              () => debugPrint("User store in firebase successful"));
+          () => debugPrint("User store in firebase successful"));
     } catch (e) {
       debugPrint("FIREBASE USER STORE EXCEPTION \n $e");
     }
