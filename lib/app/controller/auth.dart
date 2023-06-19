@@ -281,11 +281,11 @@ class AuthController extends GetxController {
 
   logout() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var token = preferences.getString('token');
-    debugPrint("token $token");
+    var id = preferences.getString('userId');
+    debugPrint("userId $id");
 
-    if (token != null && token.isNotEmpty) {
-      preferences.remove('token');
+    if (id != null && id.isNotEmpty) {
+      preferences.remove('userId');
       debugPrint("Logout Successful");
       await Get.off(() => Initial());
     } else {
