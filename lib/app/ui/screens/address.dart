@@ -45,7 +45,7 @@ class EditProfileScreen extends StatelessWidget {
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
                         children: [
-                          SizedBox(height: 10),
+                          const SizedBox(height: 10),
 
                           Align(
                             alignment: Alignment.center,
@@ -71,21 +71,21 @@ class EditProfileScreen extends StatelessWidget {
                                   ),
                                   child: ClipRRect(
                                       borderRadius: BorderRadius.circular(150),
-                                      child: Obx(() => ProfileController
-                                                  .to.getProfileLoading ==
-                                              true
-                                          ? Center(child: SimpleLoading())
-                                          : ProfileController.to.profileDetails
-                                                      .avatarUrl ==
-                                                  null
-                                              ? Image.asset(
-                                                  'assets/images/no_profile.jpg')
-                                              : Image.file(File(
-                                                  FileUploadController.to
-                                                      .profileImage.path))))),
+                                      child: Obx(() => FileUploadController
+                                                  .to.isFilePicked ==
+                                              false
+                                          ? Image.network(
+                                              "${ProfileController.to.profileDetails.avatarUrl}",
+                                              fit: BoxFit.cover,
+                                            )
+                                          : Image.file(
+                                              File(FileUploadController
+                                                  .to.imageFile),
+                                              fit: BoxFit.cover,
+                                            )))),
                             ),
                           ),
-                          SizedBox(height: 20),
+                          const SizedBox(height: 20),
 
                           //Profile
                           Row(

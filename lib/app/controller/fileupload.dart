@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
@@ -11,23 +12,20 @@ import '../ui/themes/colors.dart';
 class FileUploadController extends GetxController {
   static FileUploadController get to => Get.put(FileUploadController());
 
-  dynamic profileImage;
-  dynamic chequeLeafImage;
-  Uint8List? pickimage;
+  final _imageFile = "".obs;
 
-  bool updateMode = false;
+  get imageFile => _imageFile.value;
 
-  changeUpdateMode(data) {
-    updateMode = true;
-    update();
+  set imageFile(value) {
+    _imageFile.value = value;
   }
 
-  final _isProfilePage = false.obs;
+  final _isFilePicked = false.obs;
 
-  get isProfilePage => _isProfilePage.value;
+  get isFilePicked => _isFilePicked.value;
 
-  set isProfilePage(value) {
-    _isProfilePage.value = value;
+  set isFilePicked(value) {
+    _isFilePicked.value = value;
   }
 
   Future<void> showSelectionDialog({required bool profileMode}) {
@@ -161,11 +159,8 @@ class FileUploadController extends GetxController {
     );
     if (croppedImage != null) {
       print("CROPPED IMAGE TYPE: ${croppedImage.path}");
-      // await uploadLogo(croppedImage.path);
-      print("test image ${croppedImage.path}");
-      profileMode == true
-          ? profileImage = croppedImage
-          : chequeLeafImage = croppedImage;
+      isFilePicked = true;
+      imageFile = croppedImage.path;
       update();
     }
   }

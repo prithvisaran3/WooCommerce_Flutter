@@ -153,9 +153,9 @@ class AuthController extends GetxController {
 
   loginCheck() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var token = preferences.getString('userId');
-    debugPrint("userId $token");
-    if (token != null && token.isNotEmpty) {
+    var id = preferences.getString('userId');
+    debugPrint("userId $id");
+    if (id != null && id.isNotEmpty) {
       return true;
     } else {
       return false;
