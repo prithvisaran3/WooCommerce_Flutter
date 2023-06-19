@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:steels/app/controller/auth.dart';
-import 'package:steels/app/controller/cart.dart';
-import 'package:steels/app/controller/dashboard.dart';
-import 'package:steels/app/controller/payment.dart';
-import 'package:steels/app/data/model/cart/req.dart';
-import 'package:steels/app/ui/widgets/common/button.dart';
-import 'package:steels/app/ui/widgets/common/loading.dart';
+import '../../../controller/cart.dart';
+import '../../../controller/dashboard.dart';
+import '../../../data/model/cart/req.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../../widgets/cart/cart_item_tile.dart';
+import '../../widgets/common/button.dart';
 import '../../widgets/common/common_rupee_text.dart';
+import '../../widgets/common/loading.dart';
 import '../../widgets/common/text.dart';
 import '../payment/payment.dart';
 
@@ -251,7 +249,7 @@ class CartScreen extends StatelessWidget {
           amount = CartController.to.cartDetails
               .map((e) => e['line_subtotal'])
               .reduce((key, value) {
-            return key ?? 0 + value ?? 0;
+            return key + value;
           });
         } else {
           amount = CartController.to.cartDetails
@@ -260,7 +258,8 @@ class CartScreen extends StatelessWidget {
             return value;
           });
         }
-        debugPrint("Total amount is ${CartController.to.cartTotalAmount}");
+        debugPrint(
+            "First Total amount is ${CartController.to.cartTotalAmount}");
         CartController.to.cartTotalAmount = 0;
       } else {
         debugPrint("Total amount is ${CartController.to.cartTotalAmount}");
