@@ -153,8 +153,8 @@ class AuthController extends GetxController {
 
   loginCheck() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
-    var token = preferences.getString('token');
-    debugPrint("token $token");
+    var token = preferences.getString('userId');
+    debugPrint("userId $token");
     if (token != null && token.isNotEmpty) {
       return true;
     } else {
@@ -259,16 +259,18 @@ class AuthController extends GetxController {
   }
 
   readIDfromFirebase({required email}) async {
-    var id;
+    dynamic id;
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     SharedPreferences pref = await SharedPreferences.getInstance();
     try {
-      firestore.collection('users').doc(email).get().then(
+      await firestore.collection('users').doc(email).get().then(
         (value) {
           id = value.data()!['id'].toString();
           debugPrint("ID is $id");
-          pref.setString('token', id);
+          pref.setString('userId', id);
+          var storedId = pref.getString('userId');
           debugPrint("FIREBASE TO LOCAL TOKEN : $id");
+          debugPrint("Store id is: ${storedId!}");
         },
       );
       debugPrint("ID stored successfully");
@@ -305,15 +307,15 @@ class AuthController extends GetxController {
         if (statusCode == 200) {
           loginLoading = false;
           commonToast(msg: "Login Successfully");
-          res.then((value) {
+          res.then((value) async {
             loginDetails = value;
             Map storedData = {
               "token": "${value['token']}",
               "email": "${value['user_email']}",
               "name": "${value['user_display_name']}",
+              // "userId": "${value['id']}",
             };
-            readIDfromFirebase(email: email.text);
-
+            await readIDfromFirebase(email: "${value['user_email']}");
             storeLocalDevice(body: storedData);
             debugPrint("email is: ${loginDetails['user_email']}");
             debugPrint("token is: ${loginDetails['token']}");
