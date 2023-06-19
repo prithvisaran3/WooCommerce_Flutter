@@ -4,6 +4,7 @@ class ApiService {
   //auth
   static const register = "${AppConfig.baseUrl}customers";
   static const login = AppConfig.tokenUrl;
+  static const forgotPassword = "${AppConfig.baseUrl}forget_password";
 
   //categories
   static const getCategories =
@@ -39,7 +40,7 @@ class ApiService {
   static const sendReview = "${AppConfig.baseUrl}products/reviews";
 
   //coupon
-static const getAllCoupons="${AppConfig.baseUrl}coupons";
+  static const getAllCoupons = "${AppConfig.baseUrl}coupons";
 
   //paymentGateway
 

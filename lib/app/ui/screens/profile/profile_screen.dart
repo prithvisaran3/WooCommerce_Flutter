@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:steels/app/controller/auth.dart';
 import 'package:steels/app/controller/order.dart';
+import 'package:steels/app/ui/screens/auth/onboarding.dart';
 import '../../../controller/profile.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
@@ -107,13 +109,8 @@ class Profile extends StatelessWidget {
                         ProfileOptionsTile(
                           icon: Ionicons.pencil_outline,
                           text: "Edit Profile",
-                          onTap: () {},
-                        ),
-                        ProfileOptionsTile(
-                          icon: Ionicons.location_outline,
-                          text: "Add/Update Billing Addresses",
                           onTap: () {
-                            Get.toNamed('/add_address');
+                            Get.toNamed('/edit_profile');
                           },
                         ),
                         ProfileOptionsTile(
@@ -149,14 +146,28 @@ class Profile extends StatelessWidget {
                           },
                         ),
                         ProfileOptionsTile(
+                          icon: Ionicons.document_text_outline,
+                          text: "Onboarding check",
+                          onTap: () {
+                            Get.to(() => OnBoarding());
+                          },
+                        ),
+                        ProfileOptionsTile(
                           icon: Ionicons.help_circle_outline,
                           text: "Edit Profile",
                           onTap: () {},
                         ),
                         const SizedBox(height: 20),
                         Align(
-                            alignment: Alignment.center,
-                            child: CommonButton(text: "Log out", onTap: () {}))
+                          alignment: Alignment.center,
+                          child: CommonButton(
+                            text: "Log out",
+                            onTap: () {
+                              // AuthController.to.readIDfromFirebase(email: 'email');
+                              AuthController.to.logout();
+                            },
+                          ),
+                        ),
                       ],
                     ),
                   )
