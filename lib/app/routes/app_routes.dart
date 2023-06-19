@@ -28,8 +28,8 @@ class AppRoutes {
         transition: Transition.cupertinoDialog,
         transitionDuration: const Duration(seconds: 2)),
     GetPage(
-        name: "/add_address",
-        page: () => AddBillingAddress(),
+        name: "/edit_profile",
+        page: () => EditProfileScreen(),
         transition: Transition.cupertinoDialog,
         transitionDuration: const Duration(seconds: 2)),
   ];

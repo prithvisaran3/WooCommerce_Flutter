@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:steels/app/ui/screens/initial.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../data/repository/auth.dart';
 import '../ui/widgets/common/app_update.dart';
@@ -26,6 +27,9 @@ class AuthController extends GetxController {
   //login
   final TextEditingController lEmail = TextEditingController();
   final TextEditingController lPassword = TextEditingController();
+
+  //forgot
+  final TextEditingController forgotEmail = TextEditingController();
 
   //register
   final TextEditingController fName = TextEditingController();
@@ -55,6 +59,41 @@ class AuthController extends GetxController {
 
   set registerLoading(value) {
     _registerLoading.value = value;
+  }
+
+  final _forgotPasswordLoading = false.obs;
+
+  get forgotPasswordLoading => _forgotPasswordLoading.value;
+
+  set forgotPasswordLoading(value) {
+    _forgotPasswordLoading.value = value;
+  }
+
+  final _isForgotPasswordNote = false.obs;
+
+  get isForgotPasswordNote => _isForgotPasswordNote.value;
+
+  set isForgotPasswordNote(value) {
+    _isForgotPasswordNote.value = value;
+  }
+
+  setOnBoardDataAfterScreenCompleted() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    preferences.setString("on_boarding", "onBoarding");
+    var onBoard = preferences.getString('on_boarding');
+    debugPrint("on boarding data $onBoard");
+    await Get.off(() => Initial());
+    return onBoard;
+  }
+
+  checkOnBoarding() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var token = preferences.getString('on_boarding');
+    if (token == null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   storeLocalDevice({required Map body}) async {
@@ -208,7 +247,7 @@ class AuthController extends GetxController {
 
   storeUserToFirebase({required id}) async {
     try {
-      await FirebaseFirestore.instance.collection("users").doc(fName.text).set({
+      await FirebaseFirestore.instance.collection("users").doc(email.text).set({
         'id': '$id',
         'email': email.text,
         'name': fName.text,
@@ -216,6 +255,41 @@ class AuthController extends GetxController {
           () => debugPrint("User store in firebase successful"));
     } catch (e) {
       debugPrint("FIREBASE USER STORE EXCEPTION \n $e");
+    }
+  }
+
+  readIDfromFirebase({required email}) async {
+    var id;
+    FirebaseFirestore firestore = FirebaseFirestore.instance;
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    try {
+      firestore.collection('users').doc(email).get().then(
+        (value) {
+          id = value.data()!['id'].toString();
+          debugPrint("ID is $id");
+          pref.setString('token', id);
+          debugPrint("FIREBASE TO LOCAL TOKEN : $id");
+        },
+      );
+      debugPrint("ID stored successfully");
+    } catch (e) {
+      debugPrint("Exception at readIDfromDatabase\n$e");
+    }
+  }
+
+  logout() async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    var token = preferences.getString('token');
+    debugPrint("token $token");
+
+    if (token != null && token.isNotEmpty) {
+      preferences.remove('token');
+      debugPrint("Logout Successful");
+      await Get.off(() => Initial());
+    } else {
+      debugPrint("Logout Failed");
+
+      return false;
     }
   }
 
@@ -238,6 +312,8 @@ class AuthController extends GetxController {
               "email": "${value['user_email']}",
               "name": "${value['user_display_name']}",
             };
+            readIDfromFirebase(email: email.text);
+
             storeLocalDevice(body: storedData);
             debugPrint("email is: ${loginDetails['user_email']}");
             debugPrint("token is: ${loginDetails['token']}");
@@ -283,6 +359,46 @@ class AuthController extends GetxController {
       loginLoading = false;
       debugPrint("Error from server on login $e");
       commonToast(msg: "Sever down please try again later");
+    }
+  }
+
+  forgotPassword() async {
+    forgotPasswordLoading = true;
+
+    var body = {
+      "email": forgotEmail.text.trimRight(),
+    };
+    try {
+      var res = await repository.forgotPassword(body: body);
+      Future.delayed(
+        const Duration(seconds: 3),
+        () {
+          if (statusCode == 200) {
+            forgotPasswordLoading = false;
+            if (res['status'] == 200) {
+              debugPrint("Forgot Password email sent to ${forgotEmail.text}");
+              commonToast(msg: "${res['message']}");
+              isForgotPasswordNote = true;
+
+              forgotEmail.text = "";
+            } else if (res['status'] == 404) {
+              commonToast(msg: "${res['message']}");
+              debugPrint('${res['message']}');
+            }
+          } else if (statusCode == 408) {
+            forgotPasswordLoading = false;
+            debugPrint("Timeout");
+            commonToast(msg: "Server Timeout!\n Try again");
+          } else if (statusCode == 500) {
+            forgotPasswordLoading = false;
+            debugPrint("Server down");
+            commonToast(msg: "Server down!\n Try again after sometime");
+          }
+        },
+      );
+    } catch (e) {
+      forgotPasswordLoading = false;
+      debugPrint("Exception at Forgot Password \n$e");
     }
   }
 }

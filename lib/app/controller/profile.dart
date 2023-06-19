@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:steels/app/controller/auth.dart';
 import 'package:steels/app/ui/widgets/common/button.dart';
 import 'package:steels/app/ui/widgets/common/toast.dart';
 import '../data/model/profile.dart';
@@ -16,6 +17,7 @@ class ProfileController extends GetxController {
 
   //update
   final TextEditingController userName = TextEditingController();
+  final TextEditingController firstName = TextEditingController();
 
   //billing
   final TextEditingController bFName = TextEditingController();
@@ -78,6 +80,8 @@ class ProfileController extends GetxController {
   }
 
   addressFieldsEmpty() {
+    userName.text = "";
+    firstName.text = "";
     //Billing Fields
     bFName.text = "";
     bLName.text = "";
@@ -130,13 +134,53 @@ class ProfileController extends GetxController {
     }
   }
 
+  setData() {
+    //personal
+    userName.text = ProfileController.to.profileDetails.username != ""
+        ? ProfileController.to.profileDetails.username
+        : "";
+    firstName.text = ProfileController.to.profileDetails.firstName != ""
+        ? ProfileController.to.profileDetails.firstName
+        : "";
+    //billing data
+    bFName.text = ProfileController.to.profileDetails.billing.firstName != ""
+        ? ProfileController.to.profileDetails.billing.firstName
+        : "";
+    bLName.text = ProfileController.to.profileDetails.billing.lastName != ""
+        ? ProfileController.to.profileDetails.billing.lastName
+        : "";
+    bAddress1.text = ProfileController.to.profileDetails.billing.address1 != ""
+        ? ProfileController.to.profileDetails.billing.address1
+        : "";
+    bAddress2.text = ProfileController.to.profileDetails.billing.address2 != ""
+        ? ProfileController.to.profileDetails.billing.address2
+        : "";
+    bCity.text = ProfileController.to.profileDetails.billing.city != ""
+        ? ProfileController.to.profileDetails.billing.city
+        : "";
+    bPostCode.text = ProfileController.to.profileDetails.billing.postcode != ""
+        ? ProfileController.to.profileDetails.billing.postcode
+        : "";
+    bCountry.text = ProfileController.to.profileDetails.billing.country != ""
+        ? ProfileController.to.profileDetails.billing.country
+        : "";
+    bState.text = ProfileController.to.profileDetails.billing.state != ""
+        ? ProfileController.to.profileDetails.billing.state
+        : "";
+    bEmail.text = ProfileController.to.profileDetails.billing.email != ""
+        ? ProfileController.to.profileDetails.billing.email
+        : "";
+    bPhone.text = ProfileController.to.profileDetails.billing.phone != ""
+        ? ProfileController.to.profileDetails.billing.phone
+        : "";
+  }
+
   updateProfile() async {
     SharedPreferences pref = await SharedPreferences.getInstance();
     var id = pref.getString('userId');
     var body = {
-      "username": userName.text == "" || userName.text.isEmpty
-          ? "${profileDetails.username}"
-          : userName.text,
+      "first_name": firstName.text,
+      "username": userName.text,
       "billing": {
         "first_name": bFName.text,
         "last_name": bLName.text,
@@ -180,6 +224,7 @@ class ProfileController extends GetxController {
         Get.back();
         commonToast(msg: "Address updated successfully");
         addressFieldsEmpty();
+        getProfile();
       } else {
         updateProfileLoading = false;
         debugPrint("update profile failed");

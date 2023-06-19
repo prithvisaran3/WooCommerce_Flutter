@@ -1,5 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:steels/app/controller/auth.dart';
+import 'package:steels/app/controller/fileupload.dart';
+import 'package:steels/app/ui/screens/profile/profile_screen.dart';
 import '../../controller/profile.dart';
 import '../themes/colors.dart';
 import '../themes/font_size.dart';
@@ -9,15 +14,17 @@ import '../widgets/common/intl_phone_field.dart';
 import '../widgets/common/loading.dart';
 import '../widgets/common/text.dart';
 
-class AddBillingAddress extends StatelessWidget {
-  const AddBillingAddress({Key? key}) : super(key: key);
+class EditProfileScreen extends StatelessWidget {
+  const EditProfileScreen({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
         init: ProfileController(),
         initState: (_) {
-          // ProfileController.to.addressFieldsEmpty();
+          ProfileController.to.addressFieldsEmpty();
           ProfileController.to.billingAsSameShipping = false;
+          ProfileController.to.setData();
         },
         builder: (_) {
           return Scaffold(
@@ -25,8 +32,8 @@ class AddBillingAddress extends StatelessWidget {
                 backgroundColor: AppColors.primary,
                 automaticallyImplyLeading: true,
                 title: CommonText(
-                  text: "Address",
-                  style: mediumText(fontSize: 16, color: AppColors.white),
+                  text: "Edit Profile",
+                  style: mediumText(fontSize: 18, color: AppColors.white),
                 ),
               ),
               body: Stack(
@@ -38,6 +45,78 @@ class AddBillingAddress extends StatelessWidget {
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
                         children: [
+                          SizedBox(height: 10),
+
+                          Align(
+                            alignment: Alignment.center,
+                            child: GestureDetector(
+                              onTap: () {
+                                FileUploadController.to
+                                    .showSelectionDialog(profileMode: false);
+                              },
+                              child: Container(
+                                  height: 180,
+                                  width: 180,
+                                  padding: const EdgeInsets.all(10),
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    color: AppColors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade300,
+                                        spreadRadius: 1.3,
+                                        blurRadius: 2,
+                                      ),
+                                    ],
+                                  ),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(150),
+                                      child: Obx(() => ProfileController
+                                                  .to.getProfileLoading ==
+                                              true
+                                          ? Center(child: SimpleLoading())
+                                          : ProfileController.to.profileDetails
+                                                      .avatarUrl ==
+                                                  null
+                                              ? Image.asset(
+                                                  'assets/images/no_profile.jpg')
+                                              : Image.file(File(
+                                                  FileUploadController.to
+                                                      .profileImage.path))))),
+                            ),
+                          ),
+                          SizedBox(height: 20),
+
+                          //Profile
+                          Row(
+                            children: [
+                              CommonText(
+                                  text: "Personal Details",
+                                  style: mediumText(fontSize: 18)),
+                            ],
+                          ),
+
+                          CommonTextFormField(
+                            hintText: "First Name",
+                            controller: ProfileController.to.firstName,
+                            validator: (data) {
+                              if (data == null || data.isEmpty || data == "") {
+                                return 'Please enter first name';
+                              }
+                              return null;
+                            },
+                          ),
+                          CommonTextFormField(
+                            hintText: "User Name",
+                            controller: ProfileController.to.userName,
+                            validator: (data) {
+                              if (data == null || data.isEmpty || data == "") {
+                                return 'Please enter username';
+                              }
+                              return null;
+                            },
+                          ),
+
                           //Billing Address
                           Row(
                             children: [
@@ -46,6 +125,7 @@ class AddBillingAddress extends StatelessWidget {
                                   style: mediumText(fontSize: 18)),
                             ],
                           ),
+
                           Row(
                             children: [
                               Flexible(

@@ -11,5 +11,8 @@ class AppConfig {
   static const todayOffersProductTagId = "62";
   static const topSellingProductTagId = "64";
 
+  static const forgotPassword = "https://chandransteelsonline.com/wp-json/custom/v1/forget_password";
+
+
 
 }

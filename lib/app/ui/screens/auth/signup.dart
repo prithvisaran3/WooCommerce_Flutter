@@ -128,7 +128,8 @@ class Signup extends StatelessWidget {
                       },
                       child: CommonText(
                         text: "Log in",
-                        style: regularText(
+                        style: mediumText(
+                          fontSize: 14,
                           color: AppColors.primary,
                         ),
                       ),
