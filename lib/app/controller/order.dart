@@ -1,13 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:steels/app/config/config.dart';
 import 'package:steels/app/controller/cart.dart';
 import '../data/repository/order.dart';
 import '../ui/widgets/common/toast.dart';
 import 'main.dart';
 import 'payment.dart';
+import 'package:http/http.dart' as http;
 
 class OrderController extends GetxController {
   static OrderController get to => Get.put(OrderController());
@@ -127,6 +130,60 @@ class OrderController extends GetxController {
   }
 
   Timer? debounce;
+
+  sendMessageNotification(
+      {required email, required body, required title}) async {
+    var url = "https://fcm.googleapis.com/fcm/send";
+    var token = "";
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(email)
+          .get()
+          .then((value) {
+        token = value.data()!['fcmToken'];
+        print("value is ${value.data()!['fcmToken']}");
+      });
+
+      http.Response response = await http.post(
+        Uri.parse(url),
+        headers: <String, String>{
+          'Content-Type': 'application/json',
+          'Authorization': 'key=${AppConfig.fcmServerKey}',
+        },
+        body: jsonEncode(
+          {
+            'to': token,
+            'notification': {'body': "$body", 'title': "$title"},
+            'priority': 'high',
+            'data': {
+              'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+              'id': '1',
+              'status': 'done'
+            },
+          },
+        ),
+      );
+
+      if (response.statusCode == 200) {
+        print(
+            "Push notification response body is: ${jsonDecode(response.body)}");
+        var invalid = "${jsonDecode(response.body)['results'][0]['error']}";
+        if (invalid == "InvalidRegistration") {
+          print(
+              "Push notification response body is: ${jsonDecode(response.body)['results'][0]['error']}");
+        } else {
+          print("send message to fcm notification successfully");
+        }
+      } else if (response.statusCode == 401) {
+        print("Push notification response body is: ${response.body}");
+        print(
+            "Push notification response body is: INVALID SERVER KEY OR WRONG");
+      }
+    } catch (e) {
+      print("Exception on sendMessageNotification\n$e");
+    }
+  }
 
   searchOrders() {
     if (debounce?.isActive ?? false) debounce?.cancel();
@@ -274,6 +331,10 @@ class OrderController extends GetxController {
       Future.delayed(const Duration(seconds: 3), () {
         if (statusCode == 200 || statusCode == 201) {
           commonToast(msg: "Create order successfully");
+          sendMessageNotification(
+              email: PaymentController.to.bEmail.text,
+              body: "Order ID: ${res['id']}\nStatus:${res['status']}",
+              title: "Order created successfully");
           PaymentController.to.selectIndex = 2;
           Future.delayed(const Duration(seconds: 2), () {
             Get.back();

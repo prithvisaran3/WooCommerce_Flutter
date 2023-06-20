@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -150,6 +151,16 @@ class Profile extends StatelessWidget {
                           text: "Onboarding check",
                           onTap: () {
                             Get.to(() => OnBoarding());
+                          },
+                        ),
+                        ProfileOptionsTile(
+                          icon: Ionicons.document_text_outline,
+                          text: "Notification check",
+                          onTap: () async {
+                            OrderController.to.sendMessageNotification(
+                                email: 'check@gmail.com',
+                                body: "CHECKING DEMO",
+                                title: "NOTIFICATION DEMO");
                           },
                         ),
                         ProfileOptionsTile(

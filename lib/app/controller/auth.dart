@@ -3,6 +3,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_remote_config/firebase_remote_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -180,15 +181,16 @@ class AuthController extends GetxController {
     };
     try {
       var res = repository.register(body: body);
-      Future.delayed(const Duration(seconds: 5), () {
+      Future.delayed(const Duration(seconds: 5), () async{
         if (statusCode == 200 || statusCode == 201) {
           registerLoading = false;
+          var message=await FirebaseMessaging.instance.getToken();
           res.then((value) {
             Map storedData = {
               "userId": "${value['id']}",
             };
             storeLocalDevice(body: storedData);
-            storeUserToFirebase(id: "${value['id']}");
+            storeUserToFirebase(id: "${value['id']}",fcm: "$message");
             debugPrint("id is: ${value['id']}");
           });
           Get.back();
@@ -245,12 +247,13 @@ class AuthController extends GetxController {
     }
   }
 
-  storeUserToFirebase({required id}) async {
+  storeUserToFirebase({required id,required fcm}) async {
     try {
       await FirebaseFirestore.instance.collection("users").doc(email.text).set({
         'id': '$id',
         'email': email.text,
         'name': fName.text,
+        'fcmToken':"$fcm",
       }, SetOptions(merge: true)).whenComplete(
           () => debugPrint("User store in firebase successful"));
     } catch (e) {
