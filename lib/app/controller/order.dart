@@ -154,7 +154,12 @@ class OrderController extends GetxController {
         body: jsonEncode(
           {
             'to': token,
-            'notification': {'body': "$body", 'title': "$title"},
+            'notification': {
+              'body': "$body",
+              'title': "$title",
+              "sound": "tone.mp3",
+              "playSound": true
+            },
             'priority': 'high',
             'data': {
               'click_action': 'FLUTTER_NOTIFICATION_CLICK',

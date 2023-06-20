@@ -38,6 +38,7 @@ dependencies:
   flutter_svg: ^2.0.5
   firebase_messaging: ^14.6.3
   flutter_local_notifications: ^14.1.1
+  audioplayers: ^4.1.0
 
 
 
@@ -60,6 +61,7 @@ flutter:
   assets:
     - assets/images/
     - assets/flags/
+    - assets/audio/
 
 
 
