@@ -51,40 +51,47 @@ class EditProfileScreen extends StatelessWidget {
                             alignment: Alignment.center,
                             child: GestureDetector(
                               onTap: () {
-                                FileUploadController.to
-                                    .showSelectionDialog(profileMode: false);
+                                // FileUploadController.to
+                                //     .showSelectionDialog(profileMode: false);
+                                // print(
+                                //     "RETURN TYPE OF IMAGE IS: ${FileUploadController.to.imageFile}");
                               },
                               child: Container(
-                                  height: 180,
-                                  width: 180,
-                                  padding: const EdgeInsets.all(10),
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: AppColors.white,
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey.shade300,
-                                        spreadRadius: 1.3,
-                                        blurRadius: 2,
-                                      ),
-                                    ],
+                                height: 180,
+                                width: 180,
+                                padding: const EdgeInsets.all(10),
+                                decoration: BoxDecoration(
+                                  shape: BoxShape.circle,
+                                  color: AppColors.white,
+                                  boxShadow: [
+                                    BoxShadow(
+                                      color: Colors.grey.shade300,
+                                      spreadRadius: 1.3,
+                                      blurRadius: 2,
+                                    ),
+                                  ],
+                                ),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(150),
+                                  child: Obx(
+                                    () =>
+                                        FileUploadController.to.isFilePicked ==
+                                                false
+                                            ? Image.network(
+                                                "${ProfileController.to.profileDetails.avatarUrl}",
+                                                fit: BoxFit.cover,
+                                              )
+                                            : Image.file(
+                                                File(FileUploadController
+                                                    .to.imageFile),
+                                                fit: BoxFit.cover,
+                                              ),
                                   ),
-                                  child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(150),
-                                      child: Obx(() => FileUploadController
-                                                  .to.isFilePicked ==
-                                              false
-                                          ? Image.network(
-                                              "${ProfileController.to.profileDetails.avatarUrl}",
-                                              fit: BoxFit.cover,
-                                            )
-                                          : Image.file(
-                                              File(FileUploadController
-                                                  .to.imageFile),
-                                              fit: BoxFit.cover,
-                                            )))),
+                                ),
+                              ),
                             ),
                           ),
+
                           const SizedBox(height: 20),
 
                           //Profile

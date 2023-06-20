@@ -27,6 +27,7 @@ class AllProducts extends StatelessWidget {
     return GetBuilder(
         init: ProductController(),
         initState: (_) {
+
           ProductController.to.loadMoreFunction();
           ProductController.to.productSearch.text = "";
           HomeController.to.orderBy = "";
@@ -77,6 +78,9 @@ class AllProducts extends StatelessWidget {
                     children: [
                       Flexible(
                           child: TextField(
+                        autofocus: HomeController.to.onPressedSearch == true
+                            ? true
+                            : false,
                         controller: ProductController.to.productSearch,
                         decoration: InputDecoration(
                             prefixIcon: const Icon(Icons.search),

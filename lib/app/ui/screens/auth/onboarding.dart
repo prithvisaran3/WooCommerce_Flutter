@@ -109,12 +109,12 @@ class _OnBoardingScreenState extends State<OnBoarding> {
                       buildSlider(
                           title: "Secure Payments",
                           content: "Say goodbye to worries about payment.[App Name] offers a secure and hassle-free payment process.",
-                          image: "online"),
+                          image: "payment"),
                       buildSlider(
                           title: "High Quality User Experience",
                           content:
                               "Let's get started with your hunt towards required products",
-                          image: "quality"),
+                          image: "user"),
                     ],
                   ),
                 ),
@@ -198,7 +198,7 @@ class _OnBoardingScreenState extends State<OnBoarding> {
 
   SvgPicture buildSvgPicture({required imgSrc}) {
     return SvgPicture.asset(
-      "assets/images/$imgSrc.svg",
+      "assets/images/onboarding/$imgSrc.svg",
       height: Get.height * 0.55,
     );
   }

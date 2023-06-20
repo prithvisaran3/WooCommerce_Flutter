@@ -14,7 +14,7 @@ class HomeMain extends StatelessWidget {
   HomeMain({Key? key}) : super(key: key);
   final List<Widget> pages = [
     Dashboard(),
-    WishlistScreen(),
+    // WishlistScreen(),
     CartScreen(),
     MyOrders(),
     Profile(),
@@ -94,29 +94,29 @@ class HomeMain extends StatelessWidget {
                       onTap: () {
                         HomeController.to.selectedIndex = 0;
                       }),
+                  // buildIcon(
+                  //     index: 1,
+                  //     icon: Ionicons.heart_outline,
+                  //     onTap: () {
+                  //       HomeController.to.selectedIndex = 1;
+                  //     }),
                   buildIcon(
                       index: 1,
-                      icon: Ionicons.heart_outline,
+                      icon: Icons.shopping_cart_outlined,
                       onTap: () {
                         HomeController.to.selectedIndex = 1;
                       }),
                   buildIcon(
                       index: 2,
-                      icon: Icons.shopping_cart_outlined,
+                      icon: Ionicons.briefcase_outline,
                       onTap: () {
                         HomeController.to.selectedIndex = 2;
                       }),
                   buildIcon(
                       index: 3,
-                      icon: Ionicons.briefcase_outline,
-                      onTap: () {
-                        HomeController.to.selectedIndex = 3;
-                      }),
-                  buildIcon(
-                      index: 4,
                       icon: Icons.person_outline,
                       onTap: () {
-                        HomeController.to.selectedIndex = 4;
+                        HomeController.to.selectedIndex = 3;
                       }),
                 ],
               ),

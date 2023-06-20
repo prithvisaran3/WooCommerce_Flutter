@@ -128,6 +128,7 @@ class Dashboard extends StatelessWidget {
                         GestureDetector(
                           onTap: () {
                             Get.to(() => AllProducts());
+                            HomeController.to.onPressedSearch = false;
                           },
                           child: CommonText(
                               text: "View All",

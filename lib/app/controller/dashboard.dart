@@ -168,6 +168,14 @@ class HomeController extends GetxController {
     _categoryPageNumber.value = value;
   }
 
+  final _onPressedSearch = false.obs;
+
+  get onPressedSearch => _onPressedSearch.value;
+
+  set onPressedSearch(value) {
+    _onPressedSearch.value = value;
+  }
+
   order(SortBy sort) {
     orderBy = sort;
     update();

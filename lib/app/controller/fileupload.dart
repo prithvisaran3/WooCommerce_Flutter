@@ -158,7 +158,7 @@ class FileUploadController extends GetxController {
       ],
     );
     if (croppedImage != null) {
-      print("CROPPED IMAGE TYPE: ${croppedImage.path}");
+      print("CROPPED IMAGE TYPE: ${croppedImage.toString()}");
       isFilePicked = true;
       imageFile = croppedImage.path;
       update();

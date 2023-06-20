@@ -8,6 +8,7 @@ import 'package:steels/app/ui/widgets/common/button.dart';
 import 'package:steels/app/ui/widgets/common/toast.dart';
 import '../data/model/profile.dart';
 import '../data/repository/profile.dart';
+import 'fileupload.dart';
 import 'main.dart';
 
 class ProfileController extends GetxController {
@@ -80,8 +81,11 @@ class ProfileController extends GetxController {
   }
 
   addressFieldsEmpty() {
+    //profile details
+
     userName.text = "";
     firstName.text = "";
+
     //Billing Fields
     bFName.text = "";
     bLName.text = "";
@@ -142,6 +146,7 @@ class ProfileController extends GetxController {
     firstName.text = ProfileController.to.profileDetails.firstName != ""
         ? ProfileController.to.profileDetails.firstName
         : "";
+
     //billing data
     bFName.text = ProfileController.to.profileDetails.billing.firstName != ""
         ? ProfileController.to.profileDetails.billing.firstName
@@ -181,6 +186,7 @@ class ProfileController extends GetxController {
     var body = {
       "first_name": firstName.text,
       "username": userName.text,
+      "avatar_url": FileUploadController.to.imageFile,
       "billing": {
         "first_name": bFName.text,
         "last_name": bLName.text,
