@@ -27,7 +27,7 @@ class ProductAvailability extends StatelessWidget {
           children: [
             SelectColorSection(),
             SizedBox(height: 10),
-            PincodeSection(),
+            // PincodeSection(),
             SizedBox(height: 10),
             CouponSection(context),
             // Coupon not applicable text

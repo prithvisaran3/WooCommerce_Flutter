@@ -11,6 +11,7 @@ import 'package:steels/app/controller/dashboard.dart';
 import 'package:steels/app/controller/main.dart';
 import 'package:steels/app/controller/product.dart';
 import 'package:steels/app/data/model/cart/req.dart';
+import 'package:steels/app/ui/widgets/common/common_snackbar.dart';
 import 'package:steels/app/ui/widgets/common/toast.dart';
 
 import '../data/repository/cart.dart';
@@ -26,6 +27,14 @@ class CartController extends GetxController {
 
   set getCartLoading(value) {
     _getCartLoading.value = value;
+  }
+
+  final _addToCartLoading = false.obs;
+
+  get addToCartLoading => _addToCartLoading.value;
+
+  set addToCartLoading(value) {
+    _addToCartLoading.value = value;
   }
 
   final _cartEmpty = false.obs;
@@ -109,6 +118,7 @@ class CartController extends GetxController {
   }
 
   addCart({productId, userId, qty}) async {
+    addToCartLoading = true;
     // cartDetails.forEach((e) {
     //   addCartProducts
     //       .add({"product_id": e['product_id'], "quantity": e['qty']});
@@ -138,21 +148,34 @@ class CartController extends GetxController {
       var res = await repository.addCart(body: jsonEncode(addCartMap));
 
       if (statusCode == 200) {
+        addToCartLoading = false;
+
         if (res['status'] == 200) {
           isMoveToCart = true;
 
           if (res['data'].isNotEmpty) {
+            // commonToast(msg: "Added to cart successfully");
+            commonSnackBar(title: "Add to Cart",msg: "Successful");
             // cartDetails = [];
             cartDetails = res['data'];
             update();
           }
         } else if (res['status'] == 404) {
+          // commonToast(msg: "Try again :(");
+          commonSnackBar(title: "Add to Cart",msg: "Failed");
+
+
+
           isMoveToCart = false;
         }
       } else {
+        addToCartLoading = false;
+
         print("404");
       }
     } catch (e) {
+      addToCartLoading = false;
+
       debugPrint("Error from server on add cart $e");
     }
   }

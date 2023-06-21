@@ -12,43 +12,89 @@ class SearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        HomeController.to.onPressedSearch = true;
-        Get.to(() => AllProducts());
-      },
-      child: Container(
-        height: 50,
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8),
-          color: AppColors.white,
-          boxShadow: [
-            BoxShadow(
-                color: AppColors.grey.withOpacity(.2),
-                spreadRadius: 2,
-                blurRadius: 1),
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 8,vertical: 5),
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.shade300,
+            spreadRadius: 2,
+            blurRadius: 2,
+          )
+        ],
+        color: AppColors.primary,
+        gradient: LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            AppColors.white,
+            AppColors.white,
+            AppColors.primary,
           ],
         ),
-        child: Row(
-          children: [
-            Icon(
-              Icons.search_outlined,
-              color: AppColors.primary,
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(40),
+          bottomRight: Radius.circular(40),
+        ),
+      ),
+      child: Column(
+        children: [
+          Container(
+            padding: EdgeInsets.all(15),
+            margin: EdgeInsets.symmetric(horizontal: 10),
+            width: Get.width,
+            decoration: BoxDecoration(
+              // color: Colors.white,
+              borderRadius: BorderRadius.circular(8),
             ),
-            Spacer(),
-            GestureDetector(
-              onTap: () {
-                Get.to(() => Error500());
-              },
-              child: Icon(
-                Ionicons.notifications_outline,
-                color: AppColors.primary,
+            child: Image.asset(
+              'assets/images/new_logo_modified.png',
+              width: Get.width,
+              fit: BoxFit.fill,
+            ),
+          ),
+          GestureDetector(
+            onTap: () {
+              HomeController.to.onPressedSearch = true;
+              Get.to(() => AllProducts());
+            },
+            child: Container(
+              height: 50,
+              padding: const EdgeInsets.symmetric(horizontal: 10.0),
+              margin: EdgeInsets.symmetric(vertical: 5),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: AppColors.white,
+                boxShadow: [
+                  BoxShadow(
+                      color: AppColors.grey.withOpacity(.2),
+                      spreadRadius: 2,
+                      blurRadius: 1),
+                ],
+              ),
+              child: Row(
+                children: [
+                  Icon(
+                    Icons.search_outlined,
+                    color: AppColors.primary,
+                  ),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      Get.to(() => Error500());
+                    },
+                    child: Icon(
+                      Ionicons.notifications_outline,
+                      color: AppColors.primary,
+                    ),
+                  ),
+                  SizedBox(width: 5),
+                ],
               ),
             ),
-            SizedBox(width: 5),
-          ],
-        ),
+          ),
+          SizedBox(height: 10),
+        ],
       ),
     );
   }

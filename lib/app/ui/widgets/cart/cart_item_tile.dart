@@ -34,24 +34,24 @@ class CartItemContainer extends StatelessWidget {
       margin: const EdgeInsets.only(right: 10, left: 10, top: 10, bottom: 5),
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.shade400,
+            color: AppColors.primary.withOpacity(0.3),
             spreadRadius: 1,
             blurRadius: 1,
           ),
         ],
         color: AppColors.white,
-        gradient: const LinearGradient(
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          colors: [
-            // AppColors.primary,
-            AppColors.secondary,
-            AppColors.white,
-          ],
-        ),
+        // gradient: const LinearGradient(
+        //   begin: Alignment.topLeft,
+        //   end: Alignment.bottomRight,
+        //   colors: [
+        //     // AppColors.primary,
+        //     AppColors.secondary,
+        //     AppColors.white,
+        //   ],
+        // ),
       ),
       child: Row(
         children: [
@@ -92,14 +92,14 @@ class CartItemContainer extends StatelessWidget {
                 children: [
                   RupeeText(
                       amount: regularPrice,
-                      color: AppColors.red,
+                      color: AppColors.black,
                       fontSize: 12,
                       textDecoration: TextDecoration.lineThrough,
                       type: 'medium'),
                   SizedBox(width: 5),
                   RupeeText(
                       amount: salePrice,
-                      color: AppColors.white,
+                      color: AppColors.primary,
                       fontSize: 16,
                       type: 'bold'),
                 ],
@@ -121,21 +121,21 @@ class CartItemContainer extends StatelessWidget {
               ),
               SizedBox(height: 15),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.primary,
-                    ),
-                    child: Icon(
-                      Ionicons.heart_outline,
-                      color: Colors.white,
-                      size: 20,
-                    ),
-                  ),
-                  SizedBox(width: 5),
+                  // Container(
+                  //   padding: EdgeInsets.all(5),
+                  //   decoration: BoxDecoration(
+                  //     borderRadius: BorderRadius.circular(10),
+                  //     color: AppColors.black,
+                  //   ),
+                  //   child: Icon(
+                  //     Ionicons.heart_outline,
+                  //     color: Colors.white,
+                  //     size: 20,
+                  //   ),
+                  // ),
+                  // SizedBox(width: 5),
                   GestureDetector(
                     onTap: deletePressed,
                     child: Container(

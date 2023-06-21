@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:steels/app/controller/coupon.dart';
@@ -15,17 +16,20 @@ commonAlertDialog(BuildContext context,
   Widget cancelButton = TextButton(
     child: Container(
       height: 30,
-      width: 60,
+      width: 80,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8), color: AppColors.grey),
+          borderRadius: BorderRadius.circular(8), color: AppColors.red),
       child: Center(
         child: CommonText(
           text: "Cancel",
-          style: regularText(fontSize: 14, color: AppColors.black),
+          style: regularText(color: AppColors.white),
         ),
       ),
     ),
     onPressed: () {
+      if (kDebugMode) {
+        print("print");
+      }
       Get.back();
     },
   );
@@ -33,39 +37,45 @@ commonAlertDialog(BuildContext context,
     onPressed: confirmButtonPressed,
     child: Container(
       height: 30,
-      width: 60,
+      width: 80,
       decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(8), color: AppColors.primary),
+          borderRadius: BorderRadius.circular(8), color: AppColors.green),
       child: Center(
         child: CommonText(
-            text: "Confirm",
-            style: mediumText(fontSize: 14, color: AppColors.white)),
+          text: "Confirm",
+          style: regularText(color: AppColors.white),
+        ),
       ),
     ),
   );
 
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
+    actionsAlignment: MainAxisAlignment.center,
     shape: const RoundedRectangleBorder(
       borderRadius: BorderRadius.all(
         Radius.circular(15.0),
       ),
     ),
-    backgroundColor: Colors.grey.shade300,
+    // backgroundColor: Colors.white.withOpacity(0.4),
     title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        const Icon(
+        Icon(
           Icons.warning_amber_rounded,
           color: Colors.red,
-          size: 25,
+          size: 30,
         ),
-        const SizedBox(
+        SizedBox(
           width: 10,
         ),
         CommonText(
           text: "Alert",
-          style: mediumText(),
+          style: boldText(
+            fontSize: 24,
+            color: AppColors.black,
+          ),
         )
       ],
     ),
@@ -74,8 +84,11 @@ commonAlertDialog(BuildContext context,
       children: [
         CommonText(
           text: content,
-          style: regularText(),
-        )
+          style: regularText(
+            fontSize: 16,
+            color: AppColors.black,
+          ),
+        ),
       ],
     ),
     actions: [
@@ -163,7 +176,8 @@ couponAlertDialog(BuildContext context,
                             onTap: () {
                               CouponController.to.onPressedCouponCode = index;
                               CouponController.to.couponCode.text =
-                                  CouponController.to.allCouponDetails[index]['code'];
+                                  CouponController.to.allCouponDetails[index]
+                                      ['code'];
                               print(
                                   "X Selected is: ${CouponController.to.couponCode.text}");
                             },

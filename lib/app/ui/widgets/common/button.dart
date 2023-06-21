@@ -23,6 +23,7 @@ class CommonButton extends StatelessWidget {
         alignment: Alignment.center,
         width: media.width / 2,
         decoration: BoxDecoration(
+
           borderRadius: BorderRadius.circular(20.0),
           color: AppColors.white,
           gradient: const LinearGradient(

@@ -181,16 +181,16 @@ class AuthController extends GetxController {
     };
     try {
       var res = repository.register(body: body);
-      Future.delayed(const Duration(seconds: 5), () async{
+      Future.delayed(const Duration(seconds: 5), () async {
         if (statusCode == 200 || statusCode == 201) {
           registerLoading = false;
-          var message=await FirebaseMessaging.instance.getToken();
+          var message = await FirebaseMessaging.instance.getToken();
           res.then((value) {
             Map storedData = {
               "userId": "${value['id']}",
             };
             storeLocalDevice(body: storedData);
-            storeUserToFirebase(id: "${value['id']}",fcm: "$message");
+            storeUserToFirebase(id: "${value['id']}", fcm: "$message");
             debugPrint("id is: ${value['id']}");
           });
           Get.back();
@@ -247,13 +247,13 @@ class AuthController extends GetxController {
     }
   }
 
-  storeUserToFirebase({required id,required fcm}) async {
+  storeUserToFirebase({required id, required fcm}) async {
     try {
       await FirebaseFirestore.instance.collection("users").doc(email.text).set({
         'id': '$id',
         'email': email.text,
         'name': fName.text,
-        'fcmToken':"$fcm",
+        'fcmToken': "$fcm",
       }, SetOptions(merge: true)).whenComplete(
           () => debugPrint("User store in firebase successful"));
     } catch (e) {
@@ -283,19 +283,23 @@ class AuthController extends GetxController {
   }
 
   logout() async {
+    logoutLoading = true;
     SharedPreferences preferences = await SharedPreferences.getInstance();
     var id = preferences.getString('userId');
     debugPrint("userId $id");
 
-    if (id != null && id.isNotEmpty) {
-      preferences.remove('userId');
-      debugPrint("Logout Successful");
-      await Get.off(() => Initial());
-    } else {
-      debugPrint("Logout Failed");
+    Future.delayed(Duration(seconds: 3), () async {
+      logoutLoading = false;
+      if (id != null && id.isNotEmpty) {
+        preferences.remove('userId');
+        debugPrint("Logout Successful");
+        await Get.off(() => Initial());
+      } else {
+        debugPrint("Logout Failed");
 
-      return false;
-    }
+        return false;
+      }
+    });
   }
 
   login() async {

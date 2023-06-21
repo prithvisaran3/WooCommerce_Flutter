@@ -46,11 +46,7 @@ class Dashboard extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0),
-                    child: SearchBar(),
-                  ),
+                  SearchBar(),
                   // Obx(
                   //   () => HomeController.to.loading == true
                   //       ? const Padding(

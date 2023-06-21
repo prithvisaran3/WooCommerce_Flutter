@@ -26,15 +26,15 @@ class Products extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(5),
         decoration: BoxDecoration(
-          color: Colors.grey.shade200,
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppColors.primary.withOpacity(0.5),
-              AppColors.secondary.withOpacity(0.5),
-            ],
-          ),
+          // color: Colors.grey.shade200,
+          // gradient: LinearGradient(
+          //   begin: Alignment.topLeft,
+          //   end: Alignment.bottomRight,
+          //   colors: [
+          //     AppColors.primary.withOpacity(0.5),
+          //     AppColors.secondary.withOpacity(0.5),
+          //   ],
+          // ),
           borderRadius: BorderRadius.circular(8),
         ),
         child: Column(

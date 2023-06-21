@@ -50,7 +50,7 @@ class MyOrders extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 10),
                   child: CommonText(
                     textAlign: TextAlign.start,
                     text: "My Orders",
@@ -60,7 +60,7 @@ class MyOrders extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height: 10),
+                // const SizedBox(height: 10),
                 Obx(
                   () => OrderController.to.ordersEmpty == true
                       ? const SizedBox()
