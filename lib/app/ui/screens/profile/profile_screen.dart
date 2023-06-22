@@ -36,6 +36,7 @@ class Profile extends StatelessWidget {
                 child: Stack(
                   children: [
                     Positioned(
+                      top: 260,
                       bottom: 0,
                       right: 0,
                       left: 0,
@@ -95,6 +96,7 @@ class Profile extends StatelessWidget {
                                   Get.toNamed('/edit_profile');
                                 },
                               ),
+
                               // ProfileOptionsTile(
                               //   icon: Ionicons.card_outline,
                               //   text: "Payment Options",

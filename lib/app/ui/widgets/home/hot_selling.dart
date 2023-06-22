@@ -19,56 +19,60 @@ class HotSelling extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          height: 100,
-          width: 100,
-          margin: const EdgeInsets.all(8),
-          alignment: Alignment.center,
-          decoration: BoxDecoration(
-              color: AppColors.white,
-              borderRadius: BorderRadius.circular(10.0),
-              boxShadow: const [
-                BoxShadow(
-                    color: Colors.black12, offset: Offset(0, 5), blurRadius: 10)
-              ],
-              image: image == "null"
-                  ? const DecorationImage(
-                      fit: BoxFit.fill,
-                      image: AssetImage("assets/images/no_image.png"))
-                  : DecorationImage(
-                      fit: BoxFit.fill, image: NetworkImage(image))),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: CommonText(
-              text: name.length > 12 ? "${name.substring(0, 8)}..." : name,
-              style: regularText()),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 8.0),
-          child: Row(
-            children: [
-              RupeeText(
-                amount: regularPrice,
-                color: AppColors.red,
-                fontSize: 12,
-                type: 'medium',
-                textDecoration: TextDecoration.lineThrough,
-              ),
-              const SizedBox(width: 4),
-              RupeeText(
-                amount: salePrice,
-                color: AppColors.black,
-                fontSize: 14,
-                type: 'bold',
-              ),
-            ],
+    return Container(
+      margin: const EdgeInsets.symmetric(horizontal: 5),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 100,
+            width: 100,
+            margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
+            alignment: Alignment.center,
+            decoration: BoxDecoration(
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(0, 5),
+                      blurRadius: 10)
+                ],
+                image: image == "null"
+                    ? const DecorationImage(
+                        fit: BoxFit.fill,
+                        image: AssetImage("assets/images/no_image.png"))
+                    : DecorationImage(
+                        fit: BoxFit.fill, image: NetworkImage(image))),
           ),
-        ),
-      ],
+          CommonText(
+              text: name.length > 12
+                  ? "${name.substring(0, 12)}\n${name.substring(12)}"
+                  : name,
+              style: regularText()),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              children: [
+                RupeeText(
+                  amount: regularPrice,
+                  color: AppColors.black,
+                  fontSize: 12,
+                  type: 'medium',
+                  textDecoration: TextDecoration.lineThrough,
+                ),
+                const SizedBox(width: 4),
+                RupeeText(
+                  amount: salePrice,
+                  color: AppColors.red,
+                  fontSize: 14,
+                  type: 'bold',
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

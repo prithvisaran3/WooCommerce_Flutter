@@ -10,10 +10,11 @@ import 'individualreview_tile.dart';
 
 class ProductReview extends StatelessWidget {
   ProductReview({Key? key, required this.id}) : super(key: key);
-  dynamic id;
+  int id;
 
   @override
   Widget build(BuildContext context) {
+    // ReviewController.to.totalStarRating = 0.0;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 5),
       child: Column(
@@ -25,10 +26,12 @@ class ProductReview extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  Text(
-                    '4.1',
-                    style: TextStyle(fontFamily: 'medium', fontSize: 38),
-                  ),
+                  ReviewController.to.reviewLoading == true
+                      ? Text("...")
+                      : Text(
+                          "${ReviewController.to.calculateRating(totalRating: ReviewController.to.totalStarRating, reviewCount: ReviewController.to.reviewCount)}",
+                          style: TextStyle(fontFamily: 'medium', fontSize: 38),
+                        ),
                   Padding(
                     padding: EdgeInsets.only(left: 10),
                     child: Column(
@@ -60,9 +63,10 @@ class ProductReview extends StatelessWidget {
                           ],
                         ),
                         ReviewController.to.reviewLoading == true
-                            ? SizedBox()
+                            ? Text("...")
                             : CommonText(
-                                text: "${ReviewController.to.reviewCount}",
+                                text:
+                                    "${ReviewController.to.reviewCount.toString()} reviews",
                                 style: regularText(),
                               ),
                       ],
@@ -81,13 +85,19 @@ class ProductReview extends StatelessWidget {
                     physics: BouncingScrollPhysics(),
                     shrinkWrap: true,
                     itemBuilder: (context, int index) {
+                      calculateReviewCountAndTotalRating(index);
                       ReviewController.to.allReviewDetails[index]
                                   ['product_id'] ==
                               id
-                          ? ReviewController.to.reviewCount++
+                          ? ReviewController.to.totalStarRating +=
+                              ReviewController.to.allReviewDetails[index]
+                                      ['rating'] &
+                                  ReviewController.to.reviewCount++
                           : null;
 
-                      print("REVIEW COUNT: ${ReviewController.to.reviewCount}");
+                      print(
+                          "REVIEW Rating: ${ReviewController.to.totalStarRating}");
+                      print("REVIEW Count: ${ReviewController.to.reviewCount}");
 
                       return ReviewController.to.allReviewDetails[index]
                                   ['product_id'] ==
@@ -99,6 +109,8 @@ class ProductReview extends StatelessWidget {
                                   "${ReviewController.to.allReviewDetails[index]['reviewer_email']}",
                               review:
                                   "${ReviewController.to.allReviewDetails[index]['review']}",
+                              rating: ReviewController
+                                  .to.allReviewDetails[index]['rating'],
                             )
                           : SizedBox();
                     },
@@ -106,11 +118,21 @@ class ProductReview extends StatelessWidget {
           ),
           ReviewController.to.reviewCount == 0
               ? CommonText(
-                  text: "No Reviews found", style: regularText(fontSize: 18))
+                  text: "No Reviews found",
+                  style: regularText(fontSize: 18),
+                )
               : SizedBox(),
           SizedBox(height: 10),
         ],
       ),
     );
+  }
+
+  void calculateReviewCountAndTotalRating(int index) {
+    ReviewController.to.allReviewDetails[index]['product_id'] == id
+        ? ReviewController.to.totalStarRating +=
+            ReviewController.to.allReviewDetails[index]['rating'] &
+                ReviewController.to.reviewCount++
+        : null;
   }
 }

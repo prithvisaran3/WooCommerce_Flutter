@@ -58,6 +58,19 @@ class ReviewController extends GetxController {
     _starRating.value = value;
   }
 
+  final _totalStarRating = 0.obs;
+
+  get totalStarRating => _totalStarRating.value;
+
+  set totalStarRating(value) {
+    _totalStarRating.value = value;
+  }
+
+  String calculateRating({required totalRating, required reviewCount}) {
+    starRating = totalRating / reviewCount;
+    return starRating.toString();
+  }
+
   getAllReviews() async {
     reviewLoading = true;
     try {
@@ -88,7 +101,6 @@ class ReviewController extends GetxController {
   }
 
   sendReview({required dynamic productId}) async {
-
     reviewLoading = true;
     var reviewBody = {
       "product_id": "$productId",
@@ -104,8 +116,8 @@ class ReviewController extends GetxController {
       if (statusCode == 200 || statusCode == 201) {
         reviewLoading = false;
         print("Review sent successfully");
-        reviewDescription.text="";
-        starRating=0.0;
+        reviewDescription.text = "";
+        starRating = 0.0;
       } else {
         reviewLoading = false;
 

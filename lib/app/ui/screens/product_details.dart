@@ -14,7 +14,7 @@ import '../../controller/dashboard.dart';
 import '../../controller/product.dart';
 import '../../controller/review.dart';
 import '../widgets/common/loading.dart';
-import '../widgets/home/produts.dart';
+import '../widgets/home/products.dart';
 import '../widgets/products/availability.dart';
 import '../widgets/products/details.dart';
 import '../widgets/products/review.dart';
@@ -55,57 +55,66 @@ class ProductDetails extends StatelessWidget {
                   },
                 ),
               ),
-              bottomNavigationBar: BottomPriceBar(
-                amount: CouponController.to.isCouponApplied == false
-                    ? CartController.to.quantityUpdateAmount != 0
-                        ? "${CartController.to.quantityUpdateAmount}"
-                        : "${data['sale_price']}"
-                    : "${CouponController.to.afterCouponPrice}",
-                productId: "${data['id']}",
-                isOutOfStock: data['stock_status'],
-              ),
-              body: SingleChildScrollView(
-                physics: BouncingScrollPhysics(),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width,
-                      height: 250,
-                      child: Stack(
-                        children: [
-                          ProductImages(),
-                          CarouselCircleIndicator(),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 15),
-                    Container(
-                      padding: const EdgeInsets.all(5),
-                      width: Get.width,
-                      // height: Get.height,
-                      decoration: BoxDecoration(
-                          color: Colors.grey.shade300,
-                          borderRadius: BorderRadius.circular(40)),
-                      child: Stack(
-                        children: [
-                          Column(
+              body: Stack(
+                children: [
+                  SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width,
+                          height: 250,
+                          child: Stack(
                             children: [
-                              const SizedBox(height: 15),
-                              ProductNameAndAttributesColumn(),
-                              PriceDetails(),
-                              const SizedBox(height: 10),
-                              CouponSavingsDetails(),
-                              DetailsBox()
+                              ProductImages(),
+                              CarouselCircleIndicator(),
                             ],
                           ),
-                          BasicDiscount()
-                        ],
-                      ),
+                        ),
+                        const SizedBox(height: 15),
+                        Container(
+                          padding: const EdgeInsets.all(5),
+                          width: Get.width,
+                          // height: Get.height,
+                          decoration: BoxDecoration(
+                              color: Colors.grey.shade300,
+                              borderRadius: BorderRadius.circular(40)),
+                          child: Stack(
+                            children: [
+                              Column(
+                                children: [
+                                  const SizedBox(height: 15),
+                                  ProductNameAndAttributesColumn(),
+                                  PriceDetails(),
+                                  const SizedBox(height: 10),
+                                  CouponSavingsDetails(),
+                                  DetailsBox()
+                                ],
+                              ),
+                              BasicDiscount()
+                            ],
+                          ),
+                        ),
+                        RelatedProductsColumn(),
+                      ],
                     ),
-                    RelatedProductsColumn(),
-                  ],
-                ),
+                  ),
+                  Positioned(
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: BottomPriceBar(
+                      amount: CouponController.to.isCouponApplied == false
+                          ? CartController.to.quantityUpdateAmount != 0
+                              ? "${CartController.to.quantityUpdateAmount}"
+                              : "${data['sale_price']}"
+                          : "${CouponController.to.afterCouponPrice}",
+                      productId: "${data['id']}",
+                      isOutOfStock: data['stock_status'],
+                    ),
+                  ),
+                ],
               ),
             ),
           );
@@ -167,7 +176,7 @@ class ProductDetails extends StatelessWidget {
     return Column(
       children: [
         CommonText(
-          text: "${data['name']}",
+          text: "${data['name'].toString().capitalize}",
           style: boldText(fontSize: 18),
         ),
         data['attributes'] != null && data['attributes'].length > 0
@@ -387,6 +396,8 @@ class ProductDetails extends StatelessWidget {
                     ProductController.to.selectIndex = 2;
                     ReviewController.to.reviewCount = 0;
                     ReviewController.to.getAllReviews();
+                    ReviewController.to.reviewCount = 0;
+                    ReviewController.to.starRating = 0.0;
                   },
                   index: 2,
                 ),

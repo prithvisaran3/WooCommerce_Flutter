@@ -7,15 +7,17 @@ import '../../themes/font_size.dart';
 import '../common/text.dart';
 
 class IndividualReviewTile extends StatelessWidget {
-  const IndividualReviewTile(
-      {Key? key,
-      required this.reviewer,
-      required this.reviewerEmail,
-      required this.review})
-      : super(key: key);
+  const IndividualReviewTile({
+    Key? key,
+    required this.reviewer,
+    required this.reviewerEmail,
+    required this.review,
+    required this.rating,
+  }) : super(key: key);
   final String reviewer;
   final String reviewerEmail;
   final String review;
+  final int rating;
 
   @override
   Widget build(BuildContext context) {
@@ -57,27 +59,27 @@ class IndividualReviewTile extends StatelessWidget {
                 children: [
                   Icon(
                     Icons.star,
-                    color: AppColors.secondary,
+                    color: rating >= 1 ? AppColors.secondary : AppColors.grey,
                     size: 14,
                   ),
                   Icon(
                     Icons.star,
-                    color: AppColors.secondary,
+                    color: rating >= 2 ? AppColors.secondary : AppColors.grey,
                     size: 14,
                   ),
                   Icon(
                     Icons.star,
-                    color: AppColors.grey,
+                    color: rating >= 3 ? AppColors.secondary : AppColors.grey,
                     size: 14,
                   ),
                   Icon(
                     Icons.star,
-                    color: AppColors.grey,
+                    color: rating >= 4 ? AppColors.secondary : AppColors.grey,
                     size: 14,
                   ),
                   Icon(
                     Icons.star,
-                    color: AppColors.grey,
+                    color: rating == 5 ? AppColors.secondary : AppColors.grey,
                     size: 14,
                   ),
                 ],

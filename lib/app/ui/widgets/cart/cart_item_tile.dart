@@ -37,7 +37,7 @@ class CartItemContainer extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.3),
+            color: AppColors.grey.withOpacity(0.3),
             spreadRadius: 1,
             blurRadius: 1,
           ),
@@ -84,23 +84,25 @@ class CartItemContainer extends StatelessWidget {
               CommonText(
                 textAlign: TextAlign.start,
                 text: name.length > 15
-                    ? "${name.substring(0, 15)}\n${name.substring(15)}"
+                    ? "${name.substring(0, 15)}\n${name.substring(15)}\n"
                     : name,
-                style: mediumText(fontSize: 16),
+                style: name.length > 30
+                    ? mediumText(fontSize: 14)
+                    : mediumText(fontSize: 16),
               ),
               Row(
                 children: [
                   RupeeText(
                       amount: regularPrice,
                       color: AppColors.black,
-                      fontSize: 12,
+                      fontSize: 14,
                       textDecoration: TextDecoration.lineThrough,
                       type: 'medium'),
                   SizedBox(width: 5),
                   RupeeText(
                       amount: salePrice,
                       color: AppColors.primary,
-                      fontSize: 16,
+                      fontSize: 18,
                       type: 'bold'),
                 ],
               )

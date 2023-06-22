@@ -24,7 +24,7 @@ class Products extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        margin: const EdgeInsets.all(5),
+        margin: const EdgeInsets.symmetric(horizontal: 3),
         decoration: BoxDecoration(
           // color: Colors.grey.shade200,
           // gradient: LinearGradient(
@@ -35,15 +35,15 @@ class Products extends StatelessWidget {
           //     AppColors.secondary.withOpacity(0.5),
           //   ],
           // ),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(10),
         ),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Container(
               height: 100,
               width: 100,
-              margin: const EdgeInsets.all(8),
+              margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               alignment: Alignment.center,
               decoration: BoxDecoration(
                   color: AppColors.white,
@@ -64,29 +64,29 @@ class Products extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: CommonText(
-                  text: name.length > 12 ? "${name.substring(0, 8)}..." : name,
+                  text: name.length > 12
+                      ? "${name.substring(0, 12)}\n${name.substring(12)}"
+                      : name,
                   style: regularText()),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: Row(
-                children: [
-                  RupeeText(
-                    amount: regularPrice,
-                    color: AppColors.white,
-                    fontSize: 12,
-                    type: 'medium',
-                    textDecoration: TextDecoration.lineThrough,
-                  ),
-                  const SizedBox(width: 4),
-                  RupeeText(
-                    amount: salePrice,
-                    color: AppColors.black,
-                    fontSize: 14,
-                    type: 'bold',
-                  ),
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                RupeeText(
+                  amount: regularPrice,
+                  color: AppColors.black,
+                  fontSize: 12,
+                  type: 'medium',
+                  textDecoration: TextDecoration.lineThrough,
+                ),
+                const SizedBox(width: 4),
+                RupeeText(
+                  amount: salePrice,
+                  color: AppColors.primary,
+                  fontSize: 14,
+                  type: 'bold',
+                ),
+              ],
             ),
           ],
         ),

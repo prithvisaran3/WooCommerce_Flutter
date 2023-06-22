@@ -43,7 +43,9 @@ class Categories extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-            child: CommonText(text: name, style: regularText()),
+            child: CommonText(text: name.length > 20
+                ? "${name.substring(0, 15)}\n${name.substring(15)}\n"
+                : name, style: regularText()),
           )
         ],
       ),
