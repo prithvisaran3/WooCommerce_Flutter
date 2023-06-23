@@ -50,7 +50,8 @@ class MyOrders extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 15.0,vertical: 10),
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 15.0, vertical: 10),
                   child: CommonText(
                     textAlign: TextAlign.start,
                     text: "My Orders",
@@ -157,23 +158,27 @@ class MyOrders extends StatelessWidget {
 
   Flexible orderSearchBar() {
     return Flexible(
-      child: TextField(
-        controller: OrderController.to.orderSearch,
-        decoration: InputDecoration(
-            prefixIcon: const Icon(Icons.search),
-            hintText: "Search",
-            border: OutlineInputBorder(
-              borderSide: BorderSide.none,
-              borderRadius: BorderRadius.circular(15.0),
-            ),
-            fillColor: const Color(0xffe6e6ec),
-            filled: true),
+      child: Container(
+        height: 50,
+        child: TextField(
+          controller: OrderController.to.orderSearch,
+          decoration: InputDecoration(
+              prefixIcon: const Icon(Icons.search),
+              hintText: "Search",
+              border: OutlineInputBorder(
+                borderSide: BorderSide.none,
+                borderRadius: BorderRadius.circular(15.0),
+              ),
+              fillColor: const Color(0xffe6e6ec),
+              filled: true),
+        ),
       ),
     );
   }
 
   Container orderFilterBox(List<SortBy> sortByOptions) {
     return Container(
+      height: 50,
       decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(9.0),
           color: const Color(0xffe6e6ec)),

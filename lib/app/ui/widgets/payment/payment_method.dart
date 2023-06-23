@@ -19,7 +19,7 @@ class PaymentMethodTile extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Obx(
-            () => Container(
+        () => Container(
           width: Get.width,
           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           margin: EdgeInsets.symmetric(vertical: 5),
@@ -36,12 +36,13 @@ class PaymentMethodTile extends StatelessWidget {
             text: text,
             style: PaymentController.to.onPressedPaymentMethod == index
                 ? boldText(
-              fontSize: 14,
-              color: AppColors.white,
-            )
-                : regularText(
-              color: AppColors.primary,
-            ),
+                    fontSize: 14,
+                    color: AppColors.white,
+                  )
+                : mediumText(
+                    fontSize: 14,
+                    color: AppColors.primary,
+                  ),
           ),
         ),
       ),

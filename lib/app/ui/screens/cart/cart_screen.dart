@@ -25,110 +25,112 @@ class CartScreen extends StatelessWidget {
         CartController.to.getCart();
       },
       builder: (_) {
-        return Stack(
-          children: [
-            Padding(
-                padding: const EdgeInsets.only(top: 50.0, bottom: 60),
-                child: Obx(
-                  () => CartController.to.getCartLoading == true
-                      ? const SimpleLoading()
-                      : CartController.to.cartEmpty == true
-                          ? Center(
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Icon(
-                                    Icons.shopping_cart_outlined,
-                                    color: AppColors.grey.withOpacity(.5),
-                                    size: 100,
-                                  ),
-                                  CommonText(
-                                    text: "Cart Empty",
-                                    style: mediumText(
-                                        fontSize: 16,
-                                        color: AppColors.grey.withOpacity(.6)),
-                                  ),
-                                  const SizedBox(height: 10),
-                                  CommonButton(
-                                    text: "Go to Shop",
-                                    onTap: () {
-                                      HomeController.to.selectedIndex = 0;
+        return Scaffold(
+          body: Stack(
+            children: [
+              Padding(
+                  padding: const EdgeInsets.only(top: 50.0, bottom: 60),
+                  child: Obx(
+                    () => CartController.to.getCartLoading == true
+                        ? const SimpleLoading()
+                        : CartController.to.cartEmpty == true
+                            ? Center(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Icon(
+                                      Icons.shopping_cart_outlined,
+                                      color: AppColors.grey.withOpacity(.5),
+                                      size: 100,
+                                    ),
+                                    CommonText(
+                                      text: "Cart Empty",
+                                      style: mediumText(
+                                          fontSize: 16,
+                                          color: AppColors.grey.withOpacity(.6)),
+                                    ),
+                                    const SizedBox(height: 10),
+                                    CommonButton(
+                                      text: "Go to Shop",
+                                      onTap: () {
+                                        HomeController.to.selectedIndex = 0;
+                                      },
+                                      fontColor: AppColors.white,
+                                    )
+                                  ],
+                                ),
+                              )
+                            : ListView.builder(
+                                itemCount: CartController.to.cartDetails.length,
+                                physics: BouncingScrollPhysics(),
+                                shrinkWrap: true,
+                                itemBuilder: (context, int index) {
+                                  cartTotal();
+
+                                  return CartItemContainer(
+                                    name:
+                                        "${CartController.to.cartDetails[index]['product_name']}",
+                                    regularPrice:
+                                        "${CartController.to.cartDetails[index]['product_regular_price']}",
+                                    salePrice:
+                                        "${CartController.to.cartDetails[index]['product_sale_price']}",
+                                    image:
+                                        "${CartController.to.cartDetails[index]['thumbnail']}",
+                                    count: CartController.to.cartDetails[index]
+                                        ['qty'],
+                                    onChanged: (data) {
+                                      CartController.to.updateQty(
+                                          productId: CartController.to
+                                              .cartDetails[index]['product_id'],
+                                          qty: data);
                                     },
-                                    fontColor: AppColors.white,
-                                  )
-                                ],
+                                    deletePressed: () {
+                                      CartController.to.removeItem(
+                                          productId: CartController.to
+                                              .cartDetails[index]['product_id']);
+
+                                      // CartController.to.addCart(
+                                      //     productId: CartController.to
+                                      //         .cartDetails[index]['product_id'],
+                                      //     qty: 2,
+                                      //     userId: 26);
+                                    },
+                                  );
+                                },
                               ),
-                            )
-                          : ListView.builder(
-                              itemCount: CartController.to.cartDetails.length,
-                              physics: BouncingScrollPhysics(),
-                              shrinkWrap: true,
-                              itemBuilder: (context, int index) {
-                                cartTotal();
-
-                                return CartItemContainer(
-                                  name:
-                                      "${CartController.to.cartDetails[index]['product_name']}",
-                                  regularPrice:
-                                      "${CartController.to.cartDetails[index]['product_regular_price']}",
-                                  salePrice:
-                                      "${CartController.to.cartDetails[index]['product_sale_price']}",
-                                  image:
-                                      "${CartController.to.cartDetails[index]['thumbnail']}",
-                                  count: CartController.to.cartDetails[index]
-                                      ['qty'],
-                                  onChanged: (data) {
-                                    CartController.to.updateQty(
-                                        productId: CartController.to
-                                            .cartDetails[index]['product_id'],
-                                        qty: data);
-                                  },
-                                  deletePressed: () {
-                                    CartController.to.removeItem(
-                                        productId: CartController.to
-                                            .cartDetails[index]['product_id']);
-
-                                    // CartController.to.addCart(
-                                    //     productId: CartController.to
-                                    //         .cartDetails[index]['product_id'],
-                                    //     qty: 2,
-                                    //     userId: 26);
-                                  },
-                                );
-                              },
-                            ),
-                )),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
-              child: CommonText(
-                textAlign: TextAlign.start,
-                text: "My Cart",
-                style: boldText(
-                  fontSize: 24,
-                  color: AppColors.primary,
+                  )),
+              Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                child: CommonText(
+                  textAlign: TextAlign.start,
+                  text: "My Cart",
+                  style: boldText(
+                    fontSize: 24,
+                    color: AppColors.primary,
+                  ),
                 ),
               ),
-            ),
-            Obx(
-              () => CartController.to.cartEmpty == true
-                  ? const SizedBox()
-                  : CartController.to.showAmountCard == false
-                      ? const SizedBox()
-                      : Positioned(
-                          bottom: -15,
-                          right: 0,
-                          left: 0,
-                          child: cartTotalBar(),
-                        ),
-            ),
-            Obx(() => CartController.to.removeLoading == true
-                ? Container(
-                    color: AppColors.black.withOpacity(.3),
-                    child: const SimpleLoading(),
-                  )
-                : const SizedBox())
-          ],
+              Obx(
+                () => CartController.to.cartEmpty == true
+                    ? const SizedBox()
+                    : CartController.to.showAmountCard == false
+                        ? const SizedBox()
+                        : Positioned(
+                            bottom: -15,
+                            right: 0,
+                            left: 0,
+                            child: cartTotalBar(),
+                          ),
+              ),
+              Obx(() => CartController.to.removeLoading == true
+                  ? Container(
+                      color: AppColors.black.withOpacity(.3),
+                      child: const SimpleLoading(),
+                    )
+                  : const SizedBox())
+            ],
+          ),
         );
       },
     );

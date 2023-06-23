@@ -60,79 +60,79 @@ class PaymentMethodScreen extends StatelessWidget {
                     text: "Checkout",
                     style: boldText(
                       color: AppColors.primary,
-                      fontSize: 18,
+                      fontSize: 22,
                     ),
                   ),
                 ),
                 body: ListView(
                   children: [
+                    SizedBox(height: 10),
                     Center(
                       child: SizedBox(
                         height: 50,
                         child: ListView.builder(
-                            itemCount: 3,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return GestureDetector(
-                                  onTap: () {
-                                    PaymentController.to.selectIndex = index;
-                                  },
-                                  child: Obx(
-                                    () => Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                          itemCount: 3,
+                          shrinkWrap: true,
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              onTap: () {
+                                PaymentController.to.selectIndex = index;
+                              },
+                              child: Obx(
+                                () => Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
                                       children: [
-                                        Row(
-                                          children: [
-                                            Container(
-                                              alignment: Alignment.center,
-                                              height: 25,
-                                              width: 25,
-                                              margin:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 5),
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
+                                        Container(
+                                          alignment: Alignment.center,
+                                          height: 25,
+                                          width: 25,
+                                          margin: const EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: PaymentController
+                                                          .to.selectIndex >=
+                                                      index
+                                                  ? AppColors.secondary
+                                                  : AppColors.grey),
+                                          child: const Icon(
+                                            Icons.check,
+                                            color: AppColors.white,
+                                            size: 18,
+                                          ),
+                                        ),
+                                        index == 2
+                                            ? const SizedBox()
+                                            : SizedBox(
+                                                width: Get.width / 4,
+                                                child: Divider(
                                                   color: PaymentController
                                                               .to.selectIndex >=
                                                           index
                                                       ? AppColors.green
-                                                      : AppColors.grey),
-                                              child: const Icon(
-                                                Icons.check,
-                                                color: AppColors.white,
-                                                size: 18,
-                                              ),
-                                            ),
-                                            index == 2
-                                                ? const SizedBox()
-                                                : SizedBox(
-                                                    width: Get.width / 4,
-                                                    child: Divider(
-                                                      color: PaymentController
-                                                                  .to
-                                                                  .selectIndex >=
-                                                              index
-                                                          ? AppColors.green
-                                                          : AppColors.grey,
-                                                      thickness: 2,
-                                                    ),
-                                                  )
-                                          ],
-                                        ),
-                                        CommonText(
-                                            text: index == 0
-                                                ? "Shipping"
-                                                : index == 1
-                                                    ? "Payment"
-                                                    : "Order",
-                                            style: mediumText(fontSize: 12))
+                                                      : AppColors.grey,
+                                                  thickness: 2,
+                                                ),
+                                              )
                                       ],
                                     ),
-                                  ));
-                            }),
+                                    CommonText(
+                                        text: index == 0
+                                            ? "Shipping"
+                                            : index == 1
+                                                ? "Payment"
+                                                : "Order",
+                                        style: mediumText(fontSize: 12))
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                     Obx(
@@ -194,31 +194,34 @@ class PaymentMethodScreen extends StatelessWidget {
             shrinkWrap: true,
             physics: const BouncingScrollPhysics(),
             itemBuilder: (context, int index) {
-              return Obx(() => PaymentController.to.paymentGatewayDetails[index]
-                              ['enabled'] ==
-                          true &&
-                      PaymentController.to.paymentGatewayDetails[index]['id'] !=
-                          ""
-                  ? PaymentMethodTile(
-                      text:
-                          "${PaymentController.to.paymentGatewayDetails[index]['id'].toString().capitalizeFirst}",
-                      onTap: () {
-                        PaymentController.to.onPressedPaymentMethod = index;
+              return Obx(
+                () => PaymentController.to.paymentGatewayDetails[index]
+                                ['enabled'] ==
+                            true &&
+                        PaymentController.to.paymentGatewayDetails[index]
+                                ['id'] !=
+                            ""
+                    ? PaymentMethodTile(
+                        text:
+                            "${PaymentController.to.paymentGatewayDetails[index]['id'].toString().capitalizeFirst}",
+                        onTap: () {
+                          PaymentController.to.onPressedPaymentMethod = index;
 
-                        PaymentController.to.paymentMethod = PaymentController
-                            .to.paymentGatewayDetails[index]['id'];
-                        print(
-                            "Payment Method: ${PaymentController.to.paymentMethod}");
-                        if (PaymentController.to.paymentGatewayDetails[index]
-                                ['id'] ==
-                            "razorpay") {
-                        } else {
-                          print("kjhlkhkjhlkjhk");
-                        }
-                      },
-                      index: index,
-                    )
-                  : SizedBox());
+                          PaymentController.to.paymentMethod = PaymentController
+                              .to.paymentGatewayDetails[index]['id'];
+                          print(
+                              "Payment Method: ${PaymentController.to.paymentMethod}");
+                          if (PaymentController.to.paymentGatewayDetails[index]
+                                  ['id'] ==
+                              "razorpay") {
+                          } else {
+                            print("kjhlkhkjhlkjhk");
+                          }
+                        },
+                        index: index,
+                      )
+                    : SizedBox(),
+              );
             },
           ),
           const SizedBox(

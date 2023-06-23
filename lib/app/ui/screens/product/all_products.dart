@@ -11,6 +11,7 @@ import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../../widgets/common/text.dart';
 import '../../widgets/product/category_wise.dart';
+import '../cart/cart_screen.dart';
 import '../product_details.dart';
 
 class AllProducts extends StatelessWidget {
@@ -27,7 +28,6 @@ class AllProducts extends StatelessWidget {
     return GetBuilder(
         init: ProductController(),
         initState: (_) {
-
           ProductController.to.loadMoreFunction();
           ProductController.to.productSearch.text = "";
           HomeController.to.orderBy = "";
@@ -51,7 +51,7 @@ class AllProducts extends StatelessWidget {
                 text: "All Products",
                 style: mediumText(color: AppColors.white),
               ),
-              actions: const [
+              actions: [
                 Icon(
                   Icons.notifications_none,
                   color: AppColors.white,
@@ -60,9 +60,14 @@ class AllProducts extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                Icon(
-                  Icons.shopping_cart_sharp,
-                  color: AppColors.white,
+                GestureDetector(
+                  onTap: () {
+                    Get.to(()=>CartScreen());
+                  },
+                  child: Icon(
+                    Icons.shopping_cart_sharp,
+                    color: AppColors.white,
+                  ),
                 ),
                 SizedBox(
                   width: 10,

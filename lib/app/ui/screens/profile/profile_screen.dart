@@ -4,7 +4,9 @@ import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
 import 'package:steels/app/controller/auth.dart';
 import 'package:steels/app/controller/order.dart';
+import 'package:steels/app/ui/screens/auth/forgot_password.dart';
 import 'package:steels/app/ui/screens/auth/onboarding.dart';
+import 'package:steels/app/ui/screens/profile/change_password.dart';
 import 'package:steels/app/ui/widgets/common/box_loading.dart';
 import '../../../controller/profile.dart';
 import '../../themes/colors.dart';
@@ -94,6 +96,15 @@ class Profile extends StatelessWidget {
                                 text: "Edit Profile",
                                 onTap: () {
                                   Get.toNamed('/edit_profile');
+                                },
+                              ),
+                              ProfileOptionsTile(
+                                icon: Ionicons.key_outline,
+                                text: "Change Password",
+                                onTap: () {
+                                  Get.to(
+                                    () => CHangePasswordScreen(),
+                                  );
                                 },
                               ),
 

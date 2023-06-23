@@ -39,7 +39,11 @@ class PaymentDetailsBox extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
         child: Column(
           children: [
-            CommonText(text: "Price Details", style: mediumText(fontSize: 16)),
+            CommonText(
+              text: "Price Details",
+              style: boldText(fontSize: 20),
+            ),
+            SizedBox(height: 20),
             ListView.builder(
               itemCount: CartController.to.cartDetails.length,
               shrinkWrap: true,

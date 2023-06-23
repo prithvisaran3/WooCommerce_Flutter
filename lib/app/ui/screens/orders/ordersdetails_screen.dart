@@ -341,7 +341,9 @@ class OrderDetailsScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CommonText(
-                      text: "${data['line_items'][index]["name"]}",
+                      text: data['line_items'][index]["name"].length > 30
+                          ? "${data['line_items'][index]["name"].toString().substring(0, 30)}\n${data['line_items'][index]["name"].toString().substring(30)}"
+                          : "${data['line_items'][index]["name"]}",
                       style: mediumText(fontSize: 16),
                     ),
                     Spacer(),
