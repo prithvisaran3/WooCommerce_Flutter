@@ -341,6 +341,7 @@ class OrderController extends GetxController {
               body: "Order ID: ${res['id']}\nStatus:${res['status']}",
               title: "Order created successfully");
           PaymentController.to.selectIndex = 2;
+          CartController.to.emptyCartAfterOrder();
           Future.delayed(const Duration(seconds: 2), () {
             Get.back();
           });

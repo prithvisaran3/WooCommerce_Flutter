@@ -18,34 +18,32 @@ class ProductAvailability extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("PRODUCT PRICE IS $productPrice");
+    debugPrint("PRODUCT PRICE IS $productPrice");
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
-      child: Obx(
-        () => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SelectColorSection(),
-            SizedBox(height: 10),
-            // PincodeSection(),
-            SizedBox(height: 10),
-            CouponSection(context),
-            // Coupon not applicable text
+      padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          selectColorSection(),
+          const SizedBox(height: 10),
+          // pincodeSection(),
+          const SizedBox(height: 10),
+          couponSection(context),
+          // Coupon not applicable text
 
-            // CommonText(
-            //   text: "Your coupon is not applicable",
-            //   style: mediumText(
-            //     fontSize: 12,
-            //     color: Colors.red,
-            //   ),
-            // ),
-          ],
-        ),
+          // CommonText(
+          //   text: "Your coupon is not applicable",
+          //   style: mediumText(
+          //     fontSize: 12,
+          //     color: Colors.red,
+          //   ),
+          // ),
+        ],
       ),
     );
   }
 
-  Column CouponSection(BuildContext context) {
+  Column couponSection(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -61,7 +59,7 @@ class ProductAvailability extends StatelessWidget {
               flex: 3,
               child: Container(
                 height: 40,
-                margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+                margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(4),
                   border: Border.all(
@@ -70,7 +68,7 @@ class ProductAvailability extends StatelessWidget {
                 ),
                 child: TextFormField(
                   controller: CouponController.to.couponCode,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                     ),
@@ -88,12 +86,12 @@ class ProductAvailability extends StatelessWidget {
                     (e) {
                       e['code'] == CouponController.to.couponCode.text
                           ? CouponController.to.getCouponByID(id: e['id'])
-                          : print("ID mismatch");
+                          : debugPrint("ID mismatch");
                     },
                   );
 
                   Future.delayed(
-                    Duration(seconds: 5),
+                    const Duration(seconds: 5),
                     () {
                       CouponController.to.couponAppliedAmount =
                           calculateCouponPrice(
@@ -103,13 +101,13 @@ class ProductAvailability extends StatelessWidget {
                     },
                   );
 
-                  print(
+                  debugPrint(
                       "Coupon match count: ${CouponController.to.couponMatch}");
                 },
                 child: Container(
                   height: 40,
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(vertical: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(4),
@@ -151,10 +149,10 @@ class ProductAvailability extends StatelessWidget {
             ),
           ),
         ),
-        SizedBox(height: 10),
+        const SizedBox(height: 10),
         Obx(
           () => CouponController.to.couponLoading == true
-              ? SimpleLoading()
+              ?  SimpleLoading()
               : CouponController.to.isCouponApplied == true
                   ? CouponController.to.couponMatch == 0
                       ? CommonText(
@@ -181,7 +179,7 @@ class ProductAvailability extends StatelessWidget {
                                     color: Colors.black,
                                   ),
                                 ),
-                                SizedBox(width: 5),
+                                const SizedBox(width: 5),
                                 RupeeText(
                                   amount:
                                       "${CouponController.to.afterCouponPrice}",
@@ -209,13 +207,13 @@ class ProductAvailability extends StatelessWidget {
                           text: "Invalid Coupon",
                           style: regularText(color: AppColors.red),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
         ),
       ],
     );
   }
 
-  Column SelectColorSection() {
+  Column selectColorSection() {
     return Column(
       children: [
         CommonText(
@@ -228,7 +226,7 @@ class ProductAvailability extends StatelessWidget {
           height: 90,
           child: ListView.builder(
             itemCount: 5,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.horizontal,
             itemBuilder: (context, int index) {
@@ -242,8 +240,8 @@ class ProductAvailability extends StatelessWidget {
                       Container(
                         height: 40,
                         width: 40,
-                        margin:
-                            EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 25, vertical: 10),
                         decoration: BoxDecoration(
                           shape: BoxShape.circle,
                           color: Colors.purpleAccent,
@@ -277,7 +275,7 @@ class ProductAvailability extends StatelessWidget {
     );
   }
 
-  Column PincodeSection() {
+  Column pincodeSection() {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -293,7 +291,7 @@ class ProductAvailability extends StatelessWidget {
               flex: 3,
               child: Container(
                   height: 40,
-                  margin: EdgeInsets.only(top: 10, bottom: 10, right: 10),
+                  margin: const EdgeInsets.only(top: 10, bottom: 10, right: 10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(4),
                     border: Border.all(
@@ -302,7 +300,7 @@ class ProductAvailability extends StatelessWidget {
                   ),
                   child: TextFormField(
                     keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                         border: OutlineInputBorder(
                       borderSide: BorderSide.none,
                     )),
@@ -317,7 +315,7 @@ class ProductAvailability extends StatelessWidget {
                 child: Container(
                   height: 40,
                   alignment: Alignment.center,
-                  margin: EdgeInsets.symmetric(vertical: 10),
+                  margin: const EdgeInsets.symmetric(vertical: 10),
                   decoration: BoxDecoration(
                     color: Colors.black,
                     borderRadius: BorderRadius.circular(4),
@@ -357,7 +355,7 @@ class ProductAvailability extends StatelessWidget {
                           color: Colors.black,
                         ),
                       ),
-                      SizedBox(width: 5),
+                      const SizedBox(width: 5),
                       CommonText(
                         text: "24th June,2023",
                         style: boldText(
@@ -369,7 +367,7 @@ class ProductAvailability extends StatelessWidget {
                   ),
                 ],
               )
-            : SizedBox(),
+            : const SizedBox(),
       ],
     );
   }

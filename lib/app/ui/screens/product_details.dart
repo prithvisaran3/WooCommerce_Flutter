@@ -234,7 +234,7 @@ class ProductDetails extends StatelessWidget {
           ),
         ),
         Obx(() => HomeController.to.productsLoading == true
-            ? const SimpleLoading()
+            ?  SimpleLoading()
             : HomeController.to.productsEmpty == true
                 ? const Text("empty")
                 : SizedBox(

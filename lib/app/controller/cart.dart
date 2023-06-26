@@ -117,6 +117,14 @@ class CartController extends GetxController {
     _isMoveToCart.value = value;
   }
 
+  final _removeCartLoading = false.obs;
+
+  get removeCartLoading => _removeCartLoading.value;
+
+  set removeCartLoading(value) {
+    _removeCartLoading.value = value;
+  }
+
   addCart({productId, userId, qty}) async {
     addToCartLoading = true;
     // cartDetails.forEach((e) {
@@ -152,19 +160,18 @@ class CartController extends GetxController {
 
         if (res['status'] == 200) {
           isMoveToCart = true;
+          addCartMap = {};
 
           if (res['data'].isNotEmpty) {
             // commonToast(msg: "Added to cart successfully");
-            commonSnackBar(title: "Add to Cart",msg: "Successful");
+            commonSnackBar(title: "Add to Cart", msg: "Successful");
             // cartDetails = [];
             cartDetails = res['data'];
             update();
           }
         } else if (res['status'] == 404) {
           // commonToast(msg: "Try again :(");
-          commonSnackBar(title: "Add to Cart",msg: "Failed");
-
-
+          commonSnackBar(title: "Add to Cart", msg: "Failed");
 
           isMoveToCart = false;
         }
@@ -283,6 +290,62 @@ class CartController extends GetxController {
       cartDetails.addAll(addCartDetails);
       onCallback(addCartDetails);
       update();
+    }
+  }
+
+  removeCart({carId}) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var id = pref.getString('userId');
+    removeCartLoading = true;
+    var body = {};
+    try {
+      var res = await repository.removeCart(
+          userId: "$id", cartId: "$carId", body: body);
+      if (statusCode == 200) {
+        removeCartLoading = false;
+        if (res['status'] == 200) {
+          debugPrint("${res['message']}");
+          commonToast(msg: "${res['message']}");
+          getCart();
+        } else if (res['status'] == 404) {
+          commonToast(msg: "${res['message']}");
+          debugPrint("${res['message']}");
+        }
+      } else if (statusCode == 408) {
+        removeCartLoading = false;
+        commonToast(msg: "Timeout");
+      } else if (statusCode == 500) {
+        removeCartLoading = false;
+        commonToast(msg: "Server Error");
+      }
+    } catch (e) {
+      removeCartLoading = false;
+      debugPrint("Error from server on remove cart");
+    }
+  }
+
+  emptyCartAfterOrder() async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    var id = pref.getString('userId');
+    var body = {};
+    try {
+      var res = await repository.emptyCart(userId: "$id", body: body);
+      if (statusCode == 200) {
+        if (res['status'] == 200) {
+          debugPrint("${res['message']}");
+          commonToast(msg: "${res['message']}");
+          getCart();
+        } else if (res['status'] == 404) {
+          commonToast(msg: "${res['message']}");
+          debugPrint("${res['message']}");
+        }
+      } else if (statusCode == 408) {
+        commonToast(msg: "Timeout");
+      } else if (statusCode == 500) {
+        commonToast(msg: "Server Error");
+      }
+    } catch (e) {
+      debugPrint("Error from server on empty cart");
     }
   }
 }

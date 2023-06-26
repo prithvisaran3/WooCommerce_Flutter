@@ -85,7 +85,7 @@ class MyOrders extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Obx(() => OrderController.to.getOrdersLoading == true
-                    ? const SimpleLoading()
+                    ?  SimpleLoading()
                     : OrderController.to.ordersEmpty == true
                         ? Padding(
                             padding: EdgeInsets.only(top: Get.height / 4),

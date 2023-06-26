@@ -105,7 +105,7 @@ class Dashboard extends StatelessWidget {
         ),
         Obx(
           () => HomeController.to.topSellingLoading == true
-              ? const SimpleLoading()
+              ?  SimpleLoading()
               : HomeController.to.topSellingEmpty == true
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -174,7 +174,7 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         Obx(() => HomeController.to.productsLoading == true
-            ? const SimpleLoading()
+            ?  SimpleLoading()
             : HomeController.to.productsEmpty == true
                 ? Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
@@ -250,7 +250,7 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         Obx(() => HomeController.to.categoryLoading == true
-            ? const SimpleLoading()
+            ?  SimpleLoading()
             : HomeController.to.categoryEmpty == true
                 ? const Text("empty")
                 : SizedBox(

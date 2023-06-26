@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:steels/app/ui/widgets/common/loading.dart';
 import '../../../controller/cart.dart';
 import '../../../controller/order.dart';
 import '../../../controller/payment.dart';
@@ -28,6 +29,7 @@ class PaymentMethodScreen extends StatelessWidget {
           PaymentController.to.selectIndex = 0;
           ProfileController.to.getProfile();
           Future.delayed(const Duration(seconds: 5), () {
+            PaymentController.to.billingAddressLoading = false;
             PaymentController.to.checkBillingAddressEmpty();
             if (PaymentController.to.billingAddressEmpty == true) {
               commonToast(
@@ -64,90 +66,121 @@ class PaymentMethodScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                body: ListView(
+                body: Stack(
                   children: [
-                    SizedBox(height: 10),
-                    Center(
-                      child: SizedBox(
-                        height: 50,
-                        child: ListView.builder(
-                          itemCount: 3,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          scrollDirection: Axis.horizontal,
-                          itemBuilder: (context, index) {
-                            return GestureDetector(
-                              onTap: () {
-                                PaymentController.to.selectIndex = index;
-                              },
-                              child: Obx(
-                                () => Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
+                    ListView(
+                      children: [
+                        const SizedBox(height: 10),
+                        Center(
+                          child: SizedBox(
+                            height: 50,
+                            child: ListView.builder(
+                              itemCount: 3,
+                              shrinkWrap: true,
+                              physics: const NeverScrollableScrollPhysics(),
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    // PaymentController.to.selectIndex = index;
+                                  },
+                                  child: Obx(
+                                    () => Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-                                        Container(
-                                          alignment: Alignment.center,
-                                          height: 25,
-                                          width: 25,
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 5),
-                                          decoration: BoxDecoration(
-                                              shape: BoxShape.circle,
-                                              color: PaymentController
-                                                          .to.selectIndex >=
-                                                      index
-                                                  ? AppColors.secondary
-                                                  : AppColors.grey),
-                                          child: const Icon(
-                                            Icons.check,
-                                            color: AppColors.white,
-                                            size: 18,
-                                          ),
-                                        ),
-                                        index == 2
-                                            ? const SizedBox()
-                                            : SizedBox(
-                                                width: Get.width / 4,
-                                                child: Divider(
+                                        Row(
+                                          children: [
+                                            Container(
+                                              alignment: Alignment.center,
+                                              height: 25,
+                                              width: 25,
+                                              margin:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 5),
+                                              decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
                                                   color: PaymentController
                                                               .to.selectIndex >=
                                                           index
-                                                      ? AppColors.green
-                                                      : AppColors.grey,
-                                                  thickness: 2,
-                                                ),
-                                              )
+                                                      ? AppColors.secondary
+                                                      : AppColors.grey),
+                                              child: const Icon(
+                                                Icons.check,
+                                                color: AppColors.white,
+                                                size: 18,
+                                              ),
+                                            ),
+                                            index == 2
+                                                ? const SizedBox()
+                                                : SizedBox(
+                                                    width: Get.width / 4,
+                                                    child: Divider(
+                                                      color: PaymentController
+                                                                  .to
+                                                                  .selectIndex >=
+                                                              index
+                                                          ? AppColors.green
+                                                          : AppColors.grey,
+                                                      thickness: 2,
+                                                    ),
+                                                  )
+                                          ],
+                                        ),
+                                        CommonText(
+                                            text: index == 0
+                                                ? "Shipping"
+                                                : index == 1
+                                                    ? "Payment"
+                                                    : "Order",
+                                            style: mediumText(fontSize: 12))
                                       ],
                                     ),
-                                    CommonText(
-                                        text: index == 0
-                                            ? "Shipping"
-                                            : index == 1
-                                                ? "Payment"
-                                                : "Order",
-                                        style: mediumText(fontSize: 12))
-                                  ],
-                                ),
-                              ),
-                            );
-                          },
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                    Obx(
-                      () => PaymentController.to.selectIndex == 0
-                          ? SizedBox(
-                              height: Get.height * 0.85, child: buildAddress())
-                          : PaymentController.to.selectIndex == 1
+                        Obx(
+                          () => PaymentController.to.selectIndex == 0
                               ? SizedBox(
                                   height: Get.height * 0.85,
-                                  child: buildPayment(),
-                                )
-                              : SizedBox(
-                                  height: Get.height * 0.85,
-                                  child: buildOrderSuccess()),
-                    )
+                                  child: buildAddress())
+                              : PaymentController.to.selectIndex == 1
+                                  ? SizedBox(
+                                      height: Get.height * 0.85,
+                                      child: buildPayment(),
+                                    )
+                                  : SizedBox(
+                                      height: Get.height * 0.85,
+                                      child: buildOrderSuccess()),
+                        )
+                      ],
+                    ),
+                    Obx(() => PaymentController.to.billingAddressLoading == true
+                        ? Center(
+                            child: Container(
+                                alignment: Alignment.center,
+                                height: Get.height,
+                                width: Get.width,
+                                color: AppColors.black.withOpacity(.1),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                     SimpleLoading(),
+                                    const SizedBox(
+                                      height: 10,
+                                    ),
+                                    CommonText(
+                                        text: "Address Loading...",
+                                        style: mediumText(
+                                            fontSize: 14,
+                                            color: AppColors.black
+                                                .withOpacity(.6)))
+                                  ],
+                                )))
+                        : const SizedBox())
                   ],
                 )),
           );
@@ -220,14 +253,14 @@ class PaymentMethodScreen extends StatelessWidget {
                         },
                         index: index,
                       )
-                    : SizedBox(),
+                    : const SizedBox(),
               );
             },
           ),
           const SizedBox(
             height: 50,
           ),
-          PaymentDetailsBox(),
+          const PaymentDetailsBox(),
         ],
       ),
     );

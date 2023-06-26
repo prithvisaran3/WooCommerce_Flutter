@@ -56,7 +56,13 @@ class PaymentController extends GetxController {
     _paymentMethod.value = value;
   }
 
-  //billing
+  final _billingAddressLoading = true.obs;
+
+  get billingAddressLoading => _billingAddressLoading.value;
+
+  set billingAddressLoading(value) {
+    _billingAddressLoading.value = value;
+  } //billing
   final TextEditingController bFName = TextEditingController();
   final TextEditingController bLName = TextEditingController();
   final TextEditingController bCompany = TextEditingController();

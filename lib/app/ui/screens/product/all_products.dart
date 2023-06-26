@@ -137,7 +137,7 @@ class AllProducts extends StatelessWidget {
                   ),
                 ),
                 Obx(() => HomeController.to.productsLoading == true
-                    ? const SimpleLoading()
+                    ?  SimpleLoading()
                     : HomeController.to.productsEmpty == true
                         ? Padding(
                             padding: EdgeInsets.only(top: Get.height / 4),

@@ -519,7 +519,7 @@ class EditProfileScreen extends StatelessWidget {
                   Obx(() => ProfileController.to.updateProfileLoading == true
                       ? Container(
                           color: AppColors.black.withOpacity(.3),
-                          child: const SimpleLoading(),
+                          child:  SimpleLoading(),
                         )
                       : const SizedBox())
                 ],

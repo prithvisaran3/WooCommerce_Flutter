@@ -102,7 +102,7 @@ class Signup extends StatelessWidget {
                 const SizedBox(height: 20),
                 Obx(
                   () => AuthController.to.registerLoading == true
-                      ? const SimpleLoading()
+                      ?  SimpleLoading()
                       : AuthButton(
                           text: "Sign Up",
                           onTap: () {

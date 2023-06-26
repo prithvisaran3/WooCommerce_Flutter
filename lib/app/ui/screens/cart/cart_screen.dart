@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:steels/app/ui/widgets/common/alert.dart';
 import '../../../controller/cart.dart';
 import '../../../controller/dashboard.dart';
 import '../../../data/model/cart/req.dart';
@@ -32,7 +33,7 @@ class CartScreen extends StatelessWidget {
                   padding: const EdgeInsets.only(top: 50.0, bottom: 60),
                   child: Obx(
                     () => CartController.to.getCartLoading == true
-                        ? const SimpleLoading()
+                        ? SimpleLoading()
                         : CartController.to.cartEmpty == true
                             ? Center(
                                 child: Column(
@@ -47,7 +48,8 @@ class CartScreen extends StatelessWidget {
                                       text: "Cart Empty",
                                       style: mediumText(
                                           fontSize: 16,
-                                          color: AppColors.grey.withOpacity(.6)),
+                                          color:
+                                              AppColors.grey.withOpacity(.6)),
                                     ),
                                     const SizedBox(height: 10),
                                     CommonButton(
@@ -85,9 +87,18 @@ class CartScreen extends StatelessWidget {
                                           qty: data);
                                     },
                                     deletePressed: () {
-                                      CartController.to.removeItem(
-                                          productId: CartController.to
-                                              .cartDetails[index]['product_id']);
+                                      commonAlertDialog(context,
+                                          content: "Are you sure remove cart",
+                                          confirmButtonPressed: () {
+                                        Get.back();
+                                        CartController.to.removeCart(
+                                            carId: CartController.to
+                                                .cartDetails[index]['cart_id']);
+                                      });
+
+                                      // CartController.to.removeItem(
+                                      //     productId: CartController.to
+                                      //         .cartDetails[index]['product_id']);
 
                                       // CartController.to.addCart(
                                       //     productId: CartController.to
@@ -126,7 +137,13 @@ class CartScreen extends StatelessWidget {
               Obx(() => CartController.to.removeLoading == true
                   ? Container(
                       color: AppColors.black.withOpacity(.3),
-                      child: const SimpleLoading(),
+                      child: SimpleLoading(),
+                    )
+                  : const SizedBox()),
+              Obx(() => CartController.to.removeCartLoading == true
+                  ? Container(
+                      color: AppColors.black.withOpacity(.3),
+                      child: SimpleLoading(),
                     )
                   : const SizedBox())
             ],

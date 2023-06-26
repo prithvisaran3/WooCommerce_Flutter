@@ -29,8 +29,7 @@ class BottomPriceBar extends StatelessWidget {
       height: 80,
       width: double.infinity,
       decoration: BoxDecoration(
-          color: AppColors.primary,
-          borderRadius: BorderRadius.circular(20)),
+          color: AppColors.primary, borderRadius: BorderRadius.circular(20)),
       child: Row(
         children: [
           const SizedBox(
@@ -70,12 +69,14 @@ class BottomPriceBar extends StatelessWidget {
                 )
               : Obx(
                   () => CartController.to.addToCartLoading == true
-                      ? SimpleLoading()
+                      ? SimpleLoading(
+                          color: AppColors.white,
+                        )
                       : GestureDetector(
                           onTap: CartController.to.isMoveToCart == true
                               ? () {
                                   Get.back();
-                                  HomeController.to.selectedIndex = 2;
+                                  HomeController.to.selectedIndex = 1;
                                 }
                               : () async {
                                   SharedPreferences pref =
