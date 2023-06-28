@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:razorpay_flutter/razorpay_flutter.dart';
@@ -7,6 +8,7 @@ import 'package:steels/app/ui/widgets/common/toast.dart';
 
 class RazorPaymentService {
   Razorpay razorPay = Razorpay();
+  FirebaseFirestore firebase = FirebaseFirestore.instance;
 
   initPaymentGateway() {
     razorPay.on(Razorpay.EVENT_EXTERNAL_WALLET, externalWallet);
@@ -29,11 +31,22 @@ class RazorPaymentService {
     commonToast(msg: "Cancelled by user");
   }
 
-  getPayment(BuildContext context, {amount, phone, email, name}) {
+  getPayment(BuildContext context, {amount, phone, email, name}) async{
+    var key = "";
+    await firebase.collection('payment_gateway').doc('razorpay').get().then(
+      (value) {
+        if (value['isLive'] == true) {
+          key = value['live_key'];
+        } else {
+          key = value['test_key'];
+        }
+      },
+    );
+    print("Payment Key is ${key}");
     debugPrint(
         "Amount Details: Name: $name, Email: $email, Phone: $phone, Amount: $amount");
     var options = {
-      'key': 'rzp_test_jgECJhGI2uXCm8',
+      'key': key,
       'amount': amount * 100,
       'description': 'Payment for our products',
       'prefill': {"contact": "$phone", "email": "$email"},

@@ -85,7 +85,10 @@ class MyOrders extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Obx(() => OrderController.to.getOrdersLoading == true
-                    ?  SimpleLoading()
+                    ? Padding(
+                        padding: EdgeInsets.only(top: Get.height / 4),
+                        child: SimpleLoading(),
+                      )
                     : OrderController.to.ordersEmpty == true
                         ? Padding(
                             padding: EdgeInsets.only(top: Get.height / 4),
@@ -106,7 +109,7 @@ class MyOrders extends StatelessWidget {
                                   ),
                                   const SizedBox(height: 10),
                                   CommonButton(
-                                    text: "Got to Shop",
+                                    text: "Go to Shop",
                                     onTap: () {
                                       HomeController.to.selectedIndex = 0;
                                     },
@@ -142,8 +145,11 @@ class MyOrders extends StatelessWidget {
                                           ));
                                     },
                                     deletePressed: () {
-                                      OrderController.to.deleteOrders(
-                                          id: "${OrderController.to.orderDetails[index]['id']}");
+                                      OrderController.to.deleteOrderLoading ==
+                                              true
+                                          ? SimpleLoading()
+                                          : OrderController.to.deleteOrders(
+                                              id: "${OrderController.to.orderDetails[index]['id']}");
                                     },
                                   );
                                 }),

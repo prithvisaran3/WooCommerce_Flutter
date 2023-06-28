@@ -19,7 +19,7 @@ class AllCategories extends StatelessWidget {
     return GetBuilder(
         init: HomeController(),
         initState: (_) {
-          HomeController.to.categoryLoadMoreFunction();
+          // HomeController.to.categoryLoadMoreFunction();
           HomeController.to.categorySearch.text = "";
           HomeController.to.categoryPageNumber = 1;
           HomeController.to.categorySearch.addListener(() {

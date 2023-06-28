@@ -27,6 +27,14 @@ class OrderController extends GetxController {
     _getOrdersLoading.value = value;
   }
 
+  final _deleteOrderLoading = false.obs;
+
+  get deleteOrderLoading => _deleteOrderLoading.value;
+
+  set deleteOrderLoading(value) {
+    _deleteOrderLoading.value = value;
+  }
+
   final _ordersEmpty = false.obs;
 
   get ordersEmpty => _ordersEmpty.value;
@@ -356,19 +364,28 @@ class OrderController extends GetxController {
 
   deleteOrders({required id}) async {
     try {
+      deleteOrderLoading = true;
       var res = await repository.deleteOrder(body: "", id: "$id");
       Future.delayed(const Duration(seconds: 3), () {
         if (statusCode == 200 || statusCode == 201) {
+          deleteOrderLoading = false;
+
           print("order deleted successfully");
           commonToast(msg: "Order deleted successfully");
           getOrders();
         } else if (statusCode == 408) {
+          deleteOrderLoading = false;
+
           commonToast(msg: "Timeout");
         } else if (statusCode == 404) {
-          commonToast(msg: "${res['message']} or Already deleted");
+          deleteOrderLoading = false;
+
+          commonToast(msg: "${res['message']} or already deleted");
         }
       });
     } catch (e) {
+      deleteOrderLoading = false;
+
       debugPrint("Error from server on create order$e");
     }
   }

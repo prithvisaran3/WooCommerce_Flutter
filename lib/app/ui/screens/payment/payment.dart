@@ -32,11 +32,9 @@ class PaymentMethodScreen extends StatelessWidget {
             PaymentController.to.billingAddressLoading = false;
             PaymentController.to.checkBillingAddressEmpty();
             if (PaymentController.to.billingAddressEmpty == true) {
-              commonToast(
-                  msg:
-                      "Your profile don't have saved billing address\nPlease fill the address");
+              commonToast(msg: "No saved address found");
             } else {
-              commonToast(msg: "Have an Address");
+              commonToast(msg: "Saved address applied");
               PaymentController.to.setData();
             }
           });
@@ -164,17 +162,17 @@ class PaymentMethodScreen extends StatelessWidget {
                                 alignment: Alignment.center,
                                 height: Get.height,
                                 width: Get.width,
-                                color: AppColors.black.withOpacity(.1),
+                                color: AppColors.white,
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                     SimpleLoading(),
+                                    SimpleLoading(),
                                     const SizedBox(
                                       height: 10,
                                     ),
                                     CommonText(
-                                        text: "Address Loading...",
-                                        style: mediumText(
+                                        text: "Checking for saved address",
+                                        style: boldText(
                                             fontSize: 14,
                                             color: AppColors.black
                                                 .withOpacity(.6)))
@@ -203,7 +201,7 @@ class PaymentMethodScreen extends StatelessWidget {
           ),
         ),
         CommonText(
-            text: "Your order has been successfully submitted!",
+            text: "Your order has been successfully placed!",
             style: mediumText(fontSize: 24)),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 100.0, vertical: 20),
@@ -220,47 +218,48 @@ class PaymentMethodScreen extends StatelessWidget {
   Padding buildPayment() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
-      child: ListView(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          ListView.builder(
-            itemCount: PaymentController.to.paymentGatewayDetails.length,
-            shrinkWrap: true,
-            physics: const BouncingScrollPhysics(),
-            itemBuilder: (context, int index) {
-              return Obx(
-                () => PaymentController.to.paymentGatewayDetails[index]
-                                ['enabled'] ==
-                            true &&
-                        PaymentController.to.paymentGatewayDetails[index]
-                                ['id'] !=
-                            ""
-                    ? PaymentMethodTile(
-                        text:
-                            "${PaymentController.to.paymentGatewayDetails[index]['id'].toString().capitalizeFirst}",
-                        onTap: () {
-                          PaymentController.to.onPressedPaymentMethod = index;
+          // ListView.builder(
+          //   itemCount: PaymentController.to.paymentGatewayDetails.length,
+          //   shrinkWrap: true,
+          //   physics: const BouncingScrollPhysics(),
+          //   itemBuilder: (context, int index) {
+          //     return Obx(
+          //       () => PaymentController.to.paymentGatewayDetails[index]
+          //                       ['enabled'] ==
+          //                   true &&
+          //               PaymentController.to.paymentGatewayDetails[index]
+          //                       ['id'] !=
+          //                   ""
+          //           ? PaymentMethodTile(
+          //               text:
+          //                   "${PaymentController.to.paymentGatewayDetails[index]['id'].toString().capitalizeFirst}",
+          //               onTap: () {
+          //                 PaymentController.to.onPressedPaymentMethod = index;
+          //
+          //                 PaymentController.to.paymentMethod = PaymentController
+          //                     .to.paymentGatewayDetails[index]['id'];
+          //                 print(
+          //                     "Payment Method: ${PaymentController.to.paymentMethod}");
+          //                 if (PaymentController.to.paymentGatewayDetails[index]
+          //                         ['id'] ==
+          //                     "razorpay") {
+          //                 } else {
+          //                   print("kjhlkhkjhlkjhk");
+          //                 }
+          //               },
+          //               index: index,
+          //             )
+          //           : const SizedBox(),
+          //     );
+          //   },
+          // ),
 
-                          PaymentController.to.paymentMethod = PaymentController
-                              .to.paymentGatewayDetails[index]['id'];
-                          print(
-                              "Payment Method: ${PaymentController.to.paymentMethod}");
-                          if (PaymentController.to.paymentGatewayDetails[index]
-                                  ['id'] ==
-                              "razorpay") {
-                          } else {
-                            print("kjhlkhkjhlkjhk");
-                          }
-                        },
-                        index: index,
-                      )
-                    : const SizedBox(),
-              );
-            },
-          ),
-          const SizedBox(
-            height: 50,
-          ),
           const PaymentDetailsBox(),
+          SizedBox(height: 50),
+
         ],
       ),
     );
@@ -434,177 +433,13 @@ class PaymentMethodScreen extends StatelessWidget {
                 ),
               ],
             ),
-            Row(
-              children: [
-                CommonText(
-                    text: "Shipping Address", style: mediumText(fontSize: 18)),
-              ],
-            ),
 
-            // Shipping Address
-            Obx(() => Row(
-                  children: [
-                    Flexible(
-                      child: CommonTextFormField(
-                        hintText: "First Name",
-                        controller:
-                            PaymentController.to.billingAsSameShipping == true
-                                ? PaymentController.to.bFName
-                                : PaymentController.to.sFName,
-                        validator: (data) {
-                          if (data == null || data.isEmpty || data == "") {
-                            return 'Please enter first name';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Flexible(
-                      child: CommonTextFormField(
-                        hintText: "Last Name",
-                        controller:
-                            PaymentController.to.billingAsSameShipping == true
-                                ? PaymentController.to.bLName
-                                : PaymentController.to.sLName,
-                        validator: (data) {
-                          if (data == null || data.isEmpty || data == "") {
-                            return 'Please enter last name';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                )),
-            Obx(
-              () => CommonTextFormField(
-                hintText: "Address Line 1",
-                controller: PaymentController.to.billingAsSameShipping == true
-                    ? PaymentController.to.bAddress1
-                    : PaymentController.to.sAddress1,
-                validator: (data) {
-                  if (data == null || data.isEmpty || data == "") {
-                    return 'Please enter address';
-                  }
-                  return null;
-                },
-              ),
-            ),
-            Obx(
-              () => CommonTextFormField(
-                hintText: "Address Line 2",
-                controller: PaymentController.to.billingAsSameShipping == true
-                    ? PaymentController.to.bAddress2
-                    : PaymentController.to.sAddress2,
-                validator: (data) {
-                  // if (data == null || data.isEmpty || data == "") {
-                  //   return 'Please enter first name';
-                  // }
-                  return null;
-                },
-              ),
-            ),
-            Obx(() => Row(
-                  children: [
-                    Flexible(
-                      child: CommonTextFormField(
-                        hintText: "Country",
-                        controller:
-                            PaymentController.to.billingAsSameShipping == true
-                                ? PaymentController.to.bCountry
-                                : PaymentController.to.sCountry,
-                        validator: (data) {
-                          if (data == null || data.isEmpty || data == "") {
-                            return 'Please enter country';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Flexible(
-                      child: CommonTextFormField(
-                        hintText: "State",
-                        controller:
-                            PaymentController.to.billingAsSameShipping == true
-                                ? PaymentController.to.bState
-                                : PaymentController.to.sState,
-                        validator: (data) {
-                          if (data == null || data.isEmpty || data == "") {
-                            return 'Please enter state';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                  ],
-                )),
-            Obx(
-              () => Row(
-                children: [
-                  Flexible(
-                    child: CommonTextFormField(
-                      hintText: "City",
-                      controller:
-                          PaymentController.to.billingAsSameShipping == true
-                              ? PaymentController.to.bCity
-                              : PaymentController.to.sCity,
-                      validator: (data) {
-                        if (data == null || data.isEmpty || data == "") {
-                          return 'Please enter city';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  Flexible(
-                    child: CommonTextFormField(
-                      hintText: "PostCode",
-                      inputType: TextInputType.number,
-                      controller:
-                          PaymentController.to.billingAsSameShipping == true
-                              ? PaymentController.to.bPostCode
-                              : PaymentController.to.sPostCode,
-                      validator: (data) {
-                        if (data == null || data.isEmpty || data == "") {
-                          return 'Please enter postcode';
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            PaymentController.to.billingAsSameShipping == false
+                ?
 
-            Obx(
-              () => Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: IntlPhoneField(
-                  maxLength: 10,
-                  hintText: "Phone",
-                  controller: PaymentController.to.billingAsSameShipping == true
-                      ? PaymentController.to.bPhone
-                      : PaymentController.to.sPhone,
-                  initialCountryCode: "IN",
-                  fontFamily: "medium",
-                  onChanged: (data) {
-                    // if (data.toString().length == 10) {
-                    //   ProfileController.to.phoneNumberLength = 10;
-                    // } else {
-                    //   ProfileController.to.phoneNumberLength = 0;
-                    // }
-                  },
-                  validator: (data) {
-                    if (data!.isEmpty || data == "") {
-                      return "Phone field required";
-                    } else if (data.length < 10) {
-                      return "Phone number must be 10 character";
-                    }
-                    return null;
-                  },
-                ),
-              ),
-            ),
+                // Shipping Address
+                ShippingAddressColumn()
+                : SizedBox(),
 
             Padding(
               padding: const EdgeInsets.all(8.0),
@@ -621,6 +456,179 @@ class PaymentMethodScreen extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  Column ShippingAddressColumn() {
+    return Column(
+      children: [
+        Row(
+          children: [
+            CommonText(
+                text: "Shipping Address", style: mediumText(fontSize: 18)),
+          ],
+        ),
+        Obx(() => Row(
+              children: [
+                Flexible(
+                  child: CommonTextFormField(
+                    hintText: "First Name",
+                    controller:
+                        PaymentController.to.billingAsSameShipping == true
+                            ? PaymentController.to.bFName
+                            : PaymentController.to.sFName,
+                    validator: (data) {
+                      if (data == null || data.isEmpty || data == "") {
+                        return 'Please enter first name';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Flexible(
+                  child: CommonTextFormField(
+                    hintText: "Last Name",
+                    controller:
+                        PaymentController.to.billingAsSameShipping == true
+                            ? PaymentController.to.bLName
+                            : PaymentController.to.sLName,
+                    validator: (data) {
+                      if (data == null || data.isEmpty || data == "") {
+                        return 'Please enter last name';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ],
+            )),
+        Obx(
+          () => CommonTextFormField(
+            hintText: "Address Line 1",
+            controller: PaymentController.to.billingAsSameShipping == true
+                ? PaymentController.to.bAddress1
+                : PaymentController.to.sAddress1,
+            validator: (data) {
+              if (data == null || data.isEmpty || data == "") {
+                return 'Please enter address';
+              }
+              return null;
+            },
+          ),
+        ),
+        Obx(
+          () => CommonTextFormField(
+            hintText: "Address Line 2",
+            controller: PaymentController.to.billingAsSameShipping == true
+                ? PaymentController.to.bAddress2
+                : PaymentController.to.sAddress2,
+            validator: (data) {
+              // if (data == null || data.isEmpty || data == "") {
+              //   return 'Please enter first name';
+              // }
+              return null;
+            },
+          ),
+        ),
+        Obx(() => Row(
+              children: [
+                Flexible(
+                  child: CommonTextFormField(
+                    hintText: "Country",
+                    controller:
+                        PaymentController.to.billingAsSameShipping == true
+                            ? PaymentController.to.bCountry
+                            : PaymentController.to.sCountry,
+                    validator: (data) {
+                      if (data == null || data.isEmpty || data == "") {
+                        return 'Please enter country';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                Flexible(
+                  child: CommonTextFormField(
+                    hintText: "State",
+                    controller:
+                        PaymentController.to.billingAsSameShipping == true
+                            ? PaymentController.to.bState
+                            : PaymentController.to.sState,
+                    validator: (data) {
+                      if (data == null || data.isEmpty || data == "") {
+                        return 'Please enter state';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+              ],
+            )),
+        Obx(
+          () => Row(
+            children: [
+              Flexible(
+                child: CommonTextFormField(
+                  hintText: "City",
+                  controller: PaymentController.to.billingAsSameShipping == true
+                      ? PaymentController.to.bCity
+                      : PaymentController.to.sCity,
+                  validator: (data) {
+                    if (data == null || data.isEmpty || data == "") {
+                      return 'Please enter city';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+              Flexible(
+                child: CommonTextFormField(
+                  hintText: "PostCode",
+                  inputType: TextInputType.number,
+                  controller: PaymentController.to.billingAsSameShipping == true
+                      ? PaymentController.to.bPostCode
+                      : PaymentController.to.sPostCode,
+                  validator: (data) {
+                    if (data == null || data.isEmpty || data == "") {
+                      return 'Please enter postcode';
+                    }
+                    return null;
+                  },
+                ),
+              ),
+            ],
+          ),
+        ),
+        Obx(
+          () => Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: IntlPhoneField(
+              maxLength: 10,
+              hintText: "Phone",
+              controller: PaymentController.to.billingAsSameShipping == true
+                  ? PaymentController.to.bPhone
+                  : PaymentController.to.sPhone,
+              initialCountryCode: "IN",
+              fontFamily: "medium",
+              onChanged: (data) {
+                // if (data.toString().length == 10) {
+                //   ProfileController.to.phoneNumberLength = 10;
+                // } else {
+                //   ProfileController.to.phoneNumberLength = 0;
+                // }
+              },
+              validator: (data) {
+                if (data!.isEmpty || data == "") {
+                  return "Phone field required";
+                } else if (data.length < 10) {
+                  return "Phone number must be 10 character";
+                }
+                return null;
+              },
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

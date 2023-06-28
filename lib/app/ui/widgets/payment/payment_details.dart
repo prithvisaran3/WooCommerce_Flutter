@@ -23,7 +23,7 @@ class PaymentDetailsBox extends StatelessWidget {
       // height: 100,
       width: Get.width,
       padding: const EdgeInsets.all(8),
-      // margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
+      margin: EdgeInsets.symmetric(horizontal: 10,vertical: 10),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(20),
         color: Colors.white,
@@ -134,7 +134,7 @@ class PaymentDetailsBox extends StatelessWidget {
                 Column(
                   children: [
                     RupeeText(
-                      amount: "Rs ${CartController.to.cartTotalAmount}",
+                      amount: " ${CartController.to.cartTotalAmount}",
                       color: AppColors.primary,
                       fontSize: 24,
                       type: "bold",
@@ -156,6 +156,7 @@ class PaymentDetailsBox extends StatelessWidget {
                 child: CommonButton(
                     text: "Pay",
                     onTap: () {
+
                       if (PaymentController.to.paymentMethod == "razorpay") {
                         RazorPaymentService payment = RazorPaymentService();
                         payment.initPaymentGateway();
@@ -164,10 +165,11 @@ class PaymentDetailsBox extends StatelessWidget {
                             name: PaymentController.to.bFName.text,
                             email: PaymentController.to.bEmail.text,
                             phone: PaymentController.to.bPhone.text);
-                      } else if (PaymentController.to.paymentMethod ==
-                          "wallet") {
-                        commonToast(msg: "Wallet option now disabled");
                       }
+                      // else if (PaymentController.to.paymentMethod ==
+                      //     "wallet") {
+                      //   commonToast(msg: "Wallet option now disabled");
+                      // }
                     })),
           ],
         ),

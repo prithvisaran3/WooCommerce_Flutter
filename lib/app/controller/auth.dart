@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:steels/app/ui/screens/initial.dart';
+import 'package:steels/app/ui/widgets/common/common_snackbar.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../data/repository/auth.dart';
 import '../ui/widgets/common/app_update.dart';
@@ -139,7 +140,7 @@ class AuthController extends GetxController {
 
         updateAlertDialog(Get.context!,
             content:
-                "Fido app is update available\nWish you update please click update button\nOtherwise cancel or tap anywhere to close",
+                "Chandran Steels app is update available\nWish you update please click update button\nOtherwise cancel or tap anywhere to close",
             confirmButtonPressed: () {
           launchUrl(
             url,
@@ -313,7 +314,7 @@ class AuthController extends GetxController {
       Future.delayed(const Duration(seconds: 3), () {
         if (statusCode == 200) {
           loginLoading = false;
-          commonToast(msg: "Login Successfully");
+          commonSnackBar(title: "Login Successful");
           res.then((value) async {
             loginDetails = value;
             Map storedData = {
@@ -336,16 +337,26 @@ class AuthController extends GetxController {
           res.then((value) {
             if (value['code'] == "[jwt_auth] incorrect_password") {
               debugPrint("login failed incorrect password");
-              commonToast(msg: "Wrong Password");
-            } else if (value['code'] == "[jwt_auth] invalid_email") {
+
+              commonSnackBar(title: "Login Failed", msg: "Wrong password");
+            } else if (value['code'] == "[jwt_auth] invalid_username") {
+              debugPrint("Username not found");
+
+              commonSnackBar(title: "Login Failed", msg: "Username not found");
+            }
+
+            else if (value['code'] == "[jwt_auth] invalid_email") {
               debugPrint("login failed incorrect mail");
-              commonToast(msg: "Wrong Email");
+
+              commonSnackBar(title: "Login Failed", msg: "Wrong Email");
             } else if (value['code'] == "[jwt_auth] empty_username") {
               debugPrint("login failed username empty");
-              commonToast(msg: "Username Empty");
+
+              commonSnackBar(
+                  title: "Login Failed", msg: "Please fill in username");
             } else if (value['code'] == "[jwt_auth] empty_password") {
               debugPrint("login failed password empty");
-              commonToast(msg: "Password Empty");
+              commonSnackBar(title: "Login Failed", msg: "Password empty");
             }
           });
         } else if (statusCode == 404) {
@@ -353,21 +364,25 @@ class AuthController extends GetxController {
           res.then((value) {
             if (value['code'] == "rest_no_route") {
               debugPrint("Url Not-found");
-              commonToast(msg: "Url Not-found, Check url");
+
+              commonSnackBar(
+                  title: "Login Failed", msg: "URL Not found, Check url");
             }
           });
         } else if (statusCode == 408) {
           loginLoading = false;
-          commonToast(msg: "Sever Timeout");
+          commonSnackBar(title: "Login Failed", msg: "Server Timeout");
         } else if (statusCode == 500) {
           loginLoading = false;
-          commonToast(msg: "Sever Down");
+          commonSnackBar(title: "Login Failed", msg: "Server Down");
         }
       });
     } catch (e) {
       loginLoading = false;
       debugPrint("Error from server on login $e");
-      commonToast(msg: "Sever down please try again later");
+
+      commonSnackBar(
+          title: "Login Failed", msg: "Server down please try again later");
     }
   }
 
@@ -390,7 +405,8 @@ class AuthController extends GetxController {
               isForgotPasswordNote = true;
 
               forgotEmail.text = "";
-            } else if (res['status'] == 404) {
+            }
+            else if (res['status'] == 404) {
               commonToast(msg: "${res['message']}");
               debugPrint('${res['message']}');
             }

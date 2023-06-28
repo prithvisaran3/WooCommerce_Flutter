@@ -8,7 +8,7 @@ class PaymentController extends GetxController {
 
   final repository = PaymentGatewayRepository();
 
-  final _onPressedPaymentMethod = 15.obs;
+  final _onPressedPaymentMethod = 0.obs;
 
   get onPressedPaymentMethod => _onPressedPaymentMethod.value;
 
@@ -24,7 +24,7 @@ class PaymentController extends GetxController {
     _selectIndex.value = value;
   }
 
-  final _billingAsSameShipping = false.obs;
+  final _billingAsSameShipping = true.obs;
 
   get billingAsSameShipping => _billingAsSameShipping.value;
 
@@ -48,12 +48,20 @@ class PaymentController extends GetxController {
     _paymentGatewayDetails.value = value;
   }
 
-  final _paymentMethod = "".obs;
+  final _paymentMethod = "razorpay".obs;
 
   get paymentMethod => _paymentMethod.value;
 
   set paymentMethod(value) {
     _paymentMethod.value = value;
+  }
+
+  final _checkOrderPlaced=false.obs;
+
+  get checkOrderPlaced => _checkOrderPlaced.value;
+
+  set checkOrderPlaced(value) {
+    _checkOrderPlaced.value = value;
   }
 
   final _billingAddressLoading = true.obs;

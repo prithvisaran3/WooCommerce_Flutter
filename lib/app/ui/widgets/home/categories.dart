@@ -47,7 +47,8 @@ class Categories extends StatelessWidget {
                 text: name.length > 20
                     ? "${name.substring(0, 15)}\n${name.substring(15)}"
                     : name,
-                style: regularText()),
+                style: regularText(fontSize: name.length > 20
+                    ?12:14)),
           )
         ],
       ),

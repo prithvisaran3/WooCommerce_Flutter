@@ -80,15 +80,15 @@ class SearchBar extends StatelessWidget {
                     color: AppColors.primary,
                   ),
                   Spacer(),
-                  GestureDetector(
-                    onTap: () {
-                      Get.to(() => Error500());
-                    },
-                    child: Icon(
-                      Ionicons.notifications_outline,
-                      color: AppColors.primary,
-                    ),
-                  ),
+                  // GestureDetector(
+                  //   onTap: () {
+                  //     Get.to(() => Error500());
+                  //   },
+                  //   child: Icon(
+                  //     Ionicons.notifications_outline,
+                  //     color: AppColors.primary,
+                  //   ),
+                  // ),
                   SizedBox(width: 5),
                 ],
               ),

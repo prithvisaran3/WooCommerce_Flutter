@@ -1,5 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:steels/app/controller/coupon.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 calculateDiscount({regularPrice, salePrice}) {
   if (regularPrice != null && salePrice != null) {
@@ -35,4 +36,12 @@ String getIsoToLocalDate({required String date}) {
   var outputFormat = DateFormat('dd-MM-yy');
   var outputDate = outputFormat.format(dateTime);
   return outputDate;
+}
+openBrowser({required url}) async {
+  if (!await launchUrl(
+    Uri.parse(url),
+    mode: LaunchMode.externalApplication,
+  )) {
+    throw 'Could not launch $url';
+  }
 }

@@ -23,21 +23,21 @@ class ProductDetail extends StatelessWidget {
                 fontSize: FontSize.medium)
           },
         ),
-        Align(
-            child: Obx(() => GestureDetector(
-                  onTap: () {
-                    ProductController.to.shortDescription =
-                        !ProductController.to.shortDescription;
-                  },
-                  child: CommonText(
-                    text: ProductController.to.shortDescription == true
-                        ? "Show Less"
-                        : description == ""
-                            ? "No Short Description Found\nShow Detail"
-                            : "Show More",
-                    style: regularText(color: AppColors.primary),
-                  ),
-                )))
+        // Align(
+        //     child: Obx(() => GestureDetector(
+        //           onTap: () {
+        //             ProductController.to.shortDescription =
+        //                 !ProductController.to.shortDescription;
+        //           },
+        //           child: CommonText(
+        //             text: ProductController.to.shortDescription == true
+        //                 ? "Show Less"
+        //                 : description == ""
+        //                     ? "No Short Description Found\nShow Detail"
+        //                     : "Show More",
+        //             style: regularText(color: AppColors.primary),
+        //           ),
+        //         )))
       ],
     );
   }

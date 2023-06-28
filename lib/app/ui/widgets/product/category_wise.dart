@@ -44,8 +44,8 @@ class CategoryProductsCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Container(
-                    height: 140,
-                    width: 120,
+                    height: 100,
+                    width: 100,
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(

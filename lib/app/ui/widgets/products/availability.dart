@@ -24,7 +24,7 @@ class ProductAvailability extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          selectColorSection(),
+          // selectColorSection(),
           const SizedBox(height: 10),
           // pincodeSection(),
           const SizedBox(height: 10),

@@ -8,7 +8,9 @@ import 'package:steels/app/ui/screens/auth/forgot_password.dart';
 import 'package:steels/app/ui/screens/auth/onboarding.dart';
 import 'package:steels/app/ui/screens/profile/change_password.dart';
 import 'package:steels/app/ui/widgets/common/box_loading.dart';
+import '../../../controller/dashboard.dart';
 import '../../../controller/profile.dart';
+import '../../../utility/utility.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../../widgets/common/alert.dart';
@@ -27,7 +29,9 @@ class Profile extends StatelessWidget {
     return GetBuilder(
       init: ProfileController(),
       initState: (_) {
-        ProfileController.to.getProfile();
+        if (HomeController.to.firstLoading == false) {
+          ProfileController.to.getProfile();
+        }
       },
       builder: (_) {
         return SafeArea(
@@ -137,23 +141,29 @@ class Profile extends StatelessWidget {
                                 icon: Ionicons.document_text_outline,
                                 text: "Terms and Conditions",
                                 onTap: () {
-                                  OrderController.to.createOrder();
-                                  // OrderController.to.deleteOrders(id:"8726");
+                                  openBrowser(
+                                      url:
+                                          "https://chandransteelsonline.com/terms-and-conditions/");
                                 },
                               ),
                               ProfileOptionsTile(
                                 icon: Ionicons.document_lock_outline,
                                 text: "Privacy Policy",
                                 onTap: () {
-                                  OrderController.to.createOrder();
-                                  // OrderController.to.deleteOrders(id:"8726");
+                                  openBrowser(
+                                      url:
+                                          "https://chandransteelsonline.com/privacy-policy/");
                                 },
                               ),
 
                               ProfileOptionsTile(
                                 icon: Ionicons.help_circle_outline,
                                 text: "Contact Us",
-                                onTap: () {},
+                                onTap: () {
+                                  openBrowser(
+                                      url:
+                                          "https://chandransteelsonline.com/contact-us/");
+                                },
                               ),
                               const SizedBox(height: 20),
                               Align(
@@ -161,7 +171,6 @@ class Profile extends StatelessWidget {
                                 child: CommonButton(
                                   text: "Log out",
                                   onTap: () {
-                                    // AuthController.to.readIDfromFirebase(email: 'email');
                                     commonAlertDialog(
                                       context,
                                       content: 'Are you sure to logout?',

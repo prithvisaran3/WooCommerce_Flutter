@@ -33,6 +33,7 @@ class ProductDetails extends StatelessWidget {
         init: ProductController(),
         initState: (_) {
           ProductController.to.imageIndicator = 0;
+          ProductController.to.selectIndex = 0;
           ProductController.to.shortDescription = false;
           CouponController.to.isCouponApplied = false;
           CartController.to.isMoveToCart = false;
@@ -64,7 +65,7 @@ class ProductDetails extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: 250,
+                          height: 400,
                           child: Stack(
                             children: [
                               ProductImages(),
@@ -197,7 +198,7 @@ class ProductDetails extends StatelessWidget {
         RupeeText(
           amount: "${data['regular_price']}",
           color: AppColors.red,
-          fontSize: 20,
+          fontSize: 16,
           type: 'medium',
           textDecoration: TextDecoration.lineThrough,
         ),
@@ -208,7 +209,7 @@ class ProductDetails extends StatelessWidget {
                 ? "${data['sale_price']}"
                 : "${CouponController.to.afterCouponPrice}",
             color: AppColors.black,
-            fontSize: 40,
+            fontSize: 30,
             type: 'bold',
           ),
         ),
@@ -234,7 +235,7 @@ class ProductDetails extends StatelessWidget {
           ),
         ),
         Obx(() => HomeController.to.productsLoading == true
-            ?  SimpleLoading()
+            ? SimpleLoading()
             : HomeController.to.productsEmpty == true
                 ? const Text("empty")
                 : SizedBox(
@@ -377,18 +378,18 @@ class ProductDetails extends StatelessWidget {
             Row(
               children: [
                 ProductOptionsCard(
-                  selectTitle: 'Availability',
-                  onTap: () {
-                    ProductController.to.selectIndex = 0;
-                  },
-                  index: 0,
-                ),
-                ProductOptionsCard(
                   selectTitle: 'Detail',
                   onTap: () {
                     ProductController.to.selectIndex = 1;
                   },
                   index: 1,
+                ),
+                ProductOptionsCard(
+                  selectTitle: 'Coupons',
+                  onTap: () {
+                    ProductController.to.selectIndex = 0;
+                  },
+                  index: 0,
                 ),
                 ProductOptionsCard(
                   selectTitle: 'Reviews',
@@ -423,8 +424,8 @@ class ProductDetails extends StatelessWidget {
                                 description:
                                     ProductController.to.shortDescription ==
                                             true
-                                        ? "${data['description']}"
-                                        : "${data['short_description']}",
+                                        ? "${data['short_description']}"
+                                        : "${data['description']}",
                               )
                             : ProductReview(
                                 id: data['id'],

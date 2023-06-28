@@ -28,7 +28,7 @@ class AllProducts extends StatelessWidget {
     return GetBuilder(
         init: ProductController(),
         initState: (_) {
-          ProductController.to.loadMoreFunction();
+          // ProductController.to.loadMoreFunction();
           ProductController.to.productSearch.text = "";
           HomeController.to.orderBy = "";
           ProductController.to.productSearch.addListener(() {
@@ -62,7 +62,7 @@ class AllProducts extends StatelessWidget {
                 ),
                 GestureDetector(
                   onTap: () {
-                    Get.to(()=>CartScreen());
+                    Get.to(() => CartScreen());
                   },
                   child: Icon(
                     Icons.shopping_cart_sharp,
@@ -137,7 +137,10 @@ class AllProducts extends StatelessWidget {
                   ),
                 ),
                 Obx(() => HomeController.to.productsLoading == true
-                    ?  SimpleLoading()
+                    ? Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 150.0),
+                      child: SimpleLoading(),
+                    )
                     : HomeController.to.productsEmpty == true
                         ? Padding(
                             padding: EdgeInsets.only(top: Get.height / 4),
@@ -163,10 +166,9 @@ class AllProducts extends StatelessWidget {
                               controller: ProductController.to.scrollController,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      childAspectRatio: 0.95),
+                                      crossAxisCount: 2, childAspectRatio: 1),
                               shrinkWrap: true,
-                              physics: const ClampingScrollPhysics(),
+                              physics: const BouncingScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
                                 return CategoryProductsCard(
                                   name:
@@ -204,6 +206,56 @@ class AllProducts extends StatelessWidget {
                               },
                             ),
                           )),
+                Obx(() => HomeController.to.productsLoading == true
+                    ? SizedBox()
+                    : Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              HomeController.to.getProducts(isInitial: false);
+                              HomeController.to.pageNumber =
+                                  --HomeController.to.pageNumber;
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.primary,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: CommonText(
+                                text: "Previous",
+                                style:
+                                    boldText(fontSize: 14, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                       CommonText(text: "${HomeController.to.pageNumber}", style: boldText(fontSize: 18)),
+                          GestureDetector(
+                            onTap: () {
+                              HomeController.to.getProducts(isInitial: false);
+                              HomeController.to.pageNumber =
+                                  ++HomeController.to.pageNumber;
+                            },
+                            child: Container(
+                              margin: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              decoration: BoxDecoration(
+                                  color: AppColors.primary,
+                                  borderRadius: BorderRadius.circular(10)),
+                              child: CommonText(
+                                text: "Next",
+                                style:
+                                    boldText(fontSize: 14, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
               ],
             ),
           );

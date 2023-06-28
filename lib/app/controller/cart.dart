@@ -125,6 +125,14 @@ class CartController extends GetxController {
     _removeCartLoading.value = value;
   }
 
+  final _removeLoading = false.obs;
+
+  get removeLoading => _removeLoading.value;
+
+  set removeLoading(value) {
+    _removeLoading.value = value;
+  }
+
   addCart({productId, userId, qty}) async {
     addToCartLoading = true;
     // cartDetails.forEach((e) {
@@ -220,14 +228,6 @@ class CartController extends GetxController {
       getCartLoading = false;
       debugPrint("Error from server on get cart $e");
     }
-  }
-
-  final _removeLoading = false.obs;
-
-  get removeLoading => _removeLoading.value;
-
-  set removeLoading(value) {
-    _removeLoading.value = value;
   }
 
   updateQty({required productId, required qty}) {

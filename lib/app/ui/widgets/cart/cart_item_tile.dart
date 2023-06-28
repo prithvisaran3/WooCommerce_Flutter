@@ -87,7 +87,7 @@ class CartItemContainer extends StatelessWidget {
                     ? "${name.substring(0, 15)}\n${name.substring(15)}\n"
                     : name,
                 style: name.length > 30
-                    ? mediumText(fontSize: 14)
+                    ? mediumText(fontSize: 12)
                     : mediumText(fontSize: 16),
               ),
               Row(

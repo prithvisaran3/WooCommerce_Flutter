@@ -254,7 +254,7 @@ class Dashboard extends StatelessWidget {
             : HomeController.to.categoryEmpty == true
                 ? const Text("empty")
                 : SizedBox(
-                    height: 130,
+                    height: 150,
                     child: ListView.builder(
                         itemCount:
                             HomeController.to.initialCategoryDetails.length,

@@ -207,10 +207,10 @@ class HomeController extends GetxController {
       params = "&page=$categoryPageNumber&per_page=$categoryPerPage";
     } else {
       if (categorySearch.text == "") {
-        params = "&page=$categoryPageNumber&per_page=12";
+        params = "&page=$categoryPageNumber&per_page=50";
       } else {
         params =
-            "&page=$categoryPageNumber&per_page=12&search=${categorySearch.text}";
+            "&page=$categoryPageNumber&per_page=50&search=${categorySearch.text}";
       }
     }
     try {
@@ -324,7 +324,11 @@ class HomeController extends GetxController {
         params =
             "&per_page=$pageSize&page=$pageNumber&order=$sort&category=$categoryId";
       } else {
-        params = "&per_page=$pageSize&page=$pageNumber&order=$sort";
+        if (isInitial == true) {
+          params = "&per_page=$pageSize&page=${2}&order=$sort";
+        } else {
+          params = "&per_page=$pageSize&page=$pageNumber&order=$sort";
+        }
       }
     }
     if (tag.isNotEmpty) {

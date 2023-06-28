@@ -94,7 +94,9 @@ class OrderDetailsScreen extends StatelessWidget {
                       ),
                       Column(
                         children: [
-                          OrderDateColumn(),
+                          // OrderDateColumn(),
+                          SizedBox(height: 30),
+
                           OrderDetailsBox(),
                           SizedBox(height: 10),
                           OrderAddressBox(),
