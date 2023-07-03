@@ -5,14 +5,14 @@ import 'package:get/get.dart';
 import 'package:steels/app/controller/auth.dart';
 import 'package:steels/app/controller/fileupload.dart';
 import 'package:steels/app/ui/screens/profile/profile_screen.dart';
-import '../../controller/profile.dart';
-import '../themes/colors.dart';
-import '../themes/font_size.dart';
-import '../widgets/common/button.dart';
-import '../widgets/common/common_textform.dart';
-import '../widgets/common/intl_phone_field.dart';
-import '../widgets/common/loading.dart';
-import '../widgets/common/text.dart';
+import '../../../controller/profile.dart';
+import '../../themes/colors.dart';
+import '../../themes/font_size.dart';
+import '../../widgets/common/button.dart';
+import '../../widgets/common/common_textform.dart';
+import '../../widgets/common/intl_phone_field.dart';
+import '../../widgets/common/loading.dart';
+import '../../widgets/common/text.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({Key? key}) : super(key: key);
@@ -45,54 +45,71 @@ class EditProfileScreen extends StatelessWidget {
                       child: ListView(
                         physics: const BouncingScrollPhysics(),
                         children: [
-                          const SizedBox(height: 10),
-
                           Align(
                             alignment: Alignment.center,
-                            child: GestureDetector(
-                              onTap: () {
-                                // FileUploadController.to
-                                //     .showSelectionDialog(profileMode: false);
-                                // print(
-                                //     "RETURN TYPE OF IMAGE IS: ${FileUploadController.to.imageFile}");
-                              },
-                              child: Container(
-                                height: 180,
-                                width: 180,
-                                padding: const EdgeInsets.all(10),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: AppColors.white,
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.grey.shade300,
-                                      spreadRadius: 1.3,
-                                      blurRadius: 2,
-                                    ),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(150),
-                                  child: Obx(
-                                    () =>
-                                        FileUploadController.to.isFilePicked ==
-                                                false
-                                            ? Image.network(
-                                                "${ProfileController.to.profileDetails.avatarUrl}",
-                                                fit: BoxFit.cover,
-                                              )
-                                            : Image.file(
-                                                File(FileUploadController
-                                                    .to.imageFile),
-                                                fit: BoxFit.cover,
-                                              ),
-                                  ),
-                                ),
+                            child: Container(
+                              height: 200,
+                              width: 200,
+                              // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                              // padding: EdgeInsets.symmetric(horizontal:8),
+                              decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(
+                                          'assets/images/Chandran_steels1.png'
+                                      )
+                                  )
                               ),
                             ),
                           ),
+                          const SizedBox(height: 10),
 
-                          const SizedBox(height: 20),
+                          // Align(
+                          //   alignment: Alignment.center,
+                          //   child: GestureDetector(
+                          //     onTap: () {
+                          //       // FileUploadController.to
+                          //       //     .showSelectionDialog(profileMode: false);
+                          //       // print(
+                          //       //     "RETURN TYPE OF IMAGE IS: ${FileUploadController.to.imageFile}");
+                          //     },
+                          //     child: Container(
+                          //       height: 180,
+                          //       width: 180,
+                          //       padding: const EdgeInsets.all(10),
+                          //       decoration: BoxDecoration(
+                          //         shape: BoxShape.circle,
+                          //         color: AppColors.white,
+                          //         boxShadow: [
+                          //           BoxShadow(
+                          //             color: Colors.grey.shade300,
+                          //             spreadRadius: 1.3,
+                          //             blurRadius: 2,
+                          //           ),
+                          //         ],
+                          //       ),
+                          //       child: ClipRRect(
+                          //         borderRadius: BorderRadius.circular(150),
+                          //         child: Obx(
+                          //           () =>
+                          //               FileUploadController.to.isFilePicked ==
+                          //                       false
+                          //                   ? Image.network(
+                          //                       "${ProfileController.to.profileDetails.avatarUrl}",
+                          //                       fit: BoxFit.cover,
+                          //                     )
+                          //                   : Image.file(
+                          //                       File(FileUploadController
+                          //                           .to.imageFile),
+                          //                       fit: BoxFit.cover,
+                          //                     ),
+                          //         ),
+                          //       ),
+                          //     ),
+                          //   ),
+                          // ),
+
+                          // const SizedBox(height: 20),
 
                           //Profile
                           Row(
@@ -516,6 +533,8 @@ class EditProfileScreen extends StatelessWidget {
                       ),
                     ),
                   ),
+
+
                   Obx(() => ProfileController.to.updateProfileLoading == true
                       ? Container(
                           color: AppColors.black.withOpacity(.3),

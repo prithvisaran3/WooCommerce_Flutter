@@ -29,9 +29,10 @@ class Profile extends StatelessWidget {
     return GetBuilder(
       init: ProfileController(),
       initState: (_) {
-        if (HomeController.to.firstLoading == false) {
-          ProfileController.to.getProfile();
-        }
+        // if (HomeController.to.firstLoading == false) {
+        //   ProfileController.to.getProfile();
+        // }
+        ProfileController.to.getProfile();
       },
       builder: (_) {
         return SafeArea(
@@ -166,6 +167,13 @@ class Profile extends StatelessWidget {
                                 },
                               ),
                               const SizedBox(height: 20),
+                              ProfileOptionsTile(
+                                icon: Ionicons.help_circle_outline,
+                                text: "Check Onboarding Screen",
+                                onTap: () {
+                                 Get.to(()=>OnBoarding());
+                                },
+                              ),
                               Align(
                                 alignment: Alignment.center,
                                 child: CommonButton(
@@ -188,48 +196,67 @@ class Profile extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Column(
-                      children: [
-                        const SizedBox(height: 20),
-                        Align(
-                          alignment: Alignment.center,
-                          child: Container(
-                            height: 180,
-                            width: 180,
-                            padding: const EdgeInsets.all(10),
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: AppColors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.shade300,
-                                  spreadRadius: 1.3,
-                                  blurRadius: 2,
-                                ),
-                              ],
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(150),
-                              child: Obx(
-                                () => ProfileController.to.getProfileLoading ==
-                                        true
-                                    ? Center(child: SimpleLoading())
-                                    : ProfileController
-                                                .to.profileDetails.avatarUrl ==
-                                            null
-                                        ? Image.asset(
-                                            'assets/images/no_profile.jpg')
-                                        : Image.network(
-                                            "${ProfileController.to.profileDetails.avatarUrl}",
-                                            fit: BoxFit.cover,
-                                          ),
-                              ),
-                            ),
-                          ),
+                    Positioned(
+                      top: 20,
+                      left: 50,
+                      right: 50,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Container(
+                          height: 200,
+                          width: 200,
+                          // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
+                          // padding: EdgeInsets.symmetric(horizontal:8),
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                  fit: BoxFit.fill,
+                                  image: AssetImage(
+                                      'assets/images/Chandran_steels1.png'))),
                         ),
-                        const SizedBox(height: 20),
-                      ],
+                      ),
                     ),
+                    // Column(
+                    //   children: [
+                    //     const SizedBox(height: 20),
+                    //     Align(
+                    //       alignment: Alignment.center,
+                    //       child: Container(
+                    //         height: 180,
+                    //         width: 180,
+                    //         padding: const EdgeInsets.all(10),
+                    //         decoration: BoxDecoration(
+                    //           shape: BoxShape.circle,
+                    //           color: AppColors.white,
+                    //           boxShadow: [
+                    //             BoxShadow(
+                    //               color: Colors.grey.shade300,
+                    //               spreadRadius: 1.3,
+                    //               blurRadius: 2,
+                    //             ),
+                    //           ],
+                    //         ),
+                    //         child: ClipRRect(
+                    //           borderRadius: BorderRadius.circular(150),
+                    //           child: Obx(
+                    //             () => ProfileController.to.getProfileLoading ==
+                    //                     true
+                    //                 ? Center(child: SimpleLoading())
+                    //                 : ProfileController
+                    //                             .to.profileDetails.avatarUrl ==
+                    //                         null
+                    //                     ? Image.asset(
+                    //                         'assets/images/no_profile.jpg')
+                    //                     : Image.network(
+                    //                         "${ProfileController.to.profileDetails.avatarUrl}",
+                    //                         fit: BoxFit.cover,
+                    //                       ),
+                    //           ),
+                    //         ),
+                    //       ),
+                    //     ),
+                    //     const SizedBox(height: 20),
+                    //   ],
+                    // ),
                   ],
                 ),
               ),

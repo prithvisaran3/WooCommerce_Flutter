@@ -224,13 +224,13 @@ class ProductDetails extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
           child: Row(
             children: [
-              CommonText(
-                  text: "Related Products",
-                  style: mediumText(color: AppColors.black)),
-              const Spacer(),
-              CommonText(
-                  text: "View All",
-                  style: boldText(color: AppColors.primary, fontSize: 15)),
+              // CommonText(
+              //     text: "Related Products",
+              //     style: mediumText(color: AppColors.black)),
+              // const Spacer(),
+              // CommonText(
+              //     text: "View All",
+              //     style: boldText(color: AppColors.primary, fontSize: 15)),
             ],
           ),
         ),
@@ -397,7 +397,7 @@ class ProductDetails extends StatelessWidget {
                     ProductController.to.selectIndex = 2;
                     ReviewController.to.reviewCount = 0;
                     ReviewController.to.getAllReviews();
-                    ReviewController.to.reviewCount = 0;
+
                     ReviewController.to.starRating = 0.0;
                   },
                   index: 2,

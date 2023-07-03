@@ -8,7 +8,7 @@ commonToast({required msg, Color? fontColor = Colors.white}) async {
       toastLength: Toast.LENGTH_SHORT,
       gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 2,
-      backgroundColor: AppColors.primary,
+      backgroundColor: AppColors.grey,
       textColor: fontColor,
       fontSize: 16.0);
 }

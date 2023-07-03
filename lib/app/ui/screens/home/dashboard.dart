@@ -44,30 +44,30 @@ class Dashboard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding:  EdgeInsets.only(top: 200.0),
+                padding: EdgeInsets.only(top: 200.0),
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Obx(
-                      //   () => HomeController.to.loading == true
-                      //       ? const Padding(
-                      //           padding: EdgeInsets.all(8.0),
-                      //           child: Center(
-                      //               child: SizedBox(
-                      //             height: 30,
-                      //             width: 30,
-                      //             child: CircularProgressIndicator(
-                      //               color: AppColors.primary,
-                      //               strokeWidth: 2,
-                      //             ),
-                      //           )),
-                      //         )
-                      //       : Padding(
-                      //           padding: const EdgeInsets.all(8.0),
-                      //           child: DashboardImageSlider()),
-                      // ),
+                      Obx(
+                        () => HomeController.to.loading == false
+                            ? const Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Center(
+                                    child: SizedBox(
+                                  height: 30,
+                                  width: 30,
+                                  child: CircularProgressIndicator(
+                                    color: AppColors.primary,
+                                    strokeWidth: 2,
+                                  ),
+                                )),
+                              )
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: DashboardImageSlider()),
+                      ),
                       SizedBox(height: 10),
                       AllCategoriesSection(),
                       AllProductsSection(),
@@ -77,7 +77,6 @@ class Dashboard extends StatelessWidget {
                 ),
               ),
               SearchBar(),
-
             ],
           ),
         );
@@ -105,7 +104,7 @@ class Dashboard extends StatelessWidget {
         ),
         Obx(
           () => HomeController.to.topSellingLoading == true
-              ?  SimpleLoading()
+              ? SimpleLoading()
               : HomeController.to.topSellingEmpty == true
                   ? Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
@@ -143,6 +142,14 @@ class Dashboard extends StatelessWidget {
                                 "${HomeController.to.topSellingDetails[index]['regular_price'] == "" ? "0" : HomeController.to.topSellingDetails[index]['regular_price']}",
                             salePrice:
                                 "${HomeController.to.topSellingDetails[index]['sale_price'] == "" ? "0" : HomeController.to.topSellingDetails[index]['sale_price']}",
+                            onTap: () {
+                              Get.to(
+                                () => ProductDetails(
+                                  data: HomeController
+                                      .to.initialProductDetails[index],
+                                ),
+                              );
+                            },
                           );
                         },
                       ),
@@ -174,7 +181,7 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         Obx(() => HomeController.to.productsLoading == true
-            ?  SimpleLoading()
+            ? SimpleLoading()
             : HomeController.to.productsEmpty == true
                 ? Padding(
                     padding: const EdgeInsets.symmetric(vertical: 20),
@@ -250,7 +257,7 @@ class Dashboard extends StatelessWidget {
           ),
         ),
         Obx(() => HomeController.to.categoryLoading == true
-            ?  SimpleLoading()
+            ? SimpleLoading()
             : HomeController.to.categoryEmpty == true
                 ? const Text("empty")
                 : SizedBox(

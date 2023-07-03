@@ -8,12 +8,23 @@ class DashboardImageSlider extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  FanCarouselImageSlider(
+    return FanCarouselImageSlider(
       sliderHeight: 180,
-      imageFitMode: BoxFit.cover,
+      imageFitMode: BoxFit.fill,
       imageRadius: 15,
-      expandedCloseChild: Padding(padding: EdgeInsets.symmetric(horizontal: 10),),
-      imagesLink: HomeController.to.banners,
+      expandedCloseChild: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
+      ),
+      // imagesLink: HomeController.to.banners,
+      imagesLink: [
+        'https://chandransteelsonline.com/wp-content/uploads/2023/01/web-slide-scaled.jpg',
+        'https://chandransteelsonline.com/wp-content/uploads/2023/01/Backup_of_web-poster-1-scaled.jpg',
+        'https://chandransteelsonline.com/wp-content/uploads/2023/01/Backup_of_Untitled-7-scaled.jpg',
+        'https://chandransteelsonline.com/wp-content/uploads/2023/01/copperwares-scaled.jpg',
+        'https://chandransteelsonline.com/wp-content/uploads/2023/01/steelware-1-scaled.jpg',
+        'https://chandransteelsonline.com/wp-content/uploads/2023/01/bg-brass-wares-1-scaled.jpg',
+        'https://chandransteelsonline.com/wp-content/uploads/2023/01/barware-1-scaled.jpg'
+      ],
       isAssets: false,
     );
   }

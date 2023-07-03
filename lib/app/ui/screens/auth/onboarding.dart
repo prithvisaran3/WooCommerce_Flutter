@@ -40,7 +40,7 @@ class _OnBoardingScreenState extends State<OnBoarding> {
       height: 8.0,
       width: isActive ? 24.0 : 16.0,
       decoration: BoxDecoration(
-        color: isActive ? AppColors.primary : Colors.grey.withOpacity(0.2),
+        color: isActive ? AppColors.secondPrimary : Colors.grey.withOpacity(0.8),
         borderRadius: const BorderRadius.all(Radius.circular(12)),
       ),
     );
@@ -104,11 +104,11 @@ class _OnBoardingScreenState extends State<OnBoarding> {
                       buildSlider(
                           title: "Welcome",
                           content:
-                          "Welcome to [App Name]. Your one-stop destination for all your shopping needs.",
+                          "Welcome to Chandran Steels. Your one-stop destination for all your shopping needs.",
                           image: "welcome"),
                       buildSlider(
                           title: "Secure Payments",
-                          content: "Say goodbye to worries about payment.[App Name] offers a secure and hassle-free payment process.",
+                          content: "Say goodbye to worries about payment.\nChandran Steels offers a secure and hassle-free payment process.",
                           image: "payment"),
                       buildSlider(
                           title: "High Quality User Experience",
@@ -170,6 +170,7 @@ class _OnBoardingScreenState extends State<OnBoarding> {
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         Center(child: buildSvgPicture(imgSrc: image)),
+        SizedBox(height: 20),
         CommonText(
           text: title,
           textAlign: TextAlign.center,
@@ -199,7 +200,7 @@ class _OnBoardingScreenState extends State<OnBoarding> {
   SvgPicture buildSvgPicture({required imgSrc}) {
     return SvgPicture.asset(
       "assets/images/onboarding/$imgSrc.svg",
-      height: Get.height * 0.55,
+      height: Get.height * 0.50,
     );
   }
 }

@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import '../ui/screens/edit_profile.dart';
+import '../ui/screens/profile/edit_profile.dart';
 import '../ui/screens/auth/login.dart';
 import '../ui/screens/auth/signup.dart';
 import '../ui/screens/home/main.dart';

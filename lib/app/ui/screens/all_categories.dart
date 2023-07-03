@@ -50,18 +50,24 @@ class AllCategories extends StatelessWidget {
                 text: "All Categories",
                 style: mediumText(color: AppColors.white),
               ),
-              actions: const [
-                Icon(
-                  Icons.notifications_none,
-                  color: AppColors.white,
-                  // size: 25,
-                ),
+              actions: [
+                // Icon(
+                //   Icons.notifications_none,
+                //   color: AppColors.white,
+                //   // size: 25,
+                // ),
                 SizedBox(
                   width: 10,
                 ),
-                Icon(
-                  Icons.shopping_cart_sharp,
-                  color: AppColors.white,
+                GestureDetector(
+                  onTap: () {
+                    Get.back();
+                    HomeController.to.selectedIndex = 1;
+                  },
+                  child: Icon(
+                    Icons.shopping_cart_sharp,
+                    color: AppColors.white,
+                  ),
                 ),
                 SizedBox(
                   width: 10,
