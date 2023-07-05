@@ -22,7 +22,7 @@ class CategoryProducts extends StatelessWidget {
     SortBy("popularity", "Popularity", "asc"),
     SortBy("modified", "Latest", "asc"),
     SortBy("price", "Price: High to Low", "desc"),
-    SortBy("price", "Price: High to Low", "asc"),
+    SortBy("price", "Price: Low to High", "asc"),
   ];
 
   @override

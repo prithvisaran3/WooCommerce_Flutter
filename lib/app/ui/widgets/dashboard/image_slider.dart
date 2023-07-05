@@ -12,6 +12,7 @@ class DashboardImageSlider extends StatelessWidget {
       sliderHeight: 180,
       imageFitMode: BoxFit.fill,
       imageRadius: 15,
+      isClickable: false,
       expandedCloseChild: Padding(
         padding: EdgeInsets.symmetric(horizontal: 10),
       ),

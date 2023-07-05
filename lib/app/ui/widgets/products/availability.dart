@@ -7,6 +7,7 @@ import 'package:steels/app/ui/widgets/common/alert.dart';
 import 'package:steels/app/ui/widgets/common/common_rupee_text.dart';
 import 'package:steels/app/ui/widgets/common/loading.dart';
 import 'package:steels/app/ui/widgets/common/text.dart';
+import 'package:steels/app/ui/widgets/common/toast.dart';
 
 import '../../../utility/utility.dart';
 import '../../themes/colors.dart';
@@ -66,11 +67,20 @@ class ProductAvailability extends StatelessWidget {
                     color: AppColors.black,
                   ),
                 ),
-                child: TextFormField(
-                  controller: CouponController.to.couponCode,
-                  decoration: const InputDecoration(
-                    border: OutlineInputBorder(
-                      borderSide: BorderSide.none,
+                child: Form(
+                  key: CouponController.to.couponKey,
+                  child: TextFormField(
+                    controller: CouponController.to.couponCode,
+                    validator: (data) {
+                      if (data!.isEmpty || data == "") {
+                        return commonToast(msg: "Please enter coupon");
+                      }
+                      return null;
+                    },
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(
+                        borderSide: BorderSide.none,
+                      ),
                     ),
                   ),
                 ),
@@ -80,29 +90,34 @@ class ProductAvailability extends StatelessWidget {
               flex: 1,
               child: GestureDetector(
                 onTap: () {
-                  CouponController.to.couponMatch = 0;
-                  CouponController.to.getAllCoupons();
-                  CouponController.to.allCouponDetails.forEach(
-                    (e) {
-                      e['code'] == CouponController.to.couponCode.text
-                          ? CouponController.to.getCouponByID(id: e['id'])
-                          : debugPrint("ID mismatch");
-                    },
-                  );
+                  if (CouponController.to.couponKey.currentState!.validate()) {
+                    CouponController.to.couponMatch = 0;
+                    CouponController.to.getAllCoupons();
+                    CouponController.to.allCouponDetails.forEach(
+                      (e) {
+                        if (e['code'] == CouponController.to.couponCode.text) {
+                          e['code'] == CouponController.to.couponCode.text
+                              ? CouponController.to.getCouponByID(id: e['id'])
+                              : debugPrint("ID mismatch");
+                          Future.delayed(
+                            const Duration(seconds: 2),
+                            () {
+                              CouponController.to.couponAppliedAmount =
+                                  calculateCouponPrice(
+                                      price: productPrice,
+                                      couponDiscount: CouponController
+                                          .to.couponByIDdetails['amount']);
+                            },
+                          );
+                        } else {
+                          CouponController.to.isCouponInvalid = true;
+                        }
+                      },
+                    );
 
-                  Future.delayed(
-                    const Duration(seconds: 5),
-                    () {
-                      CouponController.to.couponAppliedAmount =
-                          calculateCouponPrice(
-                              price: productPrice,
-                              couponDiscount: CouponController
-                                  .to.couponByIDdetails['amount']);
-                    },
-                  );
-
-                  debugPrint(
-                      "Coupon match count: ${CouponController.to.couponMatch}");
+                    debugPrint(
+                        "Coupon match count: ${CouponController.to.couponMatch}");
+                  }
                 },
                 child: Container(
                   height: 40,
@@ -152,56 +167,50 @@ class ProductAvailability extends StatelessWidget {
         const SizedBox(height: 10),
         Obx(
           () => CouponController.to.couponLoading == true
-              ?  SimpleLoading()
+              ? SimpleLoading()
               : CouponController.to.isCouponApplied == true
-                  ? CouponController.to.couponMatch == 0
-                      ? CommonText(
-                          text: "Invalid Coupon",
-                          style: regularText(color: AppColors.red),
-                        )
-                      : Column(
+                  ? Column(
+                      children: [
+                        CommonText(
+                          text:
+                              "Your coupon ${CouponController.to.couponByIDdetails['code']} is applied!",
+                          style: mediumText(
+                            fontSize: 12,
+                            color: Colors.black,
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             CommonText(
-                              text:
-                                  "Your coupon ${CouponController.to.couponByIDdetails['code']} is applied!",
-                              style: mediumText(
+                              text: "Coupon savings amount: ",
+                              style: regularText(
                                 fontSize: 12,
                                 color: Colors.black,
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                CommonText(
-                                  text: "Coupon savings amount: ",
-                                  style: regularText(
-                                    fontSize: 12,
-                                    color: Colors.black,
-                                  ),
-                                ),
-                                const SizedBox(width: 5),
-                                RupeeText(
-                                  amount:
-                                      "${CouponController.to.afterCouponPrice}",
-                                  color: AppColors.primary,
-                                  fontSize: 12,
-                                  type: 'bold',
-                                ),
-                              ],
-                            ),
-                            GestureDetector(
-                              onTap: () {
-                                CouponController.to.isCouponApplied = false;
-                                CouponController.to.couponCode.text = "";
-                              },
-                              child: CommonText(
-                                text: "Remove coupon",
-                                style: mediumText(
-                                    color: AppColors.red, fontSize: 14),
-                              ),
+                            const SizedBox(width: 5),
+                            RupeeText(
+                              amount: "${CouponController.to.afterCouponPrice}",
+                              color: AppColors.primary,
+                              fontSize: 12,
+                              type: 'bold',
                             ),
                           ],
-                        )
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            CouponController.to.isCouponApplied = false;
+                            CouponController.to.couponCode.text = "";
+                          },
+                          child: CommonText(
+                            text: "Remove coupon",
+                            style:
+                                mediumText(color: AppColors.red, fontSize: 14),
+                          ),
+                        ),
+                      ],
+                    )
                   : CouponController.to.couponMatch == 0
                       ? CommonText(
                           text: "Invalid Coupon",
@@ -209,6 +218,14 @@ class ProductAvailability extends StatelessWidget {
                         )
                       : const SizedBox(),
         ),
+        Obx(() => CouponController.to.isCouponInvalid == true
+            ? Center(
+              child: CommonText(
+                  text: "Invalid Coupon",
+                  style: regularText(color: AppColors.red),
+                ),
+            )
+            : SizedBox())
       ],
     );
   }

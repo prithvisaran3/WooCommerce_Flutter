@@ -33,7 +33,7 @@ class ProductDetails extends StatelessWidget {
         init: ProductController(),
         initState: (_) {
           ProductController.to.imageIndicator = 0;
-          ProductController.to.selectIndex = 0;
+          ProductController.to.selectIndex = 1;
           ProductController.to.shortDescription = false;
           CouponController.to.isCouponApplied = false;
           CartController.to.isMoveToCart = false;
@@ -65,7 +65,7 @@ class ProductDetails extends StatelessWidget {
                       children: [
                         SizedBox(
                           width: MediaQuery.of(context).size.width,
-                          height: 400,
+                          // height: 400,
                           child: Stack(
                             children: [
                               ProductImages(),
@@ -97,25 +97,34 @@ class ProductDetails extends StatelessWidget {
                             ],
                           ),
                         ),
-                        RelatedProductsColumn(),
+                        // RelatedProductsColumn(),
                       ],
                     ),
                   ),
-                  Positioned(
-                    bottom: 0,
-                    left: 0,
-                    right: 0,
-                    child: BottomPriceBar(
-                      amount: CouponController.to.isCouponApplied == false
-                          ? CartController.to.quantityUpdateAmount != 0
-                              ? "${CartController.to.quantityUpdateAmount}"
-                              : "${data['sale_price']}"
-                          : "${CouponController.to.afterCouponPrice}",
-                      productId: "${data['id']}",
-                      isOutOfStock: data['stock_status'],
-                    ),
-                  ),
+                  // Positioned(
+                  //   bottom: 0,
+                  //   left: 0,
+                  //   right: 0,
+                  //   child: BottomPriceBar(
+                  //     amount: CouponController.to.isCouponApplied == false
+                  //         ? CartController.to.quantityUpdateAmount != 0
+                  //             ? "${CartController.to.quantityUpdateAmount}"
+                  //             : "${data['sale_price']}"
+                  //         : "${CouponController.to.afterCouponPrice}",
+                  //     productId: "${data['id']}",
+                  //     isOutOfStock: data['stock_status'],
+                  //   ),
+
                 ],
+              ),
+              bottomNavigationBar: BottomPriceBar(
+                amount: CouponController.to.isCouponApplied == false
+                    ? CartController.to.quantityUpdateAmount != 0
+                    ? "${CartController.to.quantityUpdateAmount}"
+                    : "${data['sale_price']}"
+                    : "${CouponController.to.afterCouponPrice}",
+                productId: "${data['id']}",
+                isOutOfStock: data['stock_status'],
               ),
             ),
           );

@@ -11,6 +11,8 @@ class CouponController extends GetxController {
 
   final TextEditingController couponCode = TextEditingController();
 
+  final couponKey = GlobalKey<FormState>();
+
   final _onPressedCouponCode = 100.obs;
 
   get onPressedCouponCode => _onPressedCouponCode.value;
@@ -99,6 +101,14 @@ class CouponController extends GetxController {
     _couponMatch.value = value;
   }
 
+  final _isCouponInvalid = false.obs;
+
+  get isCouponInvalid => _isCouponInvalid.value;
+
+  set isCouponInvalid(value) {
+    _isCouponInvalid.value = value;
+  }
+
   getAllCoupons() async {
     couponLoading = true;
     try {
@@ -143,6 +153,7 @@ class CouponController extends GetxController {
             couponByIDdetails = res;
             isCouponApplied = true;
             couponMatch++;
+            isCouponInvalid = false;
           } else {
             couponLoading = false;
 
