@@ -140,7 +140,7 @@ class AuthController extends GetxController {
 
         updateAlertDialog(Get.context!,
             content:
-                "Chandran Steels app is update available\nWish you update please click update button\nOtherwise cancel or tap anywhere to close",
+                "Update required for \nChandran Steels App",
             confirmButtonPressed: () {
           launchUrl(
             url,
