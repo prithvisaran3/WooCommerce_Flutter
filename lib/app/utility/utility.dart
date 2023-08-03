@@ -6,13 +6,17 @@ calculateDiscount({regularPrice, salePrice}) {
   if (regularPrice != null && salePrice != null) {
     var regular = regularPrice;
     var sale = salePrice != "" ? salePrice : regularPrice;
-    var discount = regular - sale;
-    var disPercent = (discount / regular) * 100;
-    return disPercent.round();
+    if (regular == 0 && sale == 0) {
+      return 0;
+    } else {
+      var discount = regular - sale;
+      var disPercent = (discount / regular) * 100;
+      return disPercent.round();
+    }
   }
 }
 
- calculateCouponPrice({price, couponDiscount}) {
+calculateCouponPrice({price, couponDiscount}) {
   var coupon = double.parse(couponDiscount);
   var couponAmount = price * coupon / 100;
   var afterCouponPrice = price - couponAmount;
@@ -37,6 +41,7 @@ String getIsoToLocalDate({required String date}) {
   var outputDate = outputFormat.format(dateTime);
   return outputDate;
 }
+
 openBrowser({required url}) async {
   if (!await launchUrl(
     Uri.parse(url),

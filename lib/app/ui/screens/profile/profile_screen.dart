@@ -167,13 +167,13 @@ class Profile extends StatelessWidget {
                                 },
                               ),
                               const SizedBox(height: 20),
-                              ProfileOptionsTile(
-                                icon: Ionicons.help_circle_outline,
-                                text: "Check Onboarding Screen",
-                                onTap: () {
-                                 Get.to(()=>OnBoarding());
-                                },
-                              ),
+                              // ProfileOptionsTile(
+                              //   icon: Ionicons.help_circle_outline,
+                              //   text: "Check Onboarding Screen",
+                              //   onTap: () {
+                              //    Get.to(()=>OnBoarding());
+                              //   },
+                              // ),
                               Align(
                                 alignment: Alignment.center,
                                 child: CommonButton(
