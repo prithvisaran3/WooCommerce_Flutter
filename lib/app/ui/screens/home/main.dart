@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
+import 'package:steels/app/controller/cart.dart';
+import 'package:steels/app/ui/widgets/common/text.dart';
 import '../../../controller/auth.dart';
 import '../../../controller/dashboard.dart';
 import '../../themes/colors.dart';
+import '../../themes/font_size.dart';
 import '../cart/cart_screen.dart';
 import '../orders/all_orders.dart';
 import '../profile/profile_screen.dart';
@@ -100,7 +103,7 @@ class HomeMain extends StatelessWidget {
                   //     onTap: () {
                   //       HomeController.to.selectedIndex = 1;
                   //     }),
-                  buildIcon(
+                  buildCartIcon(
                       index: 1,
                       icon: Icons.shopping_cart_outlined,
                       onTap: () {
@@ -145,6 +148,56 @@ class HomeMain extends StatelessWidget {
                     ? AppColors.primary
                     : AppColors.white,
               )),
+        ));
+  }
+
+  Obx buildCartIcon(
+      {required index, required Function() onTap, required icon}) {
+    return Obx(() => GestureDetector(
+          onTap: AuthController.to.logoutLoading == true ? null : onTap,
+          child: Stack(
+            children: [
+              Container(
+                  alignment: Alignment.center,
+                  padding: const EdgeInsets.all(7),
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: HomeController.to.selectedIndex == index
+                          ? AppColors.white
+                          : Colors.transparent),
+                  child: Icon(
+                    icon,
+                    color: HomeController.to.selectedIndex == index
+                        ? AppColors.primary
+                        : AppColors.white,
+                  )),
+              Positioned(
+                right: 0,
+                top: 5,
+                child: Obx(
+                  () => CartController.to.cartEmpty == false &&
+                          CartController.to.cartDetails.length != 0
+                      ? Container(
+                          height: 15,
+                          width: 15,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              color: HomeController.to.selectedIndex == index
+                                  ? AppColors.primary
+                                  : Colors.transparent),
+                          child: CommonText(
+                            text: "${CartController.to.cartDetails.length}",
+                            style: boldText(
+                              fontSize: 11,
+                              color: AppColors.white,
+                            ),
+                          ),
+                        )
+                      : SizedBox(),
+                ),
+              ),
+            ],
+          ),
         ));
   }
 }

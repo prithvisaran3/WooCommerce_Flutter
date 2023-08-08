@@ -348,6 +348,7 @@ class HomeController extends GetxController {
           if (isInitial == true) {
             initialProductDetails = res;
           } else {
+
             productsDetails = res;
           }
           if (indexId != null || indexId != "") {

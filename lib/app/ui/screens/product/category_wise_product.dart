@@ -58,11 +58,6 @@ class CategoryProducts extends StatelessWidget {
                 style: mediumText(color: AppColors.white),
               ),
               actions: const [
-                Icon(
-                  Icons.notifications_none,
-                  color: AppColors.white,
-                  // size: 25,
-                ),
                 SizedBox(
                   width: 10,
                 ),
@@ -197,6 +192,8 @@ class CategoryProducts extends StatelessWidget {
                                               .to.productsDetails[index],
                                         ));
                                   },
+                                  stockstatus: HomeController.to
+                                      .productsDetails[index]['stock_status'],
                                 );
                               },
                             ),

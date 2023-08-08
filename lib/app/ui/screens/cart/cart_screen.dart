@@ -29,7 +29,8 @@ class CartScreen extends StatelessWidget {
         return SafeArea(
           child: Scaffold(
             body: Container(
-              height: Get.height,width: Get.width,
+              height: Get.height,
+              width: Get.width,
               child: Stack(
                 children: [
                   Obx(
@@ -63,8 +64,8 @@ class CartScreen extends StatelessWidget {
                                           text: "Cart Empty",
                                           style: mediumText(
                                               fontSize: 16,
-                                              color:
-                                                  AppColors.grey.withOpacity(.6)),
+                                              color: AppColors.grey
+                                                  .withOpacity(.6)),
                                         ),
                                         const SizedBox(height: 10),
                                         CommonButton(
@@ -78,7 +79,8 @@ class CartScreen extends StatelessWidget {
                                     ),
                                   )
                                 : ListView.builder(
-                                    itemCount: CartController.to.cartDetails.length,
+                                    itemCount:
+                                        CartController.to.cartDetails.length,
                                     physics: BouncingScrollPhysics(),
                                     shrinkWrap: true,
                                     itemBuilder: (context, int index) {
@@ -93,12 +95,13 @@ class CartScreen extends StatelessWidget {
                                             "${CartController.to.cartDetails[index]['product_sale_price']}",
                                         image:
                                             "${CartController.to.cartDetails[index]['thumbnail']}",
-                                        count: CartController.to.cartDetails[index]
-                                            ['qty'],
+                                        count: CartController
+                                            .to.cartDetails[index]['qty'],
                                         onChanged: (data) {
                                           CartController.to.updateQty(
-                                              productId: CartController.to
-                                                  .cartDetails[index]['product_id'],
+                                              productId: CartController
+                                                      .to.cartDetails[index]
+                                                  ['product_id'],
                                               qty: data);
                                         },
                                         deletePressed: () {
@@ -129,8 +132,8 @@ class CartScreen extends StatelessWidget {
                                   ),
                       )),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 15.0, vertical: 10),
                     child: CommonText(
                       textAlign: TextAlign.start,
                       text: "My Cart",

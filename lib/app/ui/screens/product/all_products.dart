@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:steels/app/controller/product.dart';
 import 'package:steels/app/ui/screens/home/main.dart';
+import 'package:steels/app/ui/widgets/common/common_snackbar.dart';
 import 'package:steels/app/ui/widgets/common/loading.dart';
 import 'package:steels/app/utility/utility.dart';
 import '../../../controller/dashboard.dart';
@@ -52,11 +53,6 @@ class AllProducts extends StatelessWidget {
                 style: mediumText(color: AppColors.white),
               ),
               actions: [
-                Icon(
-                  Icons.notifications_none,
-                  color: AppColors.white,
-                  // size: 25,
-                ),
                 SizedBox(
                   width: 10,
                 ),
@@ -138,9 +134,9 @@ class AllProducts extends StatelessWidget {
                 ),
                 Obx(() => HomeController.to.productsLoading == true
                     ? Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 150.0),
-                      child: SimpleLoading(),
-                    )
+                        padding: const EdgeInsets.symmetric(vertical: 150.0),
+                        child: SimpleLoading(),
+                      )
                     : HomeController.to.productsEmpty == true
                         ? Padding(
                             padding: EdgeInsets.only(top: Get.height / 4),
@@ -166,7 +162,8 @@ class AllProducts extends StatelessWidget {
                               controller: ProductController.to.scrollController,
                               gridDelegate:
                                   const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2, childAspectRatio: 1),
+                                      crossAxisCount: 2,
+                                      childAspectRatio: 0.95),
                               shrinkWrap: true,
                               physics: const BouncingScrollPhysics(),
                               itemBuilder: (BuildContext context, int index) {
@@ -202,6 +199,8 @@ class AllProducts extends StatelessWidget {
                                               .to.productsDetails[index],
                                         ));
                                   },
+                                  stockstatus: HomeController.to
+                                      .productsDetails[index]['stock_status'],
                                 );
                               },
                             ),
@@ -232,7 +231,9 @@ class AllProducts extends StatelessWidget {
                               ),
                             ),
                           ),
-                       CommonText(text: "${HomeController.to.pageNumber}", style: boldText(fontSize: 18)),
+                          CommonText(
+                              text: "${HomeController.to.pageNumber}",
+                              style: boldText(fontSize: 18)),
                           GestureDetector(
                             onTap: () {
                               HomeController.to.getProducts(isInitial: false);

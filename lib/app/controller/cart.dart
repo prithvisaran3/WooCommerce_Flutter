@@ -53,6 +53,15 @@ class CartController extends GetxController {
     _cartDetails.value = value;
   }
 
+  final _cartLength = 0.obs;
+
+  get cartLength => _cartLength.value;
+
+  set cartLength(value) {
+    _cartLength.value = value;
+  }
+
+
   final _addCartMap = {}.obs;
 
   get addCartMap => _addCartMap.value;

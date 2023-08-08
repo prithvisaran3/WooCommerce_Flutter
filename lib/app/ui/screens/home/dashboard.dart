@@ -208,7 +208,10 @@ class Dashboard extends StatelessWidget {
                         scrollDirection: Axis.horizontal,
                         shrinkWrap: true,
                         itemBuilder: (context, int index) {
-                          return Products(
+
+                          return HomeController
+                              .to.initialProductDetails[index]['stock_status']!='outofstock'?
+                          Products(
                             name:
                                 "${HomeController.to.initialProductDetails[index]['name']}",
                             image: HomeController
@@ -229,7 +232,7 @@ class Dashboard extends StatelessWidget {
                                 ),
                               );
                             },
-                          );
+                          ):SizedBox();
                         }),
                   )),
       ],

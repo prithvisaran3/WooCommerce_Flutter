@@ -59,16 +59,16 @@ class AllCategories extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Get.back();
-                    HomeController.to.selectedIndex = 1;
-                  },
-                  child: Icon(
-                    Icons.shopping_cart_sharp,
-                    color: AppColors.white,
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Get.back();
+                //     HomeController.to.selectedIndex = 1;
+                //   },
+                //   child: Icon(
+                //     Icons.shopping_cart_sharp,
+                //     color: AppColors.white,
+                //   ),
+                // ),
                 SizedBox(
                   width: 10,
                 )

@@ -14,13 +14,15 @@ class CategoryProductsCard extends StatelessWidget {
       required this.regularPrice,
       required this.salePrice,
       required this.discount,
-      required this.onTap})
+      required this.onTap,
+      required this.stockstatus})
       : super(key: key);
   final String name;
   final String image;
   final String regularPrice;
   final String salePrice;
   final String discount;
+  final String stockstatus;
   final Function() onTap;
 
   @override
@@ -29,7 +31,7 @@ class CategoryProductsCard extends StatelessWidget {
       onTap: onTap,
       child: Container(
           alignment: Alignment.center,
-          margin: const EdgeInsets.all(8.0),
+          margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10),
           decoration: BoxDecoration(
             color: AppColors.white,
             borderRadius: BorderRadius.circular(10.0),
@@ -59,9 +61,11 @@ class CategoryProductsCard extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: CommonText(
-                        text: name.length > 12
-                            ? "${name.substring(0, 8)}..."
-                            : name,
+                        text:
+                        // name.length > 12
+                        //     ? "${name.substring(0, 8)}..."
+                        //     :
+                        name,
                         style: regularText()),
                   ),
                   Padding(
@@ -69,13 +73,15 @@ class CategoryProductsCard extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        RupeeText(
-                          amount: regularPrice,
-                          color: AppColors.red,
-                          fontSize: 12,
-                          type: 'medium',
-                          textDecoration: TextDecoration.lineThrough,
-                        ),
+                        stockstatus == 'outofstock'
+                            ? SizedBox()
+                            : RupeeText(
+                                amount: regularPrice,
+                                color: AppColors.red,
+                                fontSize: 12,
+                                type: 'medium',
+                                textDecoration: TextDecoration.lineThrough,
+                              ),
                         const SizedBox(width: 5),
                         RupeeText(
                           amount: salePrice,
@@ -86,27 +92,38 @@ class CategoryProductsCard extends StatelessWidget {
                       ],
                     ),
                   ),
+                  SizedBox(height: 10),
                 ],
               ),
               Visibility(
                 visible: int.parse(discount) > 0,
                 child: Positioned(
-                    left: 10,
-                    top: 8,
-                    child: Container(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(15.0),
-                          color: AppColors.green,
-                        ),
-                        child: CommonText(
-                          text: "$discount% OFF",
+                  left: 10,
+                  top: 8,
+                  child: stockstatus == 'outofstock'
+                      ? CommonText(
+                          text: "Out of Stock ",
                           style: boldText(
-                            color: AppColors.white,
                             fontSize: 12,
+                            color: AppColors.primary,
                           ),
-                        ))),
+                        )
+                      : Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(15.0),
+                            color: AppColors.green,
+                          ),
+                          child: CommonText(
+                            text: "$discount% OFF",
+                            style: boldText(
+                              color: AppColors.white,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ),
+                ),
               )
             ],
           )),
