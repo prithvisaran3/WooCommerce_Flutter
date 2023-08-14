@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../common/common_rupee_text.dart';
+import '../common/shimmer_loader.dart';
 import '../common/text.dart';
 
 class HotSelling extends StatelessWidget {
@@ -10,7 +12,8 @@ class HotSelling extends StatelessWidget {
       required this.name,
       required this.image,
       required this.regularPrice,
-      required this.salePrice, required this.onTap})
+      required this.salePrice,
+      required this.onTap})
       : super(key: key);
   final String name;
   final String image;
@@ -33,20 +36,32 @@ class HotSelling extends StatelessWidget {
               margin: const EdgeInsets.symmetric(horizontal: 5, vertical: 10),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(10.0),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.black12,
-                        offset: Offset(0, 5),
-                        blurRadius: 10)
-                  ],
-                  image: image == "null"
-                      ? const DecorationImage(
-                          fit: BoxFit.fill,
-                          image: AssetImage("assets/images/no_image.png"))
-                      : DecorationImage(
-                          fit: BoxFit.fill, image: NetworkImage(image))),
+                color: AppColors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.black12,
+                      offset: Offset(0, 5),
+                      blurRadius: 10)
+                ],
+                // image: image == "null"
+                //     ? const DecorationImage(
+                //         fit: BoxFit.fill,
+                //         image: AssetImage("assets/images/no_image.png"))
+                //     : DecorationImage(
+                //         fit: BoxFit.fill,
+                //         image: NetworkImage(image),
+                //       ),
+              ),
+              child: image == "null"
+                  ? Image.asset('assets/images/no_image.png')
+                  : CachedNetworkImage(
+                      imageUrl: image,
+                      // placeholder: (context, url) =>
+                      //     CircularProgressIndicator(),
+                      placeholder: (context, url) => ShimmerLoader(),
+                      errorWidget: (context, url, error) => Icon(Icons.error),
+                    ),
             ),
             CommonText(
                 text: name.length > 12

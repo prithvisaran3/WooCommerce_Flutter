@@ -1,9 +1,11 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../common/common_rupee_text.dart';
+import '../common/shimmer_loader.dart';
 import '../common/text.dart';
 
 class CategoryProductsCard extends StatelessWidget {
@@ -51,21 +53,35 @@ class CategoryProductsCard extends StatelessWidget {
                     alignment: Alignment.center,
                     margin: const EdgeInsets.all(5),
                     decoration: BoxDecoration(
-                        image: image == "null"
-                            ? const DecorationImage(
-                                fit: BoxFit.fill,
-                                image: AssetImage("assets/images/no_image.png"))
-                            : DecorationImage(
-                                fit: BoxFit.fill, image: NetworkImage(image))),
+                        // image: image == "null"
+                        //     ? const DecorationImage(
+                        //         fit: BoxFit.fill,
+                        //         image: AssetImage("assets/images/no_image.png"))
+                        //     : DecorationImage(
+                        //         fit: BoxFit.fill,
+                        //         image: NetworkImage(image),
+                        //       ),
+                        ),
+                    child: image == "null"
+                        ? Image.asset('assets/images/no_image.png')
+                        : CachedNetworkImage(
+                            fit: BoxFit.fill,
+                            imageUrl: image,
+                            // placeholder: (context, url) =>
+                            //     CircularProgressIndicator(),
+                            placeholder: (context, url) => ShimmerLoader(),
+                            errorWidget: (context, url, error) =>
+                                Icon(Icons.error),
+                          ),
                   ),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
                     child: CommonText(
                         text:
-                        // name.length > 12
-                        //     ? "${name.substring(0, 8)}..."
-                        //     :
-                        name,
+                            // name.length > 12
+                            //     ? "${name.substring(0, 8)}..."
+                            //     :
+                            name,
                         style: regularText()),
                   ),
                   Padding(

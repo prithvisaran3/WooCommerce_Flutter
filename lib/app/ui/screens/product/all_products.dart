@@ -13,7 +13,7 @@ import '../../themes/font_size.dart';
 import '../../widgets/common/text.dart';
 import '../../widgets/product/category_wise.dart';
 import '../cart/cart_screen.dart';
-import '../product_details.dart';
+import 'product_details.dart';
 
 class AllProducts extends StatelessWidget {
   AllProducts({Key? key}) : super(key: key);

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
@@ -8,6 +9,7 @@ import 'package:steels/app/ui/widgets/common/common_rupee_text.dart';
 import 'package:steels/app/ui/widgets/common/text.dart';
 
 import '../cart_add_remove.dart';
+import '../common/shimmer_loader.dart';
 
 class CartItemContainer extends StatelessWidget {
   const CartItemContainer(
@@ -70,10 +72,16 @@ class CartItemContainer extends StatelessWidget {
                 ),
               ],
             ),
-            child: Image.network(
-              image,
-              fit: BoxFit.cover,
-            ),
+            child: image == "null"
+                ? Image.asset('assets/images/no_image.png')
+                : CachedNetworkImage(
+                    fit: BoxFit.cover,
+                    imageUrl: image,
+                    // placeholder: (context, url) =>
+                    //     CircularProgressIndicator(),
+                    placeholder: (context, url) => ShimmerLoader(),
+                    errorWidget: (context, url, error) => Icon(Icons.error),
+                  ),
           ),
           SizedBox(
             width: 15.0,

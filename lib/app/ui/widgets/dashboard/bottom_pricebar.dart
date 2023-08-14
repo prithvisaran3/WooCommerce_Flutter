@@ -4,6 +4,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:steels/app/controller/dashboard.dart';
 import 'package:steels/app/ui/widgets/common/loading.dart';
 import '../../../controller/cart.dart';
+import '../../screens/cart/cart_screen.dart';
 import '../../themes/colors.dart';
 import '../../themes/font_size.dart';
 import '../cart_add_remove.dart';
@@ -75,7 +76,7 @@ class BottomPriceBar extends StatelessWidget {
                       : GestureDetector(
                           onTap: CartController.to.isMoveToCart == true
                               ? () {
-                                  Get.back();
+                                  Get.to(() => CartScreen());
                                   HomeController.to.selectedIndex = 1;
                                 }
                               : () async {

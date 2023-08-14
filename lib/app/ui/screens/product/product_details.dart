@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,16 +11,17 @@ import 'package:steels/app/ui/widgets/common/text.dart';
 import 'package:steels/app/ui/widgets/dashboard/bottom_pricebar.dart';
 import 'package:steels/app/utility/utility.dart';
 
-import '../../controller/dashboard.dart';
-import '../../controller/product.dart';
-import '../../controller/review.dart';
-import '../widgets/common/loading.dart';
-import '../widgets/home/products.dart';
-import '../widgets/products/availability.dart';
-import '../widgets/products/details.dart';
-import '../widgets/products/review.dart';
-import '../widgets/products/services.dart';
-import '../widgets/products/select_productdetails.dart';
+import '../../../controller/dashboard.dart';
+import '../../../controller/product.dart';
+import '../../../controller/review.dart';
+import '../../widgets/common/loading.dart';
+import '../../widgets/common/shimmer_loader.dart';
+import '../../widgets/home/products.dart';
+import '../../widgets/products/availability.dart';
+import '../../widgets/products/details.dart';
+import '../../widgets/products/review.dart';
+import '../../widgets/products/services.dart';
+import '../../widgets/products/select_productdetails.dart';
 
 class ProductDetails extends StatelessWidget {
   ProductDetails({Key? key, this.data}) : super(key: key);
@@ -114,14 +116,13 @@ class ProductDetails extends StatelessWidget {
                   //     productId: "${data['id']}",
                   //     isOutOfStock: data['stock_status'],
                   //   ),
-
                 ],
               ),
               bottomNavigationBar: BottomPriceBar(
                 amount: CouponController.to.isCouponApplied == false
                     ? CartController.to.quantityUpdateAmount != 0
-                    ? "${CartController.to.quantityUpdateAmount}"
-                    : "${data['sale_price']}"
+                        ? "${CartController.to.quantityUpdateAmount}"
+                        : "${data['sale_price']}"
                     : "${CouponController.to.afterCouponPrice}",
                 productId: "${data['id']}",
                 isOutOfStock: data['stock_status'],
@@ -165,10 +166,22 @@ class ProductDetails extends StatelessWidget {
       child: CarouselSlider.builder(
         itemCount: data['images'].length,
         itemBuilder: (context, index, pageIndex) {
-          return Image.network(
-            "${data['images'][index]['src']}",
-            fit: BoxFit.fill,
-          );
+          return "${data['images'][index]['src']}" == "null"
+              ? Image.asset('assets/images/no_image.png')
+              : CachedNetworkImage(
+                  imageUrl: "${data['images'][index]['src']}",
+                  // placeholder: (context, url) =>
+                  //     CircularProgressIndicator(),
+                  placeholder: (context, url) => ShimmerLoader(
+                    BaseColor: Colors.white,
+                    HighlightColor: Colors.grey[50]!,
+                  ),
+                  errorWidget: (context, url, error) => Icon(Icons.error),
+                );
+          // Image.network(
+          //   "${data['images'][index]['src']}",
+          //   fit: BoxFit.fill,
+          // );
         },
         options: CarouselOptions(
             autoPlay: false,

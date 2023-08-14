@@ -1,7 +1,8 @@
-import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
+
 import 'package:flutter/material.dart';
 
 import '../../../controller/dashboard.dart';
+import '../image_slider/fan_carousel_image_slider.dart';
 
 class DashboardImageSlider extends StatelessWidget {
   const DashboardImageSlider({Key? key}) : super(key: key);

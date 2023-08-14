@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:ionicons/ionicons.dart';
-import 'package:steels/app/ui/screens/product_details.dart';
+import 'package:steels/app/ui/screens/product/product_details.dart';
 import 'package:steels/app/ui/screens/topselling_screen.dart';
 import 'package:steels/app/ui/themes/colors.dart';
 import 'package:steels/app/ui/widgets/common/text.dart';

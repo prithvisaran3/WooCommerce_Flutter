@@ -10,7 +10,7 @@ import '../../themes/font_size.dart';
 import '../../widgets/common/loading.dart';
 import '../../widgets/common/text.dart';
 import '../../widgets/product/category_wise.dart';
-import '../product_details.dart';
+import 'product_details.dart';
 
 class CategoryProducts extends StatelessWidget {
   CategoryProducts(

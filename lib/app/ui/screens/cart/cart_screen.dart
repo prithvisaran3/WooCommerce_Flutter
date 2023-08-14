@@ -149,12 +149,14 @@ class CartScreen extends StatelessWidget {
                           child: SimpleLoading(),
                         )
                       : const SizedBox()),
-                  Obx(() => CartController.to.removeCartLoading == true
-                      ? Container(
-                          color: AppColors.black.withOpacity(.3),
-                          child: SimpleLoading(),
-                        )
-                      : const SizedBox())
+                  Obx(
+                    () => CartController.to.removeCartLoading == true
+                        ? Container(
+                            color: AppColors.black.withOpacity(.3),
+                            child: SimpleLoading(),
+                          )
+                        : const SizedBox(),
+                  )
                 ],
               ),
             ),
