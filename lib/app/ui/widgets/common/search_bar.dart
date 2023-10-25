@@ -4,8 +4,8 @@ import 'package:ionicons/ionicons.dart';
 
 import '../../themes/colors.dart';
 
-class CommonSearchBar extends StatelessWidget {
-  const CommonSearchBar({Key? key}) : super(key: key);
+class CommonDSearchBar extends StatelessWidget {
+  const CommonDSearchBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

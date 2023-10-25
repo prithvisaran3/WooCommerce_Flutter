@@ -7,8 +7,8 @@ import '../../screens/errors/500.dart';
 import '../../screens/product/all_products.dart';
 import '../../themes/colors.dart';
 
-class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+class DSearchBar extends StatelessWidget {
+  const DSearchBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

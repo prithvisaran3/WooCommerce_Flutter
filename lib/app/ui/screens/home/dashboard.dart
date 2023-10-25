@@ -76,7 +76,7 @@ class Dashboard extends StatelessWidget {
                   ),
                 ),
               ),
-              SearchBar(),
+             DSearchBar(),
             ],
           ),
         );

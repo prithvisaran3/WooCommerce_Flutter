@@ -47,7 +47,7 @@ class TopSaversScreen extends StatelessWidget {
                 SizedBox(height: 30),
                 Row(
                   children: [
-                    CommonSearchBar(),
+                    CommonDSearchBar(),
                     SizedBox(width: 10),
                     CommonFilter(),
                   ],

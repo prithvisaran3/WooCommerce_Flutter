@@ -65,14 +65,14 @@ class MyOrders extends StatelessWidget {
                 Obx(
                   () => OrderController.to.ordersEmpty == true
                       ? const SizedBox()
-                      : OrderController.to.showSearchBar == false
+                      : OrderController.to.showDSearchBar == false
                           ? const SizedBox()
                           : Row(
                               children: [
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                orderSearchBar(),
+                                orderDSearchBar(),
                                 const SizedBox(
                                   width: 15,
                                 ),
@@ -162,7 +162,7 @@ class MyOrders extends StatelessWidget {
     );
   }
 
-  Flexible orderSearchBar() {
+  Flexible orderDSearchBar() {
     return Flexible(
       child: Container(
         height: 50,

@@ -115,12 +115,12 @@ class OrderController extends GetxController {
     _status.value = value;
   }
 
-  final _showSearchBar = false.obs;
+  final _showDSearchBar = false.obs;
 
-  get showSearchBar => _showSearchBar.value;
+  get showDSearchBar => _showDSearchBar.value;
 
-  set showSearchBar(value) {
-    _showSearchBar.value = value;
+  set showDSearchBar(value) {
+    _showDSearchBar.value = value;
   }
 
   getLineItems() {
@@ -232,12 +232,12 @@ class OrderController extends GetxController {
         if (res.isNotEmpty) {
           ordersEmpty = false;
           orderDetails = res;
-          showSearchBar = true;
+          showDSearchBar = true;
           print("ORDER DETAILS : $orderDetails");
           debugPrint("orders get successfully with data");
         } else {
           ordersEmpty = true;
-          showSearchBar = false;
+          showDSearchBar = false;
           debugPrint("orders get successfully but no data");
         }
       } else if (statusCode == 408) {
