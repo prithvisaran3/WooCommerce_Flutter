@@ -56,15 +56,15 @@ class AllProducts extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                GestureDetector(
-                  onTap: () {
-                    Get.to(() => CartScreen());
-                  },
-                  child: Icon(
-                    Icons.shopping_cart_sharp,
-                    color: AppColors.white,
-                  ),
-                ),
+                // GestureDetector(
+                //   onTap: () {
+                //     Get.to(() => CartScreen());
+                //   },
+                //   child: Icon(
+                //     Icons.shopping_cart_sharp,
+                //     color: AppColors.white,
+                //   ),
+                // ),
                 SizedBox(
                   width: 10,
                 )

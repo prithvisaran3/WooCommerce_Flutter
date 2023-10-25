@@ -7,6 +7,7 @@ import 'package:steels/app/controller/order.dart';
 import 'package:steels/app/ui/screens/auth/forgot_password.dart';
 import 'package:steels/app/ui/screens/auth/onboarding.dart';
 import 'package:steels/app/ui/screens/profile/change_password.dart';
+import 'package:steels/app/ui/screens/profile/close_account.dart';
 import 'package:steels/app/ui/widgets/common/box_loading.dart';
 import '../../../controller/dashboard.dart';
 import '../../../controller/profile.dart';
@@ -68,7 +69,7 @@ class Profile extends StatelessWidget {
                           ),
                         ),
                         child: SingleChildScrollView(
-                          physics: BouncingScrollPhysics(),
+                          physics: const BouncingScrollPhysics(),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -108,7 +109,16 @@ class Profile extends StatelessWidget {
                                 text: "Change Password",
                                 onTap: () {
                                   Get.to(
-                                    () => CHangePasswordScreen(),
+                                    () => const CHangePasswordScreen(),
+                                  );
+                                },
+                              ),
+                              ProfileOptionsTile(
+                                icon: Ionicons.close,
+                                text: "Close Account",
+                                onTap: () {
+                                  Get.to(
+                                        () => const CloseAccountScreen(),
                                   );
                                 },
                               ),
@@ -207,7 +217,7 @@ class Profile extends StatelessWidget {
                           width: 200,
                           // margin: EdgeInsets.symmetric(horizontal: 20,vertical: 10),
                           // padding: EdgeInsets.symmetric(horizontal:8),
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                               image: DecorationImage(
                                   fit: BoxFit.fill,
                                   image: AssetImage(
