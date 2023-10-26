@@ -61,10 +61,10 @@ class CategoryProducts extends StatelessWidget {
                 SizedBox(
                   width: 10,
                 ),
-                Icon(
-                  Icons.shopping_cart_sharp,
-                  color: AppColors.white,
-                ),
+                // Icon(
+                //   Icons.shopping_cart_sharp,
+                //   color: AppColors.white,
+                // ),
                 SizedBox(
                   width: 10,
                 )

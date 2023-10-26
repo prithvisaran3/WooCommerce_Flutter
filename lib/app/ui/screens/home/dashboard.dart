@@ -1,28 +1,21 @@
-// import 'package:fan_carousel_image_slider/fan_carousel_image_slider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
-import 'package:ionicons/ionicons.dart';
 import 'package:steels/app/ui/screens/product/product_details.dart';
-import 'package:steels/app/ui/screens/topselling_screen.dart';
 import 'package:steels/app/ui/themes/colors.dart';
 import 'package:steels/app/ui/widgets/common/text.dart';
-import 'package:steels/app/ui/widgets/dashboard/category_tile.dart';
 import 'package:steels/app/ui/widgets/dashboard/search_bar.dart';
-import 'package:steels/app/ui/widgets/dashboard/topsavers_tile.dart';
 
 import '../../../controller/dashboard.dart';
 import '../../themes/font_size.dart';
 import '../../widgets/common/loading.dart';
 import '../../widgets/dashboard/image_slider.dart';
-import '../../widgets/dashboard/topselling_tile.dart';
 import '../../widgets/home/categories.dart';
 import '../../widgets/home/hot_selling.dart';
 import '../../widgets/home/products.dart';
 import '../all_categories.dart';
 import '../product/all_products.dart';
 import '../product/category_wise_product.dart';
-import '../topsavers_screen.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({Key? key}) : super(key: key);
@@ -44,9 +37,9 @@ class Dashboard extends StatelessWidget {
           child: Stack(
             children: [
               Padding(
-                padding: EdgeInsets.only(top: 200.0),
+                padding: const EdgeInsets.only(top: 200.0),
                 child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
+                  physics: const BouncingScrollPhysics(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -64,11 +57,11 @@ class Dashboard extends StatelessWidget {
                                   ),
                                 )),
                               )
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
+                            : const Padding(
+                                padding: EdgeInsets.all(8.0),
                                 child: DashboardImageSlider()),
                       ),
-                      SizedBox(height: 10),
+                      const SizedBox(height: 10),
                       AllCategoriesSection(),
                       AllProductsSection(),
                       HotSellingProductsSection(),
@@ -76,7 +69,7 @@ class Dashboard extends StatelessWidget {
                   ),
                 ),
               ),
-             DSearchBar(),
+             const DSearchBar(),
             ],
           ),
         );
@@ -232,7 +225,7 @@ class Dashboard extends StatelessWidget {
                                 ),
                               );
                             },
-                          ):SizedBox();
+                          ):const SizedBox();
                         }),
                   )),
       ],
